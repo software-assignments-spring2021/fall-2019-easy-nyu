@@ -1,4 +1,4 @@
-#EasyNYU
+# EasyNYU
 
 - EasyNYU is a web-based platform that allows NYU students to gain a better insight before selecting the class and to share information with his or her fellow schoolmates. It can be viewed as an extended platform of Rate My Professors, Course Hero, and NYU Forum. EasyNYU is dedicated to create a community that students can freely comment on the past courses taken, and associated professors. Also, students can upload any relate course materials, such as syallbus, to enable other community members reference the right course for themselves.
 
