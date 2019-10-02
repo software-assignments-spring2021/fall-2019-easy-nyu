@@ -24,7 +24,13 @@ RateMyProfessor - may have ratings from students of other universities; doesn’
 CourseHero, OneClass requires paid membership - and yet they may offer too much information that may become plagiarism...
 
 ## Use Cases
-- [Place Holder]
+- As a user, I want to be able to access course information
+- As a user, I want to be able to view professor ratings
+- As a user, I want to be able to verify my account with a NetID to prove that I am a professor or a student
+- As a NYU student enrolled in a class, I want to be able to rate the professor and/or leave comments.
+- As a NYU professor, I want to be able to view my ratings and comments and upload info on my classes
+- As an administrator, I want to be able to moderate comments and reviews (e.g. remove comments with personal attacks, profanity, or racist/misogynistic/homophobic/ableist content, potentially libellous/defamatory content, etc.) and remove inappropriate content from all courses (per a DMCA takedown notification, removing NSFW content, to prevent cheating/plagiarism etc.)
+- As an administrator, I want to be able to ban/disable abusive accounts (Accounts that are impersonating students/professors, accounts that are repeatedly uploading copyright violations or inappropriate content, etc. )
 
 ## Domain Modeling
 ![Domain Modeling](https://github.com/nyu-software-engineering/fall-2019-easy-nyu/blob/domain_modeling/resources/class-diagram.jpeg)
