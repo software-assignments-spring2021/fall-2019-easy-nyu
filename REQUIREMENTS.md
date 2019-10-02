@@ -4,7 +4,7 @@
 ## End User
 ### Yuting Zhou
 **“How do I maintain a high GPA at NYU (and still enjoy my life)?”**
-Profile: Chinese international student <br>
+- Profile: Chinese international student <br>
 Gender: Female <br>
 Age: 18 <br>
 Campus: NYC <br> 
