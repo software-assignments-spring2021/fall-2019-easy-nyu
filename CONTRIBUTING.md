@@ -9,6 +9,7 @@ EasyNYU team strongly encourage GitHub community member to contribute is any of 
 
 Community members with decent experiences with [Pull Requests](https://help.github.com/articles/using-pull-requests) and [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#links) can contribute in the ways below.
 - Community contributor can create an new issue tracker under issue tab in GitHub so that your voice can be appreciated
+- Please pull from/ merge to the development branch since we need the master branch as a fully functional application
 - For additional features, bug fixes, elegent coding expressions, contributor can fork the master branch, create your own branch, implement changes offline and submit a pull request from your developer branch to master branch.
   - EasyNYU team will try to get back to your pull request as early as possible.
   
