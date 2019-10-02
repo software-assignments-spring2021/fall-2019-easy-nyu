@@ -8,4 +8,4 @@
 - [Place Holder]
 
 ## Domain Modeling
-- [Place Holder]
+- ![Domain Modeling](https://github.com/nyu-software-engineering/fall-2019-easy-nyu/blob/domain_modeling/resources/class-diagram.jpeg)
