@@ -33,12 +33,12 @@ To do that, you need to open two terminals at the root direcotry.
 In one terminal, run:
 ```console
 {username}:~$ cd backend
-{username}:~$ npm strat
+{username}:~$ npm start
 ```
 In the other terminal, run:
 ```console
 {username}:~$ cd frontend
-{username}:~$ npm strat
+{username}:~$ npm start
 ```
 ### 4. See our site!
 Now you can go to http://localhost:3000 to view the app that is up and running on your computer
