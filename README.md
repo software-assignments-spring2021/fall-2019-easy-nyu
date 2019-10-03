@@ -7,3 +7,5 @@
 - EasyNYU team encourages Github community to contribute to the project in any way and any form. [CONTRIBUTING.md](https://github.com/nyu-software-engineering/fall-2019-easy-nyu/blob/master/CONTRIBUTING.md). Please see details of how to contribute in the link above.
 
 - @EasyNYU is developed by EasyNYU team in EasyNYU in Agile Software Development class.
+
+- PLEASE make sure you read the [BUILD.md](https://github.com/nyu-software-engineering/fall-2019-easy-nyu/blob/spike/13%2C17%2C18/project-setup/BUILD.md) for setting up the service locally
