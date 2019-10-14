@@ -1,9 +1,9 @@
 const router = require('express').Router();
-let User = require('../models/exercise.model');
+let Course = require('../models/course.model');
 
 router.route('/').get((req, res) => {
-    User.find()
-        .then(exercises => res.json(exercises))
+    Course.find()
+        .then(courses => res.json(courses))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -14,7 +14,7 @@ router.route('/add').post((req, res) => {
     const prof = req.body.prof;
     const ta = req.body.ta;
     const date = Date.parse(req.body.date);
-    const newUser = new User({
+    const newCourse = new Course({
         coursename,
         description,
         semester,
@@ -22,9 +22,9 @@ router.route('/add').post((req, res) => {
         ta,
         date,
     });
-    newUser.save()
-        .then(() => res.json('Exercise added!'))
+    newCourse.save()
+        .then(() => res.json('Course added!'))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-model.exports = router;
+module.exports = router;
