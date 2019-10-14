@@ -1,7 +1,7 @@
 # How to build and run our app locally
 ## File Structrue
 The file system consists of two folders:
-- Backend: Express.js, mongoDB connections, graphQL setups
+- Backend: Express.js, MongoDB connections, Rest setups
 - Frontend: React.js framework
 ## Setting up
 ### 1. make sure you have npm on your machine
@@ -14,7 +14,7 @@ if the console returns command not found, please install npm with any means(brew
 ### 2. install all dependencies
 To make sure the service can run properly on your local machine, you need to install all the dependencies for both backend and frontend. You need to be in the root directory(fall-2019-easy-nyu) of the git repository to do the following steps
 ```console
-{username}:~$ cd server
+{username}:~$ cd backend
 {username}:~$ npm install
 ```
 This will install all required dependencies to run the backend service
@@ -32,7 +32,7 @@ You will need to have both the frontend and backend servers running to test full
 To do that, you need to open two terminals at the root direcotry.
 In one terminal, run:
 ```console
-{username}:~$ cd server
+{username}:~$ cd backend
 {username}:~$ npm start
 ```
 In the other terminal, run:
