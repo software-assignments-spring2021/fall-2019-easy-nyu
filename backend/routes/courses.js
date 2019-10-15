@@ -13,14 +13,12 @@ router.route('/add').post((req, res) => {
     const semester = req.body.semester;
     const prof = req.body.prof;
     const ta = req.body.ta;
-    const date = Date.parse(req.body.date);
     const newCourse = new Course({
         coursename,
         description,
         semester,
         prof,
-        ta,
-        date,
+        ta
     });
     newCourse.save()
         .then(() => res.json('Course added!'))
