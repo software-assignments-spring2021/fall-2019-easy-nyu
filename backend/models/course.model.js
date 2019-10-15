@@ -8,7 +8,6 @@ const courseSchema = new Schema({
     semester: {type: String, required: true},
     prof: {type: String, required: true},
     ta: {type: String, required: false},
-    date: {type: Date, required: true},
 }, {
     timestamps: true,
 });
