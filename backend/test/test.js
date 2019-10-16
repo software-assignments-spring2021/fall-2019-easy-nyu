@@ -31,6 +31,7 @@ describe('Course', () => {
         });
     });
     
+    /*
     describe('/POST courses', () => {
         it('it should not POST a book without prof field', (done) => {
             let course = {
@@ -69,6 +70,6 @@ describe('Course', () => {
             });
         });
         
-  
     });
+    */
 });
