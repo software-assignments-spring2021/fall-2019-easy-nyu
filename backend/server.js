@@ -23,7 +23,7 @@ connection.once('open', () => {
   console.log("MongoDB database is connected successfully");
 })
 
-// Direct route http://localhost:3000/users
+// Direct route http://localhost:4000/users
 const coursesRouter = require('./routes/courses');
 const usersRouter = require('./routes/users');
 app.use('/courses', coursesRouter);
@@ -32,3 +32,5 @@ app.use('/users', usersRouter);
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
+
+module.exports = app; // for testing

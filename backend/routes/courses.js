@@ -3,11 +3,16 @@ let Course = require('../models/course.model');
 
 // Get Request
 router.route('/').get((req, res) => {
-    Course.find()
-        .then(courses => res.json(courses))
-        .catch(err => res.status(400).json('Error: ' + err));
+    Course.find({}, (err, data) => {
+        if (err) {
+            res.status(400).json('Error: ' + err)
+        } else {
+            res.json(data)
+        }
+    })
 });
 
+/*
 // Post Request - Add a new course to database
 router.route('/add').post((req, res) => {
     const coursename = req.body.coursename;
@@ -22,9 +27,15 @@ router.route('/add').post((req, res) => {
         prof,
         ta
     });
-    newCourse.save()
-        .then(() => res.json('Course added!'))
-        .catch(err => res.status(400).json('Error: ' + err));
+
+    newCourse.save((err, course) => {
+        if (err) {
+            res.send(err);
+        }
+        else {
+            res.json({message: "Course added!", course: course});
+        }
+    })
 });
 
 // Get course by id
@@ -37,7 +48,7 @@ router.route('/:id').get((req,res) => {
 // Delete course by id
 router.route('/:id').delete((req,res) => {
     Course.findByIdAndDelete(req.params.id)
-        .then(course => res.json('Course deleted.'))
+        .then(() => res.json('Course deleted.'))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -57,5 +68,5 @@ router.route('/update/:id').post((req,res) => {
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
-
+*/
 module.exports = router;
