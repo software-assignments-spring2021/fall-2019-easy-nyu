@@ -12,7 +12,6 @@ router.route('/').get((req, res) => {
     })
 });
 
-/*
 // Post Request - Add a new course to database
 router.route('/add').post((req, res) => {
     const coursename = req.body.coursename;
@@ -37,7 +36,7 @@ router.route('/add').post((req, res) => {
         }
     })
 });
-
+/*
 // Get course by id
 router.route('/:id').get((req,res) => {
     Course.findById(req.params.id)

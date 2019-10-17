@@ -25,9 +25,11 @@ connection.once('open', () => {
 
 // Direct route http://localhost:4000/users
 const coursesRouter = require('./routes/courses');
-const usersRouter = require('./routes/users');
 app.use('/courses', coursesRouter);
+const usersRouter = require('./routes/users');
 app.use('/users', usersRouter);
+const commentsRouter = require('./routes/comments');
+app.use('/comments', commentsRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
