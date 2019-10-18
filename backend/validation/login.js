@@ -9,7 +9,7 @@ module.exports = function validateLoginInput(data) {
     // Email/Nid checks
     if (Validator.isEmpty(data.email) && Validator.isEmpty(data.nid)) {
         errors.email = "Email or NYU Netid is required";
-    } else if (!Validator.isEmail(data.email)) {
+    } else if (!Validator.isEmail(data.email) && Validator.isEmpty(data.nid)) {
         errors.email = "Email is invalid";
     }
 
