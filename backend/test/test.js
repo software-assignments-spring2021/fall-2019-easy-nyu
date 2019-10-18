@@ -356,5 +356,64 @@ describe('Register and Login', () => {
                     done();
                 });
         });
+
+        // it('Should allow register when all fields are completed', (done) => {
+        //     const user = {
+        //         name: 'Sam',
+        //         email: 'yz1234@nyu.edu',
+        //         password: '123456',
+        //         password2: '123456',
+        //         nid: 'yz1234'
+        //     }
+        //     chai.request(server)
+        //         .post('/api/users/register')
+        //         .send(user)
+        //         .end((err, res) => {
+        //             res.should.have.status(200);
+        //             done();
+        //         });
+        // });
+    });
+
+    describe('Loin', () => {
+        it('Should not Loin requests without both the email and nid', (done) => {
+            const user = {
+                password: '123456',
+            }
+            chai.request(server)
+                .post('/api/users/login')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    done();
+                });
+        });
+
+        it('Should not Loin requests without password', (done) => {
+            const user = {
+                email: 'yz3559@nyu.edu'
+            }
+            chai.request(server)
+                .post('/api/users/login')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    done();
+                });
+        });
+
+        it('Should allow Loin with correct password and email', (done) => {
+            const user = {
+                email: 'yz3559@nyu.edu',
+                password: '123456'
+            }
+            chai.request(server)
+                .post('/api/users/login')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    done();
+                });
+        });
     });
 });

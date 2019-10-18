@@ -48,7 +48,6 @@ router.post("/register", (req, res) => {
 // setting up route login
 router.post("/login", (req, res) => {
     // Form validation
-    console.log(req.body)
     const { errors, isValid } = validateLoginInput(req.body);
     // Check validation
     if (!isValid) {
@@ -80,7 +79,6 @@ router.post("/login", (req, res) => {
                     payload,
                     process.env.secretOrKey,
                     (err, token) => {
-                        console.log(123)
                         res.json({
                             success: true,
                             token: "Bearer " + token
