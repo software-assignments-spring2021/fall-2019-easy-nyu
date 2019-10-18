@@ -1,12 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const passport = require('passport');
 
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 4000;
-
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -27,9 +27,14 @@ connection.once('open', () => {
 const coursesRouter = require('./routes/courses');
 app.use('/courses', coursesRouter);
 const usersRouter = require('./routes/users');
-app.use('/users', usersRouter);
+app.use('/api/users', usersRouter);
 const commentsRouter = require('./routes/comments');
 app.use('/comments', commentsRouter);
+
+// Passport middleware
+app.use(passport.initialize());
+// Passport config
+require("./passport")(passport);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
