@@ -14,30 +14,31 @@ Import Test Units
 */
 const Course = require('../models/course.model');
 const Comment = require('../models/comment.model');
+const User = require('../models/user.model')
 
 // Unit Test for Course
 describe('Course', () => {
     // Empty the database before each round of testing
     beforeEach((done) => {
-        Course.remove({}, (err) => { 
-           done();           
-        });        
+        Course.remove({}, (err) => {
+            done();
+        });
     });
 
     // Test the /GET route
     describe('/GET courses', () => {
-      it('it should GET all the courses', (done) => {
-        chai.request(server)
-            .get('/courses')
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('array');
-                res.body.length.should.be.eql(0);
-            done();
-            });
+        it('it should GET all the courses', (done) => {
+            chai.request(server)
+                .get('/courses')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(0);
+                    done();
+                });
         });
     });
-    
+
     // Test the /POST route
     describe('/POST courses', () => {
         it('it should not POST a book without prof field', (done) => {
@@ -52,8 +53,8 @@ describe('Course', () => {
                 .end((err, res) => {
                     //res.should.have.status(404);
                     res.should.have.property('error');
-                done();
-            });
+                    done();
+                });
         });
 
         it('it should not POST a book without coursename field', (done) => {
@@ -68,8 +69,8 @@ describe('Course', () => {
                 .end((err, res) => {
                     //res.should.have.status(404);
                     res.should.have.property('error');
-                done();
-            });
+                    done();
+                });
         });
 
         it('it should not POST a book without semester field', (done) => {
@@ -84,8 +85,8 @@ describe('Course', () => {
                 .end((err, res) => {
                     //res.should.have.status(404);
                     res.should.have.property('error');
-                done();
-            });
+                    done();
+                });
         });
 
         it('it should not POST a book without description field', (done) => {
@@ -100,10 +101,10 @@ describe('Course', () => {
                 .end((err, res) => {
                     //res.should.have.status(404);
                     res.should.have.property('error');
-                done();
-            });
+                    done();
+                });
         });
-        
+
         it('it should POST a course without a TA', (done) => {
             const course = {
                 coursename: "CSCI-UA 480",
@@ -121,8 +122,8 @@ describe('Course', () => {
                     res.body.course.should.have.property('description');
                     res.body.course.should.have.property('semester');
                     res.body.course.should.have.property('prof');
-                done();
-            });
+                    done();
+                });
         });
 
         it('it should POST a course with a TA', (done) => {
@@ -144,8 +145,8 @@ describe('Course', () => {
                     res.body.course.should.have.property('semester');
                     res.body.course.should.have.property('prof');
                     res.body.course.should.have.property('ta');
-                done();
-            });
+                    done();
+                });
         });
     });
 
@@ -163,20 +164,19 @@ describe('Course', () => {
                 .send(course)
                 .end((err, res) => {
                     res.body.course.comments.should.be.a('array');
-                done();
-            });
+                    done();
+                });
         });
     });
-
 });
 
 // Unit Test for Comment
 describe('Comment', () => {
     // Empty the database before each round of testing
     beforeEach((done) => {
-        Comment.remove({}, (err) => { 
-           done();           
-        });        
+        Comment.remove({}, (err) => {
+            done();
+        });
     });
 
     // Test the /POST route
@@ -204,9 +204,9 @@ describe('Comment', () => {
                         .end((err, res) => {
                             res.body.should.be.a('object');
                             res.body.should.have.property('message').eql('Comment added!');
+                        });
+                    done();
                 });
-                done();
-            });
         });
 
         it('it should have a comment to link back to a course', (done) => {
@@ -231,9 +231,130 @@ describe('Comment', () => {
                         .send(newComment)
                         .end((err, res) => {
                             res.body.should.have.property('course_id').eql(current_course_id);
+                        });
+                    done();
                 });
-                done();
-            });
+        });
+    });
+});
+
+// Unit Test for User Register and Login
+describe('Register and Login', () => {
+
+    // Test the /POST route for Register
+    describe('Register', () => {
+        it('Should not allow register without email', (done) => {
+            const user = {
+                name: 'Jack',
+                password: '123456',
+                password2: '123456',
+                nid: 'yz3559'
+            }
+            chai.request(server)
+                .post('/api/users/register')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    done();
+                });
+        });
+
+        it('Should not allow register with invalid email', (done) => {
+            const user = {
+                name: 'Jack',
+                email: 'abcabcaaa',
+                password: '123456',
+                password2: '123456',
+                nid: 'yz3559'
+            }
+            chai.request(server)
+                .post('/api/users/register')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    done();
+                });
+        });
+
+        it('Should not allow register without name', (done) => {
+            const user = {
+                email: 'yz3559@nyu.edu',
+                password: '123456',
+                password2: '123456',
+                nid: 'yz3559'
+            }
+            chai.request(server)
+                .post('/api/users/register')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    done();
+                });
+        });
+
+        it('Should not allow register without nid', (done) => {
+            const user = {
+                email: 'yz3559@nyu.edu',
+                password: '123456',
+                password2: '123456',
+                name: 'Jack'
+            }
+            chai.request(server)
+                .post('/api/users/register')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    done();
+                });
+        });
+
+        it('Should not allow register without password', (done) => {
+            const user = {
+                name: 'Jack',
+                email: 'yz3559@nyu.edu',
+                password2: '123456',
+                nid: 'yz3559'
+            }
+            chai.request(server)
+                .post('/api/users/register')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    done();
+                });
+        });
+
+        it('Should not allow register without confirm password', (done) => {
+            const user = {
+                name: 'Jack',
+                email: 'yz3559@nyu.edu',
+                password: '123456',
+                nid: 'yz3559'
+            }
+            chai.request(server)
+                .post('/api/users/register')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    done();
+                });
+        });
+
+        it('Should not allow register when passwords dont match', (done) => {
+            const user = {
+                name: 'Jack',
+                email: 'yz3559@nyu.edu',
+                password: '123456',
+                password2: '654321',
+                nid: 'yz3559'
+            }
+            chai.request(server)
+                .post('/api/users/register')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    done();
+                });
         });
     });
 });
