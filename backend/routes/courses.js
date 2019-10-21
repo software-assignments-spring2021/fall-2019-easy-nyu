@@ -1,13 +1,23 @@
 const router = require('express').Router();
 let Course = require('../models/course.model');
 
+function num_of_comments (course) {
+    return course.comments.length;
+}
+
+function sort_courses_on_comments (course_array) {
+    return course_array.sort(function(a, b){return num_of_comments(b) - num_of_comments(a)});
+}
+
 // Get Request
 router.route('/').get((req, res) => {
     Course.find({}, (err, data) => {
         if (err) {
             res.status(400).json('Error: ' + err)
         } else {
-            res.json(data)
+            //res.json(data);
+            //console.log(sort_courses_on_comments(data));
+            res.json(sort_courses_on_comments(data));
         }
     })
 });
