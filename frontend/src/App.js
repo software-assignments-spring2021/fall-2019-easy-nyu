@@ -13,8 +13,8 @@ function App() {
 	<div class="centerContent">
 		 <div class="textBoxContainer shadow rounded">
 			<div class="textBox">
-				<a href="/login/" class="buttonLink">Sign in</a><br>
-				<a href="/createaccount/" class="buttonLink">Create an Account</a>
+				<a href="#" class="buttonLink">Sign in</a><br>
+				<a href="#" class="buttonLink">Create an Account</a>
 			</div>
 		</div>
 	</div>
