@@ -40,7 +40,7 @@ describe('Course', () => {
     });
 
     // Test the /POST route
-    describe('/POST courses', () => {
+    describe('/POST courses Failed Cases', () => {
         it('it should not POST a book without prof field', (done) => {
             const course = {
                 coursename: "CSCI-UA 480",
@@ -104,13 +104,15 @@ describe('Course', () => {
                     done();
                 });
         });
+    });
 
+    describe('/POST courses Success Case #1', () => {
         it('it should POST a course without a TA', (done) => {
             const course = {
-                coursename: "CSCI-UA 480",
-                description: " Agile Software Development",
+                coursename: "ECON-UA 331",
+                description: "Monetary Banking Theory",
                 semester: "Fall 2019",
-                prof: "Amos Bloomberg"
+                prof: "Ricardo Lagos"
             }
             chai.request(server)
                 .post('/courses/add')
@@ -125,7 +127,8 @@ describe('Course', () => {
                     done();
                 });
         });
-
+    });
+    describe('/POST courses Success Case #2', () => { 
         it('it should POST a course with a TA', (done) => {
             const course = {
                 coursename: "CSCI-UA 480",
@@ -153,11 +156,11 @@ describe('Course', () => {
     describe('/Connection with Comment', () => {
         it('it should have an array of comments', (done) => {
             const course = {
-                coursename: "CSCI-UA 480",
-                description: " Agile Software Development",
+                coursename: "CORE-UA 400",
+                description: "Justice and Injustice",
                 semester: "Fall 2019",
-                prof: "Amos Bloomberg",
-                ta: "Karan"
+                prof: "John Weiler",
+                ta: "Alex Weisberg"
             }
             chai.request(server)
                 .post('/courses/add')
@@ -182,20 +185,12 @@ describe('Comment', () => {
     // Test the /POST route
     describe('/POST comment', () => {
         it('it should POST a comment to a course', (done) => {
-            const course = {
-                coursename: "CSCI-UA 480",
-                description: " Agile Software Development",
-                semester: "Fall 2019",
-                prof: "Amos Bloomberg",
-                ta: "Karan"
-            }
             chai.request(server)
-                .post('/courses/add')
-                .send(course)
+                .get('/courses')
                 .end((err, res) => {
-                    const current_course_id = res.body.course._id;
+                    const current_course_id = res.body[0]._id;
                     const newComment = {
-                        comment: "The class is good, but need to know js",
+                        comment: "You need to write four essays for this class",
                         course_id: current_course_id
                     }
                     chai.request(server)
@@ -210,20 +205,12 @@ describe('Comment', () => {
         });
 
         it('it should have a comment to link back to a course', (done) => {
-            const course = {
-                coursename: "CSCI-UA 480",
-                description: " Agile Software Development",
-                semester: "Fall 2019",
-                prof: "Amos Bloomberg",
-                ta: "Karan"
-            }
             chai.request(server)
-                .post('/courses/add')
-                .send(course)
+                .get('/courses')
                 .end((err, res) => {
-                    const current_course_id = res.body.course._id;
+                    const current_course_id = res.body[0]._id;
                     const newComment = {
-                        comment: "The class is fine, but need to know js",
+                        comment: "The Prof is hilarious",
                         course_id: current_course_id
                     }
                     chai.request(server)
@@ -412,6 +399,38 @@ describe('Register and Login', () => {
                 .send(user)
                 .end((err, res) => {
                     res.should.have.status(400);
+                    done();
+                });
+        });
+    });
+});
+
+// Unit Test for Course Display
+describe('Courses Display', () => {
+    // Test the /GET route
+    describe('Trending Orders', () => {
+        it('it should display courses from most to least comments', (done) => {
+            chai.request(server)
+                .get('/courses')
+                .end((err, res) => {
+                    var i;
+                    for (var i =0; i<res.body.length-1; i++) {
+                        let compare;
+                        if (res.body[i].comments.length >= res.body[i+1].comments.length) {
+                            compare = true;
+                        } else {
+                            compare = false;
+                        }
+                        compare.should.be.eql(true);
+                    }
+                    done();
+                });
+        });
+        it('it should match number of comments', (done) => {
+            chai.request(server)
+                .get('/courses')
+                .end((err, res) => {
+                    res.body[0].comments.length.should.be.eql(2); // as of now
                     done();
                 });
         });
