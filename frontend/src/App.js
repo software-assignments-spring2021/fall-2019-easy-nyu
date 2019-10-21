@@ -4,20 +4,23 @@ import './App.css';
 
 function App() {
   return (
-	<div id="header" class="headerContent">
-		<img class="headerLogo" src="logo.png">
-	</div>
+	  <div>
+		  <div id="header" class="headerContent">
+			  <img class="headerLogo" src="logo.png">
+			  </img>
+		  </div>
 
-	<div id="title" class="pageTitle">Welcome to EasyNYU</div>
+		  <div id="title" class="pageTitle">Welcome to EasyNYU</div>
 
-	<div class="centerContent">
-		 <div class="textBoxContainer shadow rounded">
-			<div class="textBox">
-				<a href="#" class="buttonLink">Sign in</a><br>
-				<a href="#" class="buttonLink">Create an Account</a>
-			</div>
-		</div>
-	</div>
+		  <div class="centerContent">
+			  <div class="textBoxContainer shadow rounded">
+				  <div class="textBox">
+					  <a href="#" class="buttonLink">Sign in</a>
+					  <a href="#" class="buttonLink">Create an Account</a>
+				  </div>
+			  </div>
+		  </div>
+	  </div>
   );
 }
 
