@@ -5,7 +5,7 @@ process.env.NODE_ENV = 'test';
 const mongoose = require("mongoose");
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('../server');
+const server = require('../server_test');
 const should = chai.should();
 chai.use(chaiHttp);
 
@@ -16,14 +16,19 @@ const Course = require('../models/course.model');
 const Comment = require('../models/comment.model');
 const User = require('../models/user.model')
 
+//run once after all tests
+after(function (done) {
+    console.log('Deleting test database');
+    mongoose.connection.db.dropDatabase(done);
+});
 // Unit Test for Course
 describe('Course', () => {
-    // Empty the database before each round of testing
-    beforeEach((done) => {
-        Course.remove({}, (err) => {
-            done();
-        });
-    });
+    // // Empty the database before each round of testing
+    // beforeEach((done) => {
+    //     Course.remove({}, (err) => {
+    //         done();
+    //     });
+    // });
 
     // Test the /GET route
     describe('/GET courses', () => {
@@ -175,12 +180,12 @@ describe('Course', () => {
 
 // Unit Test for Comment
 describe('Comment', () => {
-    // Empty the database before each round of testing
-    beforeEach((done) => {
-        Comment.remove({}, (err) => {
-            done();
-        });
-    });
+    // // Empty the database before each round of testing
+    // beforeEach((done) => {
+    //     Comment.remove({}, (err) => {
+    //         done();
+    //     });
+    // });
 
     // Test the /POST route
     describe('/POST comment', () => {
@@ -219,6 +224,18 @@ describe('Comment', () => {
                         .end((err, res) => {
                             res.body.should.have.property('course_id').eql(current_course_id);
                         });
+                    //
+                    const second_course_id = res.body[1]._id;
+                        const NewComment = {
+                            comment: "Second comment test",
+                            course_id: second_course_id
+                        }
+                        chai.request(server)
+                            .post('/comments/add')
+                            .send(NewComment)
+                            .end((err, res) => {
+                                res.body.should.have.property('course_id').eql(second_course_id);
+                            });
                     done();
                 });
         });
@@ -430,7 +447,8 @@ describe('Courses Display', () => {
             chai.request(server)
                 .get('/courses')
                 .end((err, res) => {
-                    res.body[0].comments.length.should.be.eql(2); // as of now
+                    res.body[0].comments.length.should.be.eql(2);
+                    res.body[1].comments.length.should.be.eql(1);
                     done();
                 });
         });

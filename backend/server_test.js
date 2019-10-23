@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 function connect_to_db () {
   // Connect to MongoDB
-  const uri = process.env.ATLAS_URI;
+  const uri = process.env.Testing_URI;
   mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
   const connection = mongoose.connection;
   connection.once('open', () => {
