@@ -362,7 +362,7 @@ describe('Register and Login', () => {
         // });
     });
 
-    describe('Loin', () => {
+    describe('Login', () => {
         it('Should not Loin requests without both the email and nid', (done) => {
             const user = {
                 password: '123456',
