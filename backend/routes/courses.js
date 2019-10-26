@@ -1,6 +1,5 @@
 const router = require('express').Router();
 let Course = require('../models/course.model');
-const Professor = require('../models/professor.model');
 
 function num_of_comments (course) {
     return course.comments.length;
@@ -28,18 +27,13 @@ router.route('/add').post((req, res) => {
     const coursename = req.body.coursename;
     const description = req.body.description;
     const semester = req.body.semester;
-    const profId = req.body.prof; //should be an prf_id
+    const prof = req.body.prof;
     const ta = req.body.ta;
-
-    if (!coursename || !description || !semester || !prof || !ta) {
-        return res.status(400).send('ERROR: Invalid Input');
-    }
-
     const newCourse = new Course({
         coursename,
         description,
         semester,
-        profId: prof,
+        prof,
         ta
     });
 
@@ -48,29 +42,9 @@ router.route('/add').post((req, res) => {
             res.send(err);
         }
         else {
-            // add course to professor
-            // 1. look up the professor by id
-            Professor.findById(profId, (err2, professor) => {
-                if (err2){
-                    res.send(err2);
-                }
-                else{
-                    // 2. edit professor
-                    professor.course_id.push(course.course_id);
-                    // 3. save professor
-                    professor.save((err3, professor) => {
-                        if (err3) {
-                            res.send(err3);
-                        }
-                        else{
-                            res.json({message: "Course added!", course: course});
-                        }
-                    })
-                }
-            });
+            res.json({message: "Course added!", course: course});
         }
     })
-
 });
 /*
 // Get course by id
