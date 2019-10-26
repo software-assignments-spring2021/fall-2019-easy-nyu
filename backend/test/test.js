@@ -16,20 +16,31 @@ const Course = require('../models/course.model');
 const Comment = require('../models/comment.model');
 const User = require('../models/user.model')
 
+const test_login_credential = {
+    name: "Jack Zhang",
+    nid: "yz3559",
+    email: 'yz3559@nyu.edu',
+    password: '123456',
+    password2: '123456'
+};
+
+before(function(done){
+    chai.request(server)
+      .post('/api/users/register-test')
+      .send(test_login_credential)
+      .end(function(err, response){
+        done();
+      });
+    });
+
 //run once after all tests
 after(function (done) {
     console.log('Deleting test database');
     mongoose.connection.db.dropDatabase(done);
 });
+
 // Unit Test for Course
 describe('Course', () => {
-    // // Empty the database before each round of testing
-    // beforeEach((done) => {
-    //     Course.remove({}, (err) => {
-    //         done();
-    //     });
-    // });
-
     // Test the /GET route
     describe('/GET courses', () => {
         it('it should GET all the courses', (done) => {
@@ -133,6 +144,7 @@ describe('Course', () => {
                 });
         });
     });
+    
     describe('/POST courses Success Case #2', () => { 
         it('it should POST a course with a TA', (done) => {
             const course = {
@@ -180,13 +192,6 @@ describe('Course', () => {
 
 // Unit Test for Comment
 describe('Comment', () => {
-    // // Empty the database before each round of testing
-    // beforeEach((done) => {
-    //     Comment.remove({}, (err) => {
-    //         done();
-    //     });
-    // });
-
     // Test the /POST route
     describe('/POST comment', () => {
         it('it should POST a comment to a course', (done) => {
@@ -224,7 +229,7 @@ describe('Comment', () => {
                         .end((err, res) => {
                             res.body.should.have.property('course_id').eql(current_course_id);
                         });
-                    //
+                    
                     const second_course_id = res.body[1]._id;
                         const NewComment = {
                             comment: "Second comment test",
@@ -415,7 +420,7 @@ describe('Register and Login', () => {
                 .post('/api/users/login')
                 .send(user)
                 .end((err, res) => {
-                    res.should.have.status(400);
+                    res.should.have.status(200);
                     done();
                 });
         });
