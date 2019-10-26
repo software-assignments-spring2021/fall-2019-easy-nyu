@@ -43,7 +43,9 @@ In the other terminal, run:
 ### 4. Connect to MongoDB server
 Please create a file named ".env" in your backend folder, and with in the file write
 ```
-ATLAS_URI = mongodb+srv://<username>:<password>@cluster0-zslvh.gcp.mongodb.net/test?retryWrites=true&w=majority
+ATLAS_URI = mongodb+srv://<username>:<password>@cluster0-zslvh.gcp.mongodb.net/DB?retryWrites=true&w=majority
+secretOrKey = secret
+Testing_URI = mongodb+srv://<username>:<password>@cluster0-zslvh.gcp.mongodb.net/test?retryWrites=true&w=majority
 ```
 Replace username to be FirstnameLastName and privately message Xuanzheng Lin on slack for password.
   
