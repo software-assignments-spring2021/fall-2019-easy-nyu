@@ -3,7 +3,8 @@ node_js:
   - "node"
   - "12"
 install:
-  - npm install
+  - cd backend ; npm install
+  - cd backend ; npm install -dev
 script:
   - cd backend ; npm test
 notifications:
