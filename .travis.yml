@@ -1,7 +1,9 @@
 language: node_js
 node_js:
   - "node"
-  - "7"
+  - "12"
+install:
+  - npm install
 script:
   - cd backend ; npm test
 notifications:
