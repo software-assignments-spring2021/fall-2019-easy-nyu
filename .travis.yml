@@ -2,10 +2,14 @@ language: node_js
 node_js:
   - "node"
   - "12"
+env:
+  global:
+    - ATLAS_URI = mongodb+srv://SkipperLin:12345678abc@cluster0-zslvh.gcp.mongodb.net/DB?retryWrites=true&w=majority
+    - secretOrKey = secret
+    - Testing_URI = mongodb+srv://SkipperLin:12345678abc@cluster0-zslvh.gcp.mongodb.net/test?retryWrites=true&w=majority
 install:
   - cd backend ; npm install
   - cd backend ; npm install -dev
-  - cd backend ; travis encrypt-file .env --add
 script:
   - cd backend ; npm test
 notifications:
