@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Login from './components/login'
+import Signup from './components/signup'
 
 function App() {
   return (
@@ -15,8 +17,8 @@ function App() {
 		  <div class="centerContent">
 			  <div class="textBoxContainer shadow rounded">
 				  <div class="textBox">
-					  <a href="#" class="buttonLink">Sign in</a>
-					  <a href="#" class="buttonLink">Create an Account</a>
+					  <Login />
+					  <Signup />
 				  </div>
 			  </div>
 		  </div>
