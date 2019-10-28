@@ -5,6 +5,7 @@ node_js:
 install:
   - cd backend ; npm install
   - cd backend ; npm install -dev
+  - cd backend ; travis encrypt-file .env --add
 script:
   - cd backend ; npm test
 notifications:
