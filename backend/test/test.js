@@ -1,6 +1,7 @@
 /* 
 Setup
 */
+console.log(process.env)
 process.env.NODE_ENV = 'test';
 const mongoose = require("mongoose");
 const chai = require('chai');
