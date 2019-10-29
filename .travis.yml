@@ -1,0 +1,15 @@
+language: node_js
+servers: mongodb
+node_js:
+- node
+- '12'
+install:
+- cd backend ; npm install
+- cd backend ; npm install -dev
+script:
+- cd backend ; npm test
+notifications:
+  slack: nyu-agile-software:4Ll9V7RPK8fkqf2dGDvWiEGt
+env:
+  matrix:
+    secure: aJO5StEx4DpKerf7qXBqs5YdNAUdpqepJY6Vjd3XcHeD6HheYZcAAQC1wSKwaRQNzCwIENUZKFqem1fq2bvSj3anOk+h0OBJmBYjr71tmS8hBqB4Ik+/Op94TWrW2Catc/WU6C0/caBMYlgWRrNEB8VPAtVKh9F1JuF4H+wXmhdCaln3ACn4gQ/BKMzp1/KmhNWD7Ke8w+kOni6hXAwr7BYGBhayuUnzJsavp/wY1IrJeiYHp4pz1xNcIOS8ycFUmI9orATqhvnOIXOrhObmCSnj6FW1Xj7L+Z0vMW231n4Px77yUNTT27L/u7fkE1plGMCn36koyg1Z7x4JpBeee4CKLl6S5R3mvow6Lj3SaJPNp2Jqm/qfG7rXLuj7kCUHfDrF4f+Pdm8PKGCL/V4puYJZNB+WVHsI4crM/y1sGOVquvvdQRS5qcJSxozUnpY0R3K2CUJBB9QWvN8+Zevk6Jo9vKo2XjnvgChaCsAs+5WO27jcEPxN9iH4fI744TlSMcT2iuAcNe7KNuV7EEwrAyJGfJd6RUrDszFAR8W6MzymHxyAmnb3YClDeGvILC7yCFSJnAZ1sAcUfI6plYXWP2OXLk7RTvWCoh+aiu22CtG6eNjAAhtIW62zr5Us0CU0tuzYd23D35sMtqylm0HA1BruTWbHKF89i5LBxy3hEoI=
