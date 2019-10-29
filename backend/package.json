@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "nyc mocha --timeout 1000000 --exit"
+    "test": "nyc mocha --timeout 100000 --exit"
   },
   "keywords": [],
   "author": "",
