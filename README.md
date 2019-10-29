@@ -9,3 +9,5 @@
 - @EasyNYU is developed by EasyNYU team in Agile Software Development class.
 
 - PLEASE make sure you read the [BUILD.md](https://github.com/nyu-software-engineering/fall-2019-easy-nyu/blob/spike/13%2C17%2C18/project-setup/BUILD.md) for setting up the service locally
+
+- Latest BUILD status: [![Build Status](https://travis-ci.com/nyu-software-engineering/fall-2019-easy-nyu.svg?branch=master)](https://travis-ci.com/nyu-software-engineering/fall-2019-easy-nyu)

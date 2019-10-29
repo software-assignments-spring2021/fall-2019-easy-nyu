@@ -1,0 +1,16 @@
+language: node_js
+servers: mongodb
+node_js:
+- '12'
+install:
+- cd backend ; npm install
+- cd backend ; npm install -dev
+script:
+- cd backend ; npm test
+cache:
+  directories:
+  - node_modules
+env:
+  global:
+    secretOrKey=$secretOrKey
+    Testing_URI=$Testing_URI
