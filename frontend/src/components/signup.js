@@ -40,19 +40,22 @@ class Signup extends Component {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                data: {
-                    name: this.state.name,
-                    email: this.state.email,
-                    password: this.state.password,
-                    password2: this.state.password2
-                }
+                name: this.state.name,
+                email: this.state.email,
+                nid: this.state.nid,
+                password: this.state.password,
+                password2: this.state.password2
             })
         })
             .then(response => {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    throw new Error('Network Error at /api/users/register');
+                    response.json()
+                    .then(error => {
+                        console.log(error)
+                        throw new Error(error);
+                    })
                 }
             });
         this.setState({
@@ -83,7 +86,7 @@ class Signup extends Component {
                         </label>
                         <label className="ilabel">
                             Net ID:
-                                <input type="text" name="nid" value={this.state.nidl} onChange={this.handleNidChange} />
+                                <input type="text" name="nid" value={this.state.nid} onChange={this.handleNidChange} />
                         </label>
                         <label className="ilabel">
                             Password:
