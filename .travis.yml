@@ -5,6 +5,7 @@ node_js:
 install:
 - cd backend ; npm install
 - cd backend ; npm install -dev
+- cd ../frontend ; npm install
 script:
 - cd backend ; npm test
 - cd ../frontend ; npm test a
