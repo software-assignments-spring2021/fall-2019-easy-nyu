@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Login from './components/login'
 import Signup from './components/signup'
+import Professors from './components/professors'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
 				  <div class="textBox">
 					  <Login />
 					  <Signup />
+					  <Professors />
 				  </div>
 			  </div>
 		  </div>
