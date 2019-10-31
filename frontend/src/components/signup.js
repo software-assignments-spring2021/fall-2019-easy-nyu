@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Popup from "reactjs-popup";
+import Modal from 'react-bootstrap/Modal'
 import './signup.css'
 
 class Signup extends Component {
@@ -12,9 +12,14 @@ class Signup extends Component {
         nid: "",
         password: "",
         password2: "",
+        showModal: false,
+        errorMsg: ""
       };
     }
-  
+    
+    handlePopup = () => {
+        this.setState({showModal : true});
+    }
     handleNameChange = (event) => {
       this.setState({ name: event.target.value });
     }
@@ -35,6 +40,10 @@ class Signup extends Component {
         this.setState({ password2: event.target.value });
     }
 
+    handleClose = (event) => {
+        this.setState({ showModal: false });
+    }
+    
     send() {
         fetch('/api/users/register', {
             method: "POST",
@@ -52,54 +61,59 @@ class Signup extends Component {
                     return response.json();
                 } else {
                     response.json()
-                    .then(error => {
-                        console.log(error)
-                        throw new Error(error);
+                    .then(errors => {
+                        this.setState({
+                            errorMsg: Object.values(errors)[0]
+                        })
                     })
                 }
-            });
-        this.setState({
-            name: "",
-            email: "",
-            nid: "",
-            password: "",
-            password2: "",
-        });
+            }).then(
+                this.setState({
+                    name: "",
+                    email: "",
+                    nid: "",
+                    password: "",
+                    password2: "",
+                })
+            );
     }
 
     render() {
         return (
-            <Popup trigger={<button className="buttonLink"> Create Account </button>} modal>
-                {close => (
-                    <div className="modal">
-                        <a className="close" onClick={close}>
-                            &times;
-                        </a>
-                        <div className="header"> Create Account </div>
+            <div>
+                <button className="buttonLink" onClick={this.handlePopup}> Create Account </button>
+                <Modal show={this.state.showModal} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Create Account</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
                         <label className="ilabel">
                             Name:
-                                <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange} />
+                            <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange} />
                         </label>
                         <label className="ilabel">
                             Email:
-                                <input type="text" name="email" value={this.state.email} onChange={this.handleEmailChange} />
+                            <input type="text" name="email" value={this.state.email} onChange={this.handleEmailChange} />
                         </label>
                         <label className="ilabel">
                             Net ID:
-                                <input type="text" name="nid" value={this.state.nid} onChange={this.handleNidChange} />
+                            <input type="text" name="nid" value={this.state.nid} onChange={this.handleNidChange} />
                         </label>
                         <label className="ilabel">
                             Password:
-                                <input type="text" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
+                            <input type="text" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
                         </label>
                         <label className="ilabel">
                             Confirm Password:
-                                <input type="text" name="password2" value={this.state.password2} onChange={this.handlePassword2Change} />
+                            <input type="text" name="password2" value={this.state.password2} onChange={this.handlePassword2Change} />
                         </label>
+                        <p className='error-msg'>{this.state.errorMsg}</p>
+                    </Modal.Body>
+                    <Modal.Footer>
                         <button className="signup-btn" onClick={(evt) => { this.send(); }}>Create Account</button>
-                    </div>
-                )}
-            </Popup>
+                    </Modal.Footer>
+                </Modal>
+            </div>
         )
     }
 }
