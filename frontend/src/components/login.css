@@ -26,15 +26,21 @@ input {
     display: block;
 }
 .login-btn {
-    display: block;
-    background-color: #C70039 ;
-    color: white;
-    font-size: 25px;
-    width: 400px;
-    height: 50px;
-    text-align: center;
-    margin: 0 auto;
-    display: block;
+  margin: 0 auto;
+  margin-left: 67px;
+  display: inline-block;
+  background-color: #C70039 ;
+  color: white;
+  font-size: 25px;
+  width: 70%;
+  height: 50px;
+  text-align: center;
+}
+.error-msg {
+color: red;
+font-size: 20px;
+text-align: center;
+display: block;
 }
 .modal > .close {
   cursor: pointer;

@@ -26,26 +26,19 @@
       display: block;
   }
   .signup-btn {
-      display: block;
-      background-color: white;
-      color: purple;
+      margin: 0 auto;
+      margin-left: 67px;
+      display: inline-block;
+      background-color: #C70039 ;
+      color: white;
       font-size: 25px;
-      width: 400px;
+      width: 70%;
       height: 50px;
       text-align: center;
-      margin: 0 auto;
-      display: block;
   }
-  .modal > .close {
-    cursor: pointer;
-    position: absolute;
+  .error-msg {
+    color: red;
+    font-size: 20px;
+    text-align: center;
     display: block;
-    padding: 2px 5px;
-    line-height: 20px;
-    right: -10px;
-    top: -10px;
-    font-size: 24px;
-    background: #ffffff;
-    border-radius: 18px;
-    border: 1px solid #cfcece;
   }
