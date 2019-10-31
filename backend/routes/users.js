@@ -10,8 +10,10 @@ const User = require("../models/user.model");
 
 // setting up route register
 router.post("/register", (req, res) => {
+    console.log(req.body)
     // Form validation
     const { errors, isValid } = validateRegisterInput(req.body);
+    console.log(errors)
     // Check validation
     if (!isValid) {
         return res.status(400).json(errors);
@@ -38,7 +40,8 @@ router.post("/register", (req, res) => {
                     newUser.password = hash;
                     newUser.save()
                         .then(user => res.json(user))
-                        .catch(err => console.log(err));
+                        .catch(err => console.log(err))
+                        .then(console.log("user added:", req.body.name));
                 });
             });
         }

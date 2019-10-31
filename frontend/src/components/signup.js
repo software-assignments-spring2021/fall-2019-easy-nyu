@@ -20,7 +20,6 @@ class Signup extends Component {
     handlePopup = () => {
         this.setState({showModal : true});
     }
-
     handleNameChange = (event) => {
       this.setState({ name: event.target.value });
     }
@@ -44,7 +43,7 @@ class Signup extends Component {
     handleClose = (event) => {
         this.setState({ showModal: false });
     }
-
+    
     send() {
         fetch('/api/users/register', {
             method: "POST",
