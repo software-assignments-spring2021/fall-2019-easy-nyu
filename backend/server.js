@@ -15,8 +15,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 function connect_to_db () {
+  console.log(process.env['NODE_ENV'])
   // Connect to MongoDB
-  const uri = process.env.ATLAS_URI;
+  let uri = process.env.ATLAS_URI;
+  if (process.env.NODE_ENV === "test") {
+    uri = process.env.Testing_URI;
+  }
+  console.log(uri)
   mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
   const connection = mongoose.connection;
   connection.once('open', () => {
@@ -30,6 +35,8 @@ function connect_to_db () {
   app.use('/api/users', usersRouter);
   const commentsRouter = require('./routes/comments');
   app.use('/comments', commentsRouter);
+  const professorRouter = require('./routes/professors');
+  app.use('/professors', professorRouter);
 
   // Passport middleware
   app.use(passport.initialize());

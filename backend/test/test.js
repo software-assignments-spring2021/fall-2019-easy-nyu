@@ -1,11 +1,11 @@
 /* 
 Setup
 */
-process.env.NODE_ENV = 'test';
+process.env['NODE_ENV'] = 'test';
 const mongoose = require("mongoose");
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('../server_test');
+const server = require('../server');
 const should = chai.should();
 chai.use(chaiHttp);
 
@@ -15,6 +15,7 @@ Import Test Units
 const Course = require('../models/course.model');
 const Comment = require('../models/comment.model');
 const User = require('../models/user.model')
+const Professor = require('../models/professor.model')
 
 const test_login_credential = {
     name: "Jack Zhang",
@@ -24,21 +25,23 @@ const test_login_credential = {
     password2: '123456'
 };
 
-before(function(done){
+before(function (done) {
     chai.request(server)
-      .post('/api/users/register-test')
-      .send(test_login_credential)
-      .end(function(err, response){
-        done();
-      });
-    });
+        .post('/api/users/register-test')
+        .send(test_login_credential)
+        .end(function (err, response) {
+            done();
+        });
+});
 
 //run once after all tests
 after(function (done) {
     console.log('Deleting test database');
     mongoose.connection.db.dropDatabase(done);
 });
-
+let professor_id;
+let course_id;
+let comment_id;
 // Unit Test for Course
 describe('Course', () => {
     // Test the /GET route
@@ -144,8 +147,8 @@ describe('Course', () => {
                 });
         });
     });
-    
-    describe('/POST courses Success Case #2', () => { 
+
+    describe('/POST courses Success Case #2', () => {
         it('it should POST a course with a TA', (done) => {
             const course = {
                 coursename: "CSCI-UA 480",
@@ -229,18 +232,18 @@ describe('Comment', () => {
                         .end((err, res) => {
                             res.body.should.have.property('course_id').eql(current_course_id);
                         });
-                    
+
                     const second_course_id = res.body[1]._id;
-                        const NewComment = {
-                            comment: "Second comment test",
-                            course_id: second_course_id
-                        }
-                        chai.request(server)
-                            .post('/comments/add')
-                            .send(NewComment)
-                            .end((err, res) => {
-                                res.body.should.have.property('course_id').eql(second_course_id);
-                            });
+                    const NewComment = {
+                        comment: "Second comment test",
+                        course_id: second_course_id
+                    }
+                    chai.request(server)
+                        .post('/comments/add')
+                        .send(NewComment)
+                        .end((err, res) => {
+                            res.body.should.have.property('course_id').eql(second_course_id);
+                        });
                     done();
                 });
         });
@@ -436,9 +439,9 @@ describe('Courses Display', () => {
                 .get('/courses')
                 .end((err, res) => {
                     var i;
-                    for (var i =0; i<res.body.length-1; i++) {
+                    for (var i = 0; i < res.body.length - 1; i++) {
                         let compare;
-                        if (res.body[i].comments.length >= res.body[i+1].comments.length) {
+                        if (res.body[i].comments.length >= res.body[i + 1].comments.length) {
                             compare = true;
                         } else {
                             compare = false;
@@ -454,6 +457,146 @@ describe('Courses Display', () => {
                 .end((err, res) => {
                     res.body[0].comments.length.should.be.eql(2);
                     res.body[1].comments.length.should.be.eql(1);
+                    done();
+                });
+        });
+    });
+});
+
+// Unit Test for Professor
+describe('Professor', () => {
+    // Test the /GET route
+    describe('/GET professor', () => {
+        it('it should GET all the professors', (done) => {
+            chai.request(server)
+                .get('/professors/all')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(0);
+                    done();
+                });
+        });
+    });
+
+    // Test the /POST route
+    describe('/POST professor Failed Cases', () => {
+        it('it should not POST a professor without prof name field', (done) => {
+            const prof = {
+                description: "This is a professor",
+                course_id: course_id,
+                comments: "5dbcb1811c9d440000450e81"
+            }
+            chai.request(server)
+                .post('/professors/add')
+                .send(prof)
+                .end((err, res) => {
+                    //res.should.have.status(404);
+                    res.should.have.property('error');
+                    done();
+                });
+        });
+
+        it('it should not POST a professor without description field', (done) => {
+            const prof = {
+                professorname: "John Weiler",
+                course_id: "5dbb3024135b6e5f5466647d",
+                comments: "5dbcb1811c9d440000450e81"
+            }
+            chai.request(server)
+                .post('/professors/add')
+                .send(prof)
+                .end((err, res) => {
+                    //res.should.have.status(404);
+                    res.should.have.property('error');
+                    done();
+                });
+        });
+    });
+    
+    describe('/POST Professor Success Case #1', () => {
+        it('it should POST a prof without a comment', (done) => {
+            const prof = {
+                professorname: "John Weiler",
+                description: "This is a professor",
+                course_id: "5dbb3024135b6e5f5466647d"
+            }
+            chai.request(server)
+                .post('/professors/add')
+                .send(prof)
+                .end((err, res) => {
+                    professor_id = res.body.prof._id
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message').eql('Professor added!');
+                    done();
+                });
+        });
+    });
+
+    describe('/POST Professor Success Case #2', () => {
+        it('it should POST a prof without a course', (done) => {
+            const prof = {
+                professorname: "Joe Versoza",
+                description: "This is a professor",
+                comments: "5dbcb1811c9d440000450e81"
+            }
+            chai.request(server)
+                .post('/professors/add')
+                .send(prof)
+                .end((err, res) => {
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message').eql('Professor added!');
+                    done();
+                });
+        });
+    });
+
+    describe('/Get professor now should get 2 professors', () => {
+        it('it should GET all 2 professors', (done) => {
+            chai.request(server)
+                .get('/professors/all')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(2);
+                    done();
+                });
+        });
+    });
+
+    describe('/Get professor by id should be successful', () => {
+        it('it should get John Weiler', (done) => {
+            chai.request(server)
+                .get('/professors/id')
+                .send({professor_id:professor_id})
+                .end((err, res) => {
+                    course_id = res.body.course_id
+                    res.should.have.status(200);
+                    res.body.should.have.property('professorname').eql('John Weiler');
+                    done();
+                });
+        });
+    });
+
+    describe('Course_id got from professor should link to a course', () => {
+        let course_id;
+        it('getting professor with id should get John Weiler', (done) => {
+            chai.request(server)
+                .get('/professors/id')
+                .send({professor_id:professor_id})
+                .end((err, res) => {
+                    course_id = res.body.course_id
+                    res.should.have.status(200);
+                    res.body.should.have.property('professorname').eql('John Weiler');
+                    done();
+                });
+        });
+        it('using course number in response to get course should get the right course', (done) => {
+            chai.request(server)
+                .get('/courses/id')
+                .send({course_id:course_id[0]})
+                .end((err, res) => {
+                    res.should.have.status(200);
                     done();
                 });
         });
