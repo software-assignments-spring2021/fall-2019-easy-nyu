@@ -20,7 +20,7 @@ class ProfessorDisplay extends Component {
     }
     
     componentDidMount() {
-        fetch('/courses', { method: "GET" })
+        fetch('/professors/all', { method: "GET" })
             .then(response => {
             if (response.ok) {
                 return response.json();
@@ -35,7 +35,6 @@ class ProfessorDisplay extends Component {
         });
     }
     render () {
-        // For now, will display course infor, since prof route is not finished.
         return (
             <div id="show-prof-div" style={{ textAlign: "center" }}>
                 <h1>Professors in the Database:</h1>
@@ -43,10 +42,8 @@ class ProfessorDisplay extends Component {
                     <Professor
                         key={prof._id}
                         id={prof._id}
-                        name={prof.coursename}
+                        name={prof.professorname}
                         description={prof.description}
-                        prof={prof.prof}
-                        ta={prof.ta}
                     >
                     </Professor>
                 ))}

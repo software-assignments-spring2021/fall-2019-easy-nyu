@@ -15,8 +15,6 @@ router.route('/').get((req, res) => {
         if (err) {
             res.status(400).json('Error: ' + err)
         } else {
-            //res.json(data);
-            //console.log(sort_courses_on_comments(data));
             res.json(sort_courses_on_comments(data));
         }
     })
