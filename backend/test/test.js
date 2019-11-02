@@ -39,11 +39,14 @@ after(function (done) {
     console.log('Deleting test database');
     mongoose.connection.db.dropDatabase(done);
 });
+
 let professor_id;
 let course_id;
 let comment_id;
+
 // Unit Test for Course
 describe('Course', () => {
+
     // Test the /GET route
     describe('/GET courses', () => {
         it('it should GET all the courses', (done) => {
@@ -70,7 +73,6 @@ describe('Course', () => {
                 .post('/courses/add')
                 .send(course)
                 .end((err, res) => {
-                    //res.should.have.status(404);
                     res.should.have.property('error');
                     done();
                 });
@@ -86,7 +88,6 @@ describe('Course', () => {
                 .post('/courses/add')
                 .send(course)
                 .end((err, res) => {
-                    //res.should.have.status(404);
                     res.should.have.property('error');
                     done();
                 });
@@ -102,7 +103,6 @@ describe('Course', () => {
                 .post('/courses/add')
                 .send(course)
                 .end((err, res) => {
-                    //res.should.have.status(404);
                     res.should.have.property('error');
                     done();
                 });
@@ -118,7 +118,6 @@ describe('Course', () => {
                 .post('/courses/add')
                 .send(course)
                 .end((err, res) => {
-                    //res.should.have.status(404);
                     res.should.have.property('error');
                     done();
                 });
@@ -195,6 +194,7 @@ describe('Course', () => {
 
 // Unit Test for Comment
 describe('Comment', () => {
+
     // Test the /POST route
     describe('/POST comment', () => {
         it('it should POST a comment to a course', (done) => {
@@ -401,7 +401,7 @@ describe('Register and Login', () => {
                 });
         });
 
-        it('Should not Loin requests without password', (done) => {
+        it('Should not Login requests without password', (done) => {
             const user = {
                 email: 'yz3559@nyu.edu'
             }
@@ -414,7 +414,7 @@ describe('Register and Login', () => {
                 });
         });
 
-        it('Should allow Loin with correct password and email', (done) => {
+        it('Should allow Login with correct password and email', (done) => {
             const user = {
                 email: 'yz3559@nyu.edu',
                 password: '123456'
@@ -465,6 +465,7 @@ describe('Courses Display', () => {
 
 // Unit Test for Professor
 describe('Professor', () => {
+
     // Test the /GET route
     describe('/GET professor', () => {
         it('it should GET all the professors', (done) => {
@@ -491,7 +492,6 @@ describe('Professor', () => {
                 .post('/professors/add')
                 .send(prof)
                 .end((err, res) => {
-                    //res.should.have.status(404);
                     res.should.have.property('error');
                     done();
                 });
@@ -507,7 +507,6 @@ describe('Professor', () => {
                 .post('/professors/add')
                 .send(prof)
                 .end((err, res) => {
-                    //res.should.have.status(404);
                     res.should.have.property('error');
                     done();
                 });

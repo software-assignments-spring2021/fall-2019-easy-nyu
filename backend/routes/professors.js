@@ -1,7 +1,7 @@
 const router = require('express').Router();
 let Professor = require('../models/professor.model');
 
-// create course 
+// create professor 
 router.route('/add').post((req, res) => {
     const professorname = req.body.professorname;
     const description = req.body.description;
@@ -31,8 +31,6 @@ router.route('/all').get((req, res) => {
         if (err) {
             res.status(400).json('Error: ' + err)
         } else {
-            //res.json(data);
-            //console.log(sort_professors_on_comments(data));
             res.json(data);
         }
     })
@@ -44,8 +42,6 @@ router.route('/id').get((req, res) => {
         if (err) {
             res.status(400).json('Error: ' + err)
         } else {
-            //res.json(data);
-            //console.log(sort_professors_on_comments(data));
             res.json(data);
         }
     })
