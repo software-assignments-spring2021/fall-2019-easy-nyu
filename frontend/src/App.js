@@ -25,10 +25,7 @@ function App() {
 					<div class="textBox">
 						<Login />
 						<Signup />
-						<Router>
-							<Link to='/courses' className="buttonLink">Public Course Search</Link>
-							<Route exact path='/courses' />
-						</Router>
+						<Link to='/coursesearch' className="buttonLink">Public Course Search</Link>
 					</div>
 				</div>
 			</div>
