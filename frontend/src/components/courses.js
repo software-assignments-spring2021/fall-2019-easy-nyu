@@ -1,3 +1,4 @@
+import React, { Component } from "react";
 //I hate react so much
 
 class Courses extends React.Component {
@@ -19,9 +20,10 @@ class Courses extends React.Component {
     }
         
         
-    }
+    
     render() {
         return(
+			<div>
                 <div id="title" class="title">{this.state.coursename} - {this.state.semester}</div>
                 <div class="centerContent"><div class="textBoxContainer">
                     <div class="textBox">
@@ -36,6 +38,7 @@ class Courses extends React.Component {
                         <button class="buttonLink">Post New Comment</button>
                     </div>
                 </div></div>
-        }
+			</div>
+        );
     }
 }
