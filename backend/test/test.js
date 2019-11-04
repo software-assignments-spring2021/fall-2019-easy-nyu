@@ -46,7 +46,7 @@ let comment_id;
 
 // Unit Test for Course
 describe('Course', () => {
-
+    let test_course_prof;
     // Test the /GET route
     describe('/GET courses', () => {
         it('it should GET all the courses', (done) => {
@@ -56,6 +56,21 @@ describe('Course', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(0);
+                    done();
+                });
+        });
+        it('adding a prof to test course', (done) => {
+            const prof = {
+                professorname: "Amos Bloomberg",
+                description: "This is a professor",
+            }
+            chai.request(server)
+                .post('/professors/add')
+                .send(prof)
+                .end((err, res) => {
+                    test_course_prof = res.body.prof._id
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message').eql('Professor added!');
                     done();
                 });
         });
@@ -82,7 +97,7 @@ describe('Course', () => {
             const course = {
                 description: " Agile Software Development",
                 semester: "Fall 2019",
-                prof: "Amos Bloomberg"
+                prof: [test_course_prof]
             }
             chai.request(server)
                 .post('/courses/add')
@@ -97,7 +112,7 @@ describe('Course', () => {
             const course = {
                 coursename: "CSCI-UA 480",
                 description: " Agile Software Development",
-                prof: "Amos Bloomberg"
+                prof: [test_course_prof]
             }
             chai.request(server)
                 .post('/courses/add')
@@ -112,7 +127,7 @@ describe('Course', () => {
             const course = {
                 coursename: "CSCI-UA 480",
                 semester: "Fall 2019",
-                prof: "Amos Bloomberg"
+                prof: [test_course_prof]
             }
             chai.request(server)
                 .post('/courses/add')
@@ -130,7 +145,7 @@ describe('Course', () => {
                 coursename: "ECON-UA 331",
                 description: "Monetary Banking Theory",
                 semester: "Fall 2019",
-                prof: "Ricardo Lagos"
+                prof: [test_course_prof]
             }
             chai.request(server)
                 .post('/courses/add')
@@ -153,7 +168,7 @@ describe('Course', () => {
                 coursename: "CSCI-UA 480",
                 description: " Agile Software Development",
                 semester: "Fall 2019",
-                prof: "Amos Bloomberg",
+                prof: [test_course_prof],
                 ta: "Karan"
             }
             chai.request(server)
@@ -178,7 +193,7 @@ describe('Course', () => {
                 coursename: "CORE-UA 400",
                 description: "Justice and Injustice",
                 semester: "Fall 2019",
-                prof: "John Weiler",
+                prof: [test_course_prof],
                 ta: "Alex Weisberg"
             }
             chai.request(server)
@@ -474,7 +489,7 @@ describe('Professor', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
-                    res.body.length.should.be.eql(0);
+                    res.body.length.should.be.eql(1);
                     done();
                 });
         });
@@ -550,14 +565,14 @@ describe('Professor', () => {
         });
     });
 
-    describe('/Get professor now should get 2 professors', () => {
-        it('it should GET all 2 professors', (done) => {
+    describe('/Get professor now should get 3 professors', () => {
+        it('it should GET all 3 professors', (done) => {
             chai.request(server)
                 .get('/professors/all')
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
-                    res.body.length.should.be.eql(2);
+                    res.body.length.should.be.eql(3);
                     done();
                 });
         });
