@@ -11,6 +11,7 @@ const commentSchema = new Schema({
         minlength: 15
     },
     course_id: { type : mongoose.Schema.Types.ObjectId, ref: 'Course' },
+    professor_id: { type : mongoose.Schema.Types.ObjectId, ref: 'Professor' },
     comment_id: mongoose.Schema.ObjectId
 }, {
     timestamps: true,
