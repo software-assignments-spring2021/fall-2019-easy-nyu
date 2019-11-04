@@ -6,12 +6,12 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import CourseSearch from './components/courseSearch';
 
-ReactDOM.render(<Router>
+ReactDOM.render(<Router><div>
 <Route exact path="/" component={App} >
 </Route>
 <Route path="/coursesearch" component = {CourseSearch}>
 </Route>
-</Router>, 
+</div></Router>, 
 document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
