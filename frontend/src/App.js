@@ -14,11 +14,6 @@ function App() {
 			</div>
 
 			<div id="title" class="pageTitle">Welcome to EasyNYU</div>
-
-			<Router>
-				<Link to='/professors' className='btn-left'>Professors</Link>
-				<Route exact path='/professors' component = {ProfessorDisplay} />
-			</Router>
 			
 			<div class="centerContent">
 				<div class="textBoxContainer shadow rounded">
