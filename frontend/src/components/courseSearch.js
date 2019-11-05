@@ -53,7 +53,7 @@ class CourseSearch extends Component {
 								{this.state.courses.map((course, i) => (
 									<tr>
 										<td><Link to={"/coursesearch/" + course._id}>{course.coursename}</Link></td>
-										<td><Link>{course.prof}</Link></td>
+										<td><Link to={"/coursesearch/professors/" + course.prof}>{course.prof}</Link></td>
 									</tr>
 								))}
 							</tbody></table>
