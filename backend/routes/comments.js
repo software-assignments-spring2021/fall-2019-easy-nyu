@@ -21,7 +21,8 @@ router.route('/add').post((req, res) => {
     catch (err) {
         prof_id = null;
     }
-    if (!prof_id) {
+
+    if (prof_id == null) {
         newComment = new Comment({'comment' : user_comment, 'course_id' : course_id});
         newComment.save((err, data) => {
             if (err) {
@@ -38,7 +39,7 @@ router.route('/add').post((req, res) => {
                 res.json({message: "Comment added!", course_id: data.course_id});
             }
         })
-    } else if (!course_id) {
+    } else if (course_id == null) {
         newComment = new Comment({'comment' : user_comment, 'prof_id' : prof_id});
         newComment.save((err, data) => {
             if (err) {
@@ -53,6 +54,30 @@ router.route('/add').post((req, res) => {
                     })
                 .catch(err => res.status(400).json('Error: ' + err));
                 res.json({message: "Comment added!", prof_id: data.prof_id});
+            }
+        })
+    }   else {
+            newComment = new Comment
+            (
+                {
+                'comment' : user_comment, 
+                'course_id' : course_id,
+                'prof_id' : prof_id
+                }
+            );
+            newComment.save((err, data) => {
+            if (err) {
+                res.send(err);
+            }
+            else {
+                Course.findById(course_id)
+                    .then(course => {
+                        course.comments.push(data._id);
+                        course.save()
+                            .catch(err => res.status(400).json('Error: ' + err));
+                    })
+                .catch(err => res.status(400).json('Error: ' + err));
+                res.json({message: "Comment added!", course_id: data.course_id, prof_id: data.prof_id});
             }
         })
     }
