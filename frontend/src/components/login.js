@@ -85,7 +85,7 @@ class Login extends Component {
                         </label>
                         <label className="ilabel">
                             Password:
-                            <input type="text" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
+                            <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
                         </label>
                         <p className='error-msg'>{this.state.errorMsg}</p>
                     </Modal.Body>

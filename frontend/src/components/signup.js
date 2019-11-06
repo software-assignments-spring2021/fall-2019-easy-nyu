@@ -101,11 +101,11 @@ class Signup extends Component {
                         </label>
                         <label className="ilabel">
                             Password:
-                            <input type="text" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
+                            <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
                         </label>
                         <label className="ilabel">
                             Confirm Password:
-                            <input type="text" name="password2" value={this.state.password2} onChange={this.handlePassword2Change} />
+                            <input type="password" name="password2" value={this.state.password2} onChange={this.handlePassword2Change} />
                         </label>
                         <p className='error-msg'>{this.state.errorMsg}</p>
                     </Modal.Body>
