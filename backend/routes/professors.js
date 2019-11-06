@@ -38,7 +38,7 @@ router.route('/all').get((req, res) => {
 
 // Get Prof info by Professor id
 router.route('/id').get((req, res) => {
-    Professor.findOne({ _id: req.query.professor_id }, (err, data) => {
+    Professor.findOne({ _id: req.body.professor_id }, (err, data) => {
         if (err) {
             res.status(400).json('Error: ' + err)
         } else {

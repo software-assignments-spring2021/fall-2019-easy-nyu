@@ -5,8 +5,8 @@ const jwt = require("jsonwebtoken");
 // Load input validation
 const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
-// Load User model
-const User = require("../models/user.model");
+// Load Auth model
+const Auth = require("../models/auth.model");
 
 // setting up route register
 router.post("/register", (req, res) => {
@@ -16,16 +16,16 @@ router.post("/register", (req, res) => {
     if (!isValid) {
         return res.status(400).json(errors);
     }
-    User.findOne({
+    Auth.findOne({
         $or: [
             { email: req.body.email },
             { nid: req.body.nid }
         ]
-    }).then(user => {
-        if (user) {
+    }).then(auth => {
+        if (auth) {
             return res.status(400).json({ email: "Email or Netid already exists" });
         } else {
-            const newUser = new User({
+            const newAuth = new Auth({
                 name: req.body.name,
                 nid: req.body.nid,
                 email: req.body.email,
@@ -33,13 +33,13 @@ router.post("/register", (req, res) => {
             });
             // Hash password before saving in database
             bcrypt.genSalt(10, (err, salt) => {
-                bcrypt.hash(newUser.password, salt, (err, hash) => {
+                bcrypt.hash(newAuth.password, salt, (err, hash) => {
                     if (err) throw err;
-                    newUser.password = hash;
-                    newUser.save()
-                        .then(user => res.json(user))
+                    newAuth.password = hash;
+                    newAuth.save()
+                        .then(auth => res.json(auth))
                         .catch(err => console.log(err))
-                        .then(console.log("user added:", req.body.name));
+                        .then(console.log("auth added:", req.body.name));
                 });
             });
         }
@@ -57,23 +57,23 @@ router.post("/login", (req, res) => {
     const email = req.body.email;
     const nid = req.body.nid;
     const password = req.body.password;
-    // Find user by email
-    User.findOne({$or: [
+    // Find auth by email
+    Auth.findOne({$or: [
         { email: req.body.email },
         { nid: req.body.nid }
-    ]}).then(user => {
-        // Check if user exists
-        if (!user) {
+    ]}).then(auth => {
+        // Check if auth exists
+        if (!auth) {
             return res.status(404).json({ emailnotfound: "Email not found" });
         }
         // Check password
-        bcrypt.compare(password, user.password).then(isMatch => {
+        bcrypt.compare(password, auth.password).then(isMatch => {
             if (isMatch) {
-                // User matched
+                // Auth matched
                 // Create JWT Payload
                 const payload = {
-                    id: user.id,
-                    name: user.name
+                    id: auth.id,
+                    name: auth.name
                 };
                 // Sign token
                 jwt.sign(
@@ -106,16 +106,16 @@ router.post("/register-test", (req, res) => {
     if (!isValid) {
         return res.status(400).json(errors);
     }
-    User.findOne({
+    Auth.findOne({
         $or: [
             { email: req.body.email },
             { nid: req.body.nid }
         ]
-    }).then(user => {
-        if (user) {
+    }).then(auth => {
+        if (auth) {
             return res.status(400).json({ email: "Email or Netid already exists" });
         } else {
-            const newUser = new User({
+            const newAuth = new Auth({
                 name: req.body.name,
                 nid: req.body.nid,
                 email: req.body.email,
@@ -123,11 +123,11 @@ router.post("/register-test", (req, res) => {
             });
             // Hash password before saving in database
             bcrypt.genSalt(10, (err, salt) => {
-                bcrypt.hash(newUser.password, salt, (err, hash) => {
+                bcrypt.hash(newAuth.password, salt, (err, hash) => {
                     if (err) throw err;
-                    newUser.password = hash;
-                    newUser.save()
-                        .then(user => res.json(user))
+                    newAuth.password = hash;
+                    newAuth.save()
+                        .then(auth => res.json(auth))
                         .catch(err => console.log(err));
                 });
             });
