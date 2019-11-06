@@ -14,7 +14,7 @@ Import Test Units
 */
 const Course = require('../models/course.model');
 const Comment = require('../models/comment.model');
-const User = require('../models/user.model')
+const Auth = require('../models/auth.model')
 const Professor = require('../models/professor.model')
 
 const test_login_credential = {
@@ -27,7 +27,7 @@ const test_login_credential = {
 
 before(function (done) {
     chai.request(server)
-        .post('/api/users/register-test')
+        .post('/api/auth/register')
         .send(test_login_credential)
         .end(function (err, response) {
             done();
@@ -265,21 +265,21 @@ describe('Comment', () => {
     });
 });
 
-// Unit Test for User Register and Login
+// Unit Test for Auth Register and Login
 describe('Register and Login', () => {
 
     // Test the /POST route for Register
     describe('Register', () => {
         it('Should not allow register without email', (done) => {
-            const user = {
+            const auth = {
                 name: 'Jack',
                 password: '123456',
                 password2: '123456',
                 nid: 'yz3559'
             }
             chai.request(server)
-                .post('/api/users/register')
-                .send(user)
+                .post('/api/auth/register')
+                .send(auth)
                 .end((err, res) => {
                     res.should.have.status(400);
                     done();
@@ -287,7 +287,7 @@ describe('Register and Login', () => {
         });
 
         it('Should not allow register with invalid email', (done) => {
-            const user = {
+            const auth = {
                 name: 'Jack',
                 email: 'abcabcaaa',
                 password: '123456',
@@ -295,8 +295,8 @@ describe('Register and Login', () => {
                 nid: 'yz3559'
             }
             chai.request(server)
-                .post('/api/users/register')
-                .send(user)
+                .post('/api/auth/register')
+                .send(auth)
                 .end((err, res) => {
                     res.should.have.status(400);
                     done();
@@ -304,15 +304,15 @@ describe('Register and Login', () => {
         });
 
         it('Should not allow register without name', (done) => {
-            const user = {
+            const auth = {
                 email: 'yz3559@nyu.edu',
                 password: '123456',
                 password2: '123456',
                 nid: 'yz3559'
             }
             chai.request(server)
-                .post('/api/users/register')
-                .send(user)
+                .post('/api/auth/register')
+                .send(auth)
                 .end((err, res) => {
                     res.should.have.status(400);
                     done();
@@ -320,15 +320,15 @@ describe('Register and Login', () => {
         });
 
         it('Should not allow register without nid', (done) => {
-            const user = {
+            const auth = {
                 email: 'yz3559@nyu.edu',
                 password: '123456',
                 password2: '123456',
                 name: 'Jack'
             }
             chai.request(server)
-                .post('/api/users/register')
-                .send(user)
+                .post('/api/auth/register')
+                .send(auth)
                 .end((err, res) => {
                     res.should.have.status(400);
                     done();
@@ -336,15 +336,15 @@ describe('Register and Login', () => {
         });
 
         it('Should not allow register without password', (done) => {
-            const user = {
+            const auth = {
                 name: 'Jack',
                 email: 'yz3559@nyu.edu',
                 password2: '123456',
                 nid: 'yz3559'
             }
             chai.request(server)
-                .post('/api/users/register')
-                .send(user)
+                .post('/api/auth/register')
+                .send(auth)
                 .end((err, res) => {
                     res.should.have.status(400);
                     done();
@@ -352,15 +352,15 @@ describe('Register and Login', () => {
         });
 
         it('Should not allow register without confirm password', (done) => {
-            const user = {
+            const auth = {
                 name: 'Jack',
                 email: 'yz3559@nyu.edu',
                 password: '123456',
                 nid: 'yz3559'
             }
             chai.request(server)
-                .post('/api/users/register')
-                .send(user)
+                .post('/api/auth/register')
+                .send(auth)
                 .end((err, res) => {
                     res.should.have.status(400);
                     done();
@@ -368,7 +368,7 @@ describe('Register and Login', () => {
         });
 
         it('Should not allow register when passwords dont match', (done) => {
-            const user = {
+            const auth = {
                 name: 'Jack',
                 email: 'yz3559@nyu.edu',
                 password: '123456',
@@ -376,8 +376,8 @@ describe('Register and Login', () => {
                 nid: 'yz3559'
             }
             chai.request(server)
-                .post('/api/users/register')
-                .send(user)
+                .post('/api/auth/register')
+                .send(auth)
                 .end((err, res) => {
                     res.should.have.status(400);
                     done();
@@ -385,7 +385,7 @@ describe('Register and Login', () => {
         });
 
         // it('Should allow register when all fields are completed', (done) => {
-        //     const user = {
+        //     const auth = {
         //         name: 'Sam',
         //         email: 'yz1234@nyu.edu',
         //         password: '123456',
@@ -393,8 +393,8 @@ describe('Register and Login', () => {
         //         nid: 'yz1234'
         //     }
         //     chai.request(server)
-        //         .post('/api/users/register')
-        //         .send(user)
+        //         .post('/api/auth/register')
+        //         .send(auth)
         //         .end((err, res) => {
         //             res.should.have.status(200);
         //             done();
@@ -404,12 +404,12 @@ describe('Register and Login', () => {
 
     describe('Login', () => {
         it('Should not Loin requests without both the email and nid', (done) => {
-            const user = {
+            const auth = {
                 password: '123456',
             }
             chai.request(server)
-                .post('/api/users/login')
-                .send(user)
+                .post('/api/auth/login')
+                .send(auth)
                 .end((err, res) => {
                     res.should.have.status(400);
                     done();
@@ -417,12 +417,12 @@ describe('Register and Login', () => {
         });
 
         it('Should not Login requests without password', (done) => {
-            const user = {
+            const auth = {
                 email: 'yz3559@nyu.edu'
             }
             chai.request(server)
-                .post('/api/users/login')
-                .send(user)
+                .post('/api/auth/login')
+                .send(auth)
                 .end((err, res) => {
                     res.should.have.status(400);
                     done();
@@ -430,13 +430,13 @@ describe('Register and Login', () => {
         });
 
         it('Should allow Login with correct password and email', (done) => {
-            const user = {
+            const auth = {
                 email: 'yz3559@nyu.edu',
                 password: '123456'
             }
             chai.request(server)
-                .post('/api/users/login')
-                .send(user)
+                .post('/api/auth/login')
+                .send(auth)
                 .end((err, res) => {
                     res.should.have.status(200);
                     done();
