@@ -18,8 +18,8 @@ function App() {
 			<div class="centerContent">
 				<div class="textBoxContainer shadow rounded">
 					<div class="textBox">
-						<Login /><br />
-						<Signup /><br />
+						<Login />
+						<Signup />
 						<Link to='/coursesearch' className="buttonLink">Public Course Search</Link>
 					</div>
 				</div>
