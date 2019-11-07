@@ -35,6 +35,8 @@ class CourseSearch extends Component {
     }
     render () {
         return (
+		<Router>
+			<Route exact path="/coursesearch/" render={() => 
 				<div>
 					<div id="header" class="headerContent">
 						<img class="headerLogo" src="logo.png">
@@ -60,6 +62,8 @@ class CourseSearch extends Component {
 						</div>
 					</div>
 				</div>
+			} />
+		</Router>
         )
     }
 }
