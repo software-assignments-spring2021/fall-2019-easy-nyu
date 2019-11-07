@@ -36,16 +36,16 @@ class CourseSearch extends Component {
     render () {
         return (
 		<Router>
-			<Route exact path="/coursesearch/" render={() => 
-				<div>
-					<div id="header" class="headerContent">
-						<img class="headerLogo" src="logo.png">
-						</img>
-					</div>
+			<div>
+				<div id="header" class="headerContent">
+					<img class="headerLogo" src="/logo.png">
+					</img>
+				</div>
 
-					<div id="title" class="pageTitle">EasyNYU Course Search</div>
-						<div class="centerContent">
-							<div class="textBoxContainer shadow rounded">
+				<div id="title" class="pageTitle">EasyNYU Course Search</div>
+				<div class="centerContent">
+					<div class="textBoxContainer shadow rounded">
+						<Route exact path="/coursesearch/" render={() => 
 							<table style={{margin: "5px auto"}}><thead>
 								<tr>
 									<th>Course</th>
@@ -59,10 +59,10 @@ class CourseSearch extends Component {
 									</tr>
 								))}
 							</tbody></table>
-						</div>
+						} />
 					</div>
 				</div>
-			} />
+			</div>
 		</Router>
         )
     }
