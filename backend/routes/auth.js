@@ -23,7 +23,7 @@ router.post("/register", (req, res) => {
         ]
     }).then(auth => {
         if (auth) {
-            return res.status(400).json({ email: "Email or Netid already exists" });
+            return res.status(403).json({ email: "Email or Netid already exists" });
         } else {
             const newAuth = new Auth({
                 name: req.body.name,
@@ -64,7 +64,7 @@ router.post("/login", (req, res) => {
     ]}).then(auth => {
         // Check if auth exists
         if (!auth) {
-            return res.status(404).json({ emailnotfound: "Email not found" });
+            return res.status(403).json({ emailnotfound: "Email not found" });
         }
         // Check password
         bcrypt.compare(password, auth.password).then(isMatch => {
@@ -91,7 +91,7 @@ router.post("/login", (req, res) => {
                 );
             } else {
                 return res
-                    .status(400)
+                    .status(403)
                     .json({ passwordincorrect: "Password incorrect" });
             }
         });
@@ -113,7 +113,7 @@ router.post("/register-test", (req, res) => {
         ]
     }).then(auth => {
         if (auth) {
-            return res.status(400).json({ email: "Email or Netid already exists" });
+            return res.status(403).json({ email: "Email or Netid already exists" });
         } else {
             const newAuth = new Auth({
                 name: req.body.name,
