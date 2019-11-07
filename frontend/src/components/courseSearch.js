@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 import ProfessorDisplay from './professorDisplay';
+import './courseSearch.css';
 
 class CourseSearch extends Component {
     constructor(props) {
@@ -35,6 +36,7 @@ class CourseSearch extends Component {
         });
     }
     render () {
+	const activeClass = (route) => { return this.props.location.pathname === route ? "megaMenuSelected" : null }
         return (
 		<Router>
 			<div>
@@ -44,6 +46,14 @@ class CourseSearch extends Component {
 				</div>
 
 				<div id="title" class="pageTitle">EasyNYU Course Search</div>
+				<div id="IS_BB_HEADER_MENU">
+					<nav role="navigation" aria-label="Site" class="megaMenu">
+						<ul>
+							<li className={"megaMenuItem " + activeClass("/coursesearch/")}><Link to={"/coursesearch/"}>Courses</Link></li>
+							<li className={"megaMenuItem " + activeClass("/coursesearch/professors/")}><Link to={"/coursesearch/professors/"}>Professors</Link></li>
+						</ul>
+					</nav>
+				</div>
 				<div class="centerContent">
 					<div class="textBoxContainer shadow rounded">
 						<Route exact path="/coursesearch/" render={() => 
