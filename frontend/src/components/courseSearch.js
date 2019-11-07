@@ -47,12 +47,16 @@ class CourseSearch extends Component {
 
 				<div id="title" class="pageTitle">EasyNYU Course Search</div>
 				<div id="IS_BB_HEADER_MENU">
-					<nav role="navigation" aria-label="Site" class="megaMenu">
-						<ul>
-							<li className={"megaMenuItem " + activeClass("/coursesearch/")}><Link to={"/coursesearch/"}>Courses</Link></li>
-							<li className={"megaMenuItem " + activeClass("/coursesearch/professors/")}><Link to={"/coursesearch/professors/"}>Professors</Link></li>
-						</ul>
-					</nav>
+						<nav role="navigation" aria-label="Site" class="megaMenu">
+							<Route exact path="/coursesearch/" render={() => <ul>
+								<li selected="true" className={"megaMenuItem megaMenuSelected"}><Link to={"/coursesearch/"}>Courses</Link></li>
+								<li className={"megaMenuItem"}><Link to={"/coursesearch/professors/"}>Professors</Link></li>
+							</ul> } />
+							<Route path="/coursesearch/professors/" render={() => <ul>
+								<li className={"megaMenuItem"}><Link to={"/coursesearch/"}>Courses</Link></li>
+								<li selected="true" className={"megaMenuItem megaMenuSelected"}><Link to={"/coursesearch/professors/"}>Professors</Link></li>
+							</ul> } />
+						</nav>
 				</div>
 				<div class="centerContent">
 					<div class="textBoxContainer shadow rounded">
