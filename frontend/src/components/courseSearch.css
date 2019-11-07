@@ -62,7 +62,7 @@ line-height:20px;
     display:inline-block;
 	
 	cursor: pointer;
-    padding: 10px 10px;
+    
     text-transform: uppercase;
 	text-decoration: none;
     color: #005a8b;
@@ -72,6 +72,12 @@ line-height:20px;
 .megaMenu li:hover{
     background-color:#ffffff;
     color: #2c3e50;
+}
+
+.megaMenu li a {
+	padding: 10px 10px;
+	display: block;
+	text-decoration: none;
 }
 
 .megaMenu .megaMenuSelected{background-color:#ffffff;}
