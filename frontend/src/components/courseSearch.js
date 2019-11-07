@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
+import ProfessorDisplay from './professorDisplay';
 
 class CourseSearch extends Component {
     constructor(props) {
@@ -60,6 +61,7 @@ class CourseSearch extends Component {
 								))}
 							</tbody></table>
 						} />
+						<Route exact path="/coursesearch/professors/" component={ ProfessorDisplay } />
 					</div>
 				</div>
 			</div>
