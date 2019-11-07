@@ -1,0 +1,118 @@
+#IS_BB_HEADER_MENU {
+	margin-left: 10%;
+}
+
+#IS_BB_HEADER_MENU .megaMenu {
+	border-bottom: 1px solid #EBF0F0;
+	font-size:12px;
+}
+
+#IS_BB_HEADER_MENU .megaMenu .megaMenuItem {
+	background-color:#EBF0F0;
+	color:#3D4D5D;
+	height:38px;
+line-height:20px;
+
+}
+
+#IS_BB_HEADER_MENU .megaMenu .megaMenuSelected {
+
+
+	color:#220337;
+
+	background-color:#ffffff;
+	border-top:2px solid #15A885;
+	border-right:1px solid #EBF0F0;
+	border-left:1px solid #EBF0F0;
+	height:40px;
+}
+
+#IS_BB_HEADER_MENU .megaMenuItem a {
+	color: #3D4D5D;
+	font-family: "Gotham SSm 4r", "Gotham SSm A", "Gotham SSm B", helvetica, arial, sans-serif;
+	font-style: normal;
+	font-weight: 400;
+}
+
+#IS_BB_HEADER_MENU .megaMenu .megaMenuItem.megaMenuSelected a{
+
+
+	color:#220337;
+
+}
+
+#IS_BB_HEADER_MENU #SUBMENU_ID_NYU_OTHER_RESOURCES_FLDR #NYU_OTHER_RESOURCES_FLDR {
+	display:none;
+}
+
+#IS_BB_HEADER_MENU #SUBMENU_ID_NYU_TRANSCRIPTS_FLDR #NYU_TRANSCRIPTS_FLDR {
+	display:none;
+}
+
+.megaMenu {
+    width:960px; 
+	margin: 0;
+	min-height: 40px;
+}
+
+.megaMenu ul{width:850px;margin-bottom: 0;}
+
+.megaMenu ul{list-style:none;}
+.megaMenu li{
+    display:inline-block;
+	
+	cursor: pointer;
+    padding: 10px 10px;
+    text-transform: uppercase;
+	text-decoration: none;
+    color: #005a8b;
+    
+}
+
+.megaMenu li:hover{
+    background-color:#ffffff;
+    color: #2c3e50;
+}
+
+.megaMenu .megaMenuSelected{background-color:#ffffff;}
+
+
+.megaSubMenuListItem,
+.megaSubMenu {
+	display: none !important;
+	margin: 0 auto;
+    position: relative;
+    clear: both;
+    width:auto;
+    background-color:#ffffff;
+	padding: 20px;
+	overflow: hidden;
+}
+.megaSubMenuListItem.open,
+.megaSubMenu.open {
+	display: block !important;
+}
+
+.megaSubMenuListItem span,
+.megaSubMenu span {
+    
+	color: #005a8b;
+}
+
+.megaSubMenuListItem li,
+.megaSubMenu li {
+    display: inline-block;
+	cursor: pointer;
+    width: 23.5%;
+	padding: 5px;
+	text-decoration: none;
+    color: #005a8b;
+    
+}
+
+
+.megaSubMenuListItem li:hover,
+.megaSubMenu li:hover{
+    background-color:#e4e4e4;
+    color: #2c3e50;
+}
