@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 import './professor.css';
 
 class Professor extends Component {
@@ -9,13 +10,10 @@ class Professor extends Component {
 
     render () {
         return (
-            <div id="show-prof-div" style={{ textAlign: "center" }}>
-                <p>
-                    Prof Name: {this.props.name} <br />
-                    Description: {this.props.description} <br />
-                    <br />
-                </p>
-            </div>
+            <tr>
+                <td><Link to={"/coursesearch/professors/" + this.props.id}>{this.props.name}</Link></td>
+                <td>{this.props.description}</td>
+            </tr>
         )
     }
 }

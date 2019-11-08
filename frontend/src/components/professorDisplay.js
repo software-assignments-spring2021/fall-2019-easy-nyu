@@ -38,15 +38,21 @@ class ProfessorDisplay extends Component {
         return (
             <div id="show-prof-div" style={{ textAlign: "center" }}>
                 <h1>Professors in the Database:</h1>
-                {this.state.professors.map((prof, i) => (
-                    <Professor
-                        key={prof._id}
-                        id={prof._id}
-                        name={prof.professorname}
-                        description={prof.description}
-                    >
-                    </Professor>
-                ))}
+				<table style={{margin: "5px auto"}}><thead>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+				</thead><tbody>
+					{this.state.professors.map((prof, i) => (
+						<Professor
+							key={prof._id}
+							id={prof._id}
+							name={prof.professorname}
+							description={prof.description}
+						></Professor>
+					))}
+				</tbody></table>
             </div>
         )
     }
