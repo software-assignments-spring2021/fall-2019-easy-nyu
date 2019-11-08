@@ -18,38 +18,48 @@ class ProfessorDisplay extends Component {
     componentWillUnmount() {
         this._isMounted = false;
     }
-    
+
     componentDidMount() {
         fetch('/professors/all', { method: "GET" })
             .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Network response was not ok.');
-            }
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
             }).then(response => {
-            if (this._isMounted) {
-                console.log(response)
-                this.setState({ professors: response })
-            }
-        });
+                if (this._isMounted) {
+                    console.log(response)
+                    this.setState({ professors: response })
+                }
+            });
     }
-    render () {
+    render() {
         return (
-            <div id="show-prof-div" style={{ textAlign: "center" }}>
-                <h1>Professors in the Database:</h1>
-                {this.state.professors.map((prof, i) => (
-                    <Professor
-                        key={prof._id}
-                        id={prof._id}
-                        name={prof.professorname}
-                        description={prof.description}
-                    >
-                    </Professor>
-                ))}
+            <div>
+                <div id="header" class="headerContent">
+                    <img class="headerLogo" src="logo.png">
+                    </img>
+                </div>
+                <div id="title" class="pageTitle">EasyNYU Professor Search</div>
+                <div class="centerContent">
+                    <div class="textBoxContainer shadow rounded">
+                        <div id="show-prof-div" style={{ textAlign: "center" }}>
+                            {this.state.professors.map((prof, i) => (
+                                <Professor
+                                    key={prof._id}
+                                    id={prof._id}
+                                    name={prof.professorname}
+                                    description={prof.description}
+                                >
+                                </Professor>
+                            ))}
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
 }
-  
+
 export default ProfessorDisplay;

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 import './App.css';
 import Login from './components/login'
 import Signup from './components/signup'
-import ProfessorDisplay from './components/professorDisplay';
 
 function App() {
 	return (
@@ -20,7 +19,8 @@ function App() {
 					<div class="textBox">
 						<Login /><br />
 						<Signup /><br />
-						<Link to='/coursesearch' className="buttonLink">Public Course Search</Link>
+						<Link to='/coursesearch' className="buttonLink">Public Course Search</Link><br />
+						<Link to='/professorsearch' className="buttonLink">Public Professor Search</Link>
 					</div>
 				</div>
 			</div>
