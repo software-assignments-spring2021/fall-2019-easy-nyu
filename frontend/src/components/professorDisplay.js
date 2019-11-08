@@ -36,6 +36,7 @@ class ProfessorDisplay extends Component {
     }
     render() {
         return (
+<<<<<<< HEAD
             <div>
                 <div id="header" class="headerContent">
                     <img class="headerLogo" src="logo.png">
@@ -57,9 +58,33 @@ class ProfessorDisplay extends Component {
                         </div>
                     </div>
                 </div>
+=======
+            <div id="show-prof-div" style={{ textAlign: "center" }}>
+                <h1>Professors in the Database:</h1>
+				<table style={{margin: "5px auto"}}><thead>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+				</thead><tbody>
+					{this.state.professors.map((prof, i) => (
+						<Professor
+							key={prof._id}
+							id={prof._id}
+							name={prof.professorname}
+							description={prof.description}
+						></Professor>
+					))}
+				</tbody></table>
+>>>>>>> master
             </div>
         )
     }
 }
+<<<<<<< HEAD
 
 export default ProfessorDisplay;
+=======
+  
+export default ProfessorDisplay;
+>>>>>>> master
