@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
-import ProfessorDisplay from './professorDisplay';
-import './courseSearch.css';
 
 class CourseSearch extends Component {
     constructor(props) {
@@ -36,31 +34,16 @@ class CourseSearch extends Component {
         });
     }
     render () {
-	const activeClass = (route) => { return this.props.location.pathname === route ? "megaMenuSelected" : null }
         return (
-		<Router>
-			<div>
-				<div id="header" class="headerContent">
-					<img class="headerLogo" src="/logo.png">
-					</img>
-				</div>
+				<div>
+					<div id="header" class="headerContent">
+						<img class="headerLogo" src="logo.png">
+						</img>
+					</div>
 
-				<div id="title" class="pageTitle">EasyNYU Course Search</div>
-				<div id="IS_BB_HEADER_MENU">
-						<nav role="navigation" aria-label="Site" class="megaMenu">
-							<Route exact path="/coursesearch/" render={() => <ul>
-								<li selected="true" className={"megaMenuItem megaMenuSelected"}><Link to={"/coursesearch/"}>Courses</Link></li>
-								<li className={"megaMenuItem"}><Link to={"/coursesearch/professors/"}>Professors</Link></li>
-							</ul> } />
-							<Route path="/coursesearch/professors/" render={() => <ul>
-								<li className={"megaMenuItem"}><Link to={"/coursesearch/"}>Courses</Link></li>
-								<li selected="true" className={"megaMenuItem megaMenuSelected"}><Link to={"/coursesearch/professors/"}>Professors</Link></li>
-							</ul> } />
-						</nav>
-				</div>
-				<div class="centerContent">
-					<div class="textBoxContainer shadow rounded">
-						<Route exact path="/coursesearch/" render={() => 
+					<div id="title" class="pageTitle">EasyNYU Course Search</div>
+						<div class="centerContent">
+							<div class="textBoxContainer shadow rounded">
 							<table style={{margin: "5px auto"}}><thead>
 								<tr>
 									<th>Course</th>
@@ -74,12 +57,9 @@ class CourseSearch extends Component {
 									</tr>
 								))}
 							</tbody></table>
-						} />
-						<Route exact path="/coursesearch/professors/" component={ ProfessorDisplay } />
+						</div>
 					</div>
 				</div>
-			</div>
-		</Router>
         )
     }
 }
