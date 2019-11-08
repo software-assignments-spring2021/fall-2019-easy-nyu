@@ -38,7 +38,7 @@ class Login extends Component {
     }
 
     send() {
-        fetch('/api/users/login', {
+        fetch('/api/auth/login', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
