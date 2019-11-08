@@ -134,17 +134,4 @@ router.post("/register-test", (req, res) => {
         }
     });
 });
-
-// Get introduction and score for user
-router.route('/profile/:id').get((req, res) => {
-    User.find({ nid: req.body.nid }, (err, data) => {
-        if (err) {
-            res.status(400).json('Error: ' + err)
-        } else {
-            res.json(data);
-            //console.log(sort_professors_on_comments(data));
-            res.json(data)
-        }
-    })
-});
 module.exports = router;

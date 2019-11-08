@@ -35,32 +35,17 @@ router.route('/all').get((req, res) => {
         if (err) {
             res.status(400).json('Error: ' + err)
         } else {
-<<<<<<< HEAD
-            //res.json(data);
-            //console.log(sort_professors_on_comments(data));
-=======
->>>>>>> 4c26d457c8228c40edd3c1605dccf2898dfbab73
             res.json(data);
         }
     })
 });
 
 // Get Prof info by Professor id
-<<<<<<< HEAD
-router.route('/:id').get((req, res) => {
-    Professor.find({ professor_id: req.body.professor_id }, (err, data) => {
-        if (err) {
-            res.status(400).json('Error: ' + err)
-        } else {
-            //res.json(data);
-            //console.log(sort_professors_on_comments(data));
-=======
 router.route('/id').get((req, res) => {
     Professor.findOne({ _id: req.query.professor_id }, (err, data) => {
         if (err) {
             res.status(400).json('Error: ' + err)
         } else {
->>>>>>> 4c26d457c8228c40edd3c1605dccf2898dfbab73
             res.json(data);
         }
     })
