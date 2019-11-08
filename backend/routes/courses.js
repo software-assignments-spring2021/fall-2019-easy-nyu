@@ -15,8 +15,6 @@ router.route('/').get((req, res) => {
         if (err) {
             res.status(400).json('Error: ' + err)
         } else {
-            //res.json(data);
-            //console.log(sort_courses_on_comments(data));
             res.json(sort_courses_on_comments(data));
         }
     })
@@ -43,6 +41,16 @@ router.route('/add').post((req, res) => {
         }
         else {
             res.json({message: "Course added!", course: course});
+        }
+    })
+});
+
+router.route('/id').get((req, res) => {
+    Course.findOne({ _id: req.body.course_id }, (err, data) => {
+        if (err) {
+            res.status(400).json('Error: ' + err)
+        } else {
+            res.json(data);
         }
     })
 });

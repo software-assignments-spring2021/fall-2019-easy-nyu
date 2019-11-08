@@ -16,22 +16,29 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 function connect_to_db () {
   // Connect to MongoDB
-  const uri = process.env.ATLAS_URI;
+  let uri = process.env.ATLAS_URI;
+  if (process.env.NODE_ENV === "test") {
+      uri = process.env.Testing_URI;
+  }
   mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
   const connection = mongoose.connection;
   connection.once('open', () => {
-    console.log("MongoDB database is connected successfully");
+      console.log("MongoDB database is connected successfully");
   })
 
-  // Direct route http://localhost:4000/users
+  // Direct route http://localhost:4000/auth
   const coursesRouter = require('./routes/courses');
   app.use('/courses', coursesRouter);
-  const usersRouter = require('./routes/users');
-  app.use('/api/users', usersRouter);
+  const authRouter = require('./routes/auth');
+  app.use('/api/auth', authRouter);
   const commentsRouter = require('./routes/comments');
   app.use('/comments', commentsRouter);
   const professorRouter = require('./routes/professors');
+<<<<<<< HEAD
   app.use('/professors', commentsRouter);
+=======
+  app.use('/professors', professorRouter);
+>>>>>>> 4c26d457c8228c40edd3c1605dccf2898dfbab73
 
   // Passport middleware
   app.use(passport.initialize());
