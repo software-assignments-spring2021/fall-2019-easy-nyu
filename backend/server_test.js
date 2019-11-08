@@ -23,11 +23,11 @@ function connect_to_db () {
     console.log("MongoDB database is connected successfully");
   })
 
-  // Direct route http://localhost:4000/users
+  // Direct route http://localhost:4000/auth
   const coursesRouter = require('./routes/courses');
   app.use('/courses', coursesRouter);
-  const usersRouter = require('./routes/users');
-  app.use('/api/users', usersRouter);
+  const authRouter = require('./routes/auth');
+  app.use('/api/auth', authRouter);
   const commentsRouter = require('./routes/comments');
   app.use('/comments', commentsRouter);
 

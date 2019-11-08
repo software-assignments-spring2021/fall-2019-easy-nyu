@@ -26,7 +26,7 @@ const test_login_credential = {
 
 before(function(done){
     chai.request(server)
-      .post('/api/users/register-test')
+      .post('/api/users/register')
       .send(test_login_credential)
       .end(function(err, response){
         done();
