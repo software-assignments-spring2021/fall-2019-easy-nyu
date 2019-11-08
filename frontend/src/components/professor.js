@@ -9,10 +9,13 @@ class Professor extends Component {
 
     render () {
         return (
-            <tr>
-                <td><Link to={"/coursesearch/professors/" + this.props.id}>{this.props.name}</Link></td>
-                <td>{this.props.description}</td>
-            </tr>
+            <div id="show-prof-div" style={{ textAlign: "center" }}>
+                <p>
+                    Prof Name: {this.props.name} <br />
+                    Description: {this.props.description} <br />
+                    <br />
+                </p>
+            </div>
         )
     }
 }
