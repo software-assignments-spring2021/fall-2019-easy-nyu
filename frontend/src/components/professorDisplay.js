@@ -36,29 +36,6 @@ class ProfessorDisplay extends Component {
     }
     render() {
         return (
-<<<<<<< HEAD
-            <div>
-                <div id="header" class="headerContent">
-                    <img class="headerLogo" src="logo.png">
-                    </img>
-                </div>
-                <div id="title" class="pageTitle">EasyNYU Professor Search</div>
-                <div class="centerContent">
-                    <div class="textBoxContainer shadow rounded">
-                        <div id="show-prof-div" style={{ textAlign: "center" }}>
-                            {this.state.professors.map((prof, i) => (
-                                <Professor
-                                    key={prof._id}
-                                    id={prof._id}
-                                    name={prof.professorname}
-                                    description={prof.description}
-                                >
-                                </Professor>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-=======
             <div id="show-prof-div" style={{ textAlign: "center" }}>
                 <h1>Professors in the Database:</h1>
 				<table style={{margin: "5px auto"}}><thead>
@@ -76,15 +53,9 @@ class ProfessorDisplay extends Component {
 						></Professor>
 					))}
 				</tbody></table>
->>>>>>> master
             </div>
         )
     }
 }
-<<<<<<< HEAD
-
-export default ProfessorDisplay;
-=======
   
 export default ProfessorDisplay;
->>>>>>> master
