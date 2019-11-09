@@ -50,11 +50,11 @@ class Portal extends Component {
 										<ul class="headerNavUL">
 											<li class="IS_BB_LINKS_MENU_DESKTOP">
 												{/* USERNAME AND LINK TO PROFILE GOES BELOW */}
-												<h5><Link>Not Logged in</Link></h5>
+												<h5><Link>My Name</Link></h5>
 											</li>
 											<li class='IS_BB_RSPV_HEADER_LINK'>
-												{/* LOG IN/OUT BUTTON GOES BELOW */}
-												<h5><Link>LOG IN</Link></h5>
+												{/* LOG OUT BUTTON GOES BELOW */}
+												<h5><Link>LOG OUT</Link></h5>
 											</li>
 										</ul>
 									</div>
