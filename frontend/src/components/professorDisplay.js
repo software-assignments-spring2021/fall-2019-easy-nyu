@@ -18,23 +18,23 @@ class ProfessorDisplay extends Component {
     componentWillUnmount() {
         this._isMounted = false;
     }
-    
+
     componentDidMount() {
         fetch('/professors/all', { method: "GET" })
             .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Network response was not ok.');
-            }
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
             }).then(response => {
-            if (this._isMounted) {
-                console.log(response)
-                this.setState({ professors: response })
-            }
-        });
+                if (this._isMounted) {
+                    console.log(response)
+                    this.setState({ professors: response })
+                }
+            });
     }
-    render () {
+    render() {
         return (
             <div id="show-prof-div" style={{ textAlign: "center" }}>
                 <h1>Professors in the Database:</h1>
