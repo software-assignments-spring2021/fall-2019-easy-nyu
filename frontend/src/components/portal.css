@@ -286,3 +286,23 @@ h6{color:#ffffff; font-size:12px; font-weight:300;}
     background-color: #57068c;
     position: absolute;
 }
+
+#ptcol1 {
+    margin: 0;
+    padding: 10px 0 0;
+}
+
+#ptcol1 {
+    position: relative;
+    float: left;
+    top: 0;
+    left: 0;
+}
+.isEdRow1Wrp, .isEdRow2Wrp {
+    width: 100%;
+}
+
+th {
+    font-weight: bold !important;
+    text-align: -internal-center !important;
+}
