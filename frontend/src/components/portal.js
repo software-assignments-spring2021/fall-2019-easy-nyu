@@ -80,8 +80,8 @@ class Portal extends Component {
 						</div>
 					</div>
 				</div>
-				<div class="centerContent">
-					<div class="textBoxContainer shadow rounded">
+				<div class="wrapper">
+					<div id="ptcol1" class="isEdRow1Wrp row">
 						<Route exact path="/portal/" render={() => 
 							<table style={{margin: "5px auto"}}><thead>
 								<tr>
