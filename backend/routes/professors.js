@@ -1,11 +1,7 @@
 const router = require('express').Router();
 let Professor = require('../models/professor.model');
 
-<<<<<<< HEAD
-// create course 
-=======
 // create professor 
->>>>>>> 4c26d457c8228c40edd3c1605dccf2898dfbab73
 router.route('/add').post((req, res) => {
     const professorname = req.body.professorname;
     const description = req.body.description;

@@ -10,27 +10,34 @@ const User = require("../models/user.model");
 
 
 // get user profile by user credentials; if not, create new profile
-router.route('/profile').get((req, res) => {
-    User.findOne({ nid: req.query.nid }, (err, data) => {
+router.route('/profile/:nid').get((req, res) => {
+    console.log(req.params)
+    const nid = req.params.nid
+    const description = 'nyu student'
+    const score = 0
+    User.findOne({ nid: nid }, (err, data) => {
         if (err) {
-            //can't find user profile by nid
-            const newUser = new User({
-                nid,
-                description,
-                score
-            });
-
-            newUser.save((err, user) => {
-                if (err) {
-                    res.send(err);
-                }
-                else {
-                    res.json({message: "User profile created!", user: user});
-                }
-            });
-            
+            res.send(err);
         } else {
-            res.json({message: "User profile get!", user: user});
+            if (data === null) {
+                //can't find user profile by nid
+                const newUser = new User({
+                    nid,
+                    description,
+                    score
+                });
+    
+                newUser.save((err, user) => {
+                    if (err) {
+                        res.send(err);
+                    }
+                    else {
+                        res.json({message: "User profile created!", user: user});
+                    }
+                });    
+            } else {
+                res.json({message: "User profile get!", data: data});
+            }
         }
     })
 });
