@@ -40,26 +40,48 @@ class Portal extends Component {
         return (
 		<Router>
 			<div>
-				<div id="header" class="headerContent">
-					<img class="headerLogo" src="/logo.png">
-					</img>
+				<div id="NYU_DEFAULT_HEADER" class="IS_BB_HEADER_CLASS row">
+					<div id="Header_Container" class="IS_BB_HEADER_CONTAINER">
+						<div id="IS_BB_HEADER_WRAPPER">
+							<div id="IS_BB_HEADER" class="bb_header">
+								<div id="IS_BB_HEADER_LOGO_CONTAINER" class="logo"></div>
+								<div id="IS_BB_MENU_ROW" class="row showMenu">
+									<div class="headerNav">
+										<ul class="headerNavUL">
+											<li class="IS_BB_LINKS_MENU_DESKTOP">
+												{/* USERNAME AND LINK TO PROFILE GOES BELOW */}
+												<h5><Link>My Name</Link></h5>
+											</li>
+											<li class='IS_BB_RSPV_HEADER_LINK'>
+												{/* LOG OUT BUTTON GOES BELOW */}
+												<h5><Link>LOG OUT</Link></h5>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="ptbr-divider"></div>
+						<div id="EASY_NYU_LOGO" class="">
+							<h1><a>EasyNYU</a></h1>
+						</div>
+						<div class="ptbr-divider"></div>
+						<div id="IS_BB_HEADER_MENU">
+							<nav role="navigation" aria-label="Site" class="megaMenu">
+								<Route exact path="/portal/" render={() => <ul>
+									<li selected="true" className={"megaMenuItem megaMenuSelected"}><Link to={"/portal/"}>Courses</Link></li>
+									<li className={"megaMenuItem"}><Link to={"/portal/professors/"}>Professors</Link></li>
+								</ul> } />
+								<Route path="/portal/professors/" render={() => <ul>
+									<li className={"megaMenuItem"}><Link to={"/portal/"}>Courses</Link></li>
+									<li selected="true" className={"megaMenuItem megaMenuSelected"}><Link to={"/portal/professors/"}>Professors</Link></li>
+								</ul> } />
+							</nav>
+						</div>
+					</div>
 				</div>
-
-				<div id="title" class="pageTitle">EasyNYU Portal</div>
-				<div id="IS_BB_HEADER_MENU">
-						<nav role="navigation" aria-label="Site" class="megaMenu">
-							<Route exact path="/portal/" render={() => <ul>
-								<li selected="true" className={"megaMenuItem megaMenuSelected"}><Link to={"/portal/"}>Courses</Link></li>
-								<li className={"megaMenuItem"}><Link to={"/portal/professors/"}>Professors</Link></li>
-							</ul> } />
-							<Route path="/portal/professors/" render={() => <ul>
-								<li className={"megaMenuItem"}><Link to={"/portal/"}>Courses</Link></li>
-								<li selected="true" className={"megaMenuItem megaMenuSelected"}><Link to={"/portal/professors/"}>Professors</Link></li>
-							</ul> } />
-						</nav>
-				</div>
-				<div class="centerContent">
-					<div class="textBoxContainer shadow rounded">
+				<div class="wrapper">
+					<div id="ptcol1" class="isEdRow1Wrp row">
 						<Route exact path="/portal/" render={() => 
 							<table style={{margin: "5px auto"}}><thead>
 								<tr>
