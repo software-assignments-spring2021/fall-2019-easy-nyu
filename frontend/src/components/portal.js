@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 import ProfessorDisplay from './professorDisplay';
-import './courseSearch.css';
+import './portal.css';
 
-class CourseSearch extends Component {
+class Portal extends Component {
     constructor(props) {
         super(props);
         this._isMounted = false;
@@ -45,22 +45,22 @@ class CourseSearch extends Component {
 					</img>
 				</div>
 
-				<div id="title" class="pageTitle">EasyNYU Course Search</div>
+				<div id="title" class="pageTitle">EasyNYU Portal</div>
 				<div id="IS_BB_HEADER_MENU">
 						<nav role="navigation" aria-label="Site" class="megaMenu">
-							<Route exact path="/coursesearch/" render={() => <ul>
-								<li selected="true" className={"megaMenuItem megaMenuSelected"}><Link to={"/coursesearch/"}>Courses</Link></li>
-								<li className={"megaMenuItem"}><Link to={"/coursesearch/professors/"}>Professors</Link></li>
+							<Route exact path="/portal/" render={() => <ul>
+								<li selected="true" className={"megaMenuItem megaMenuSelected"}><Link to={"/portal/"}>Courses</Link></li>
+								<li className={"megaMenuItem"}><Link to={"/portal/professors/"}>Professors</Link></li>
 							</ul> } />
-							<Route path="/coursesearch/professors/" render={() => <ul>
-								<li className={"megaMenuItem"}><Link to={"/coursesearch/"}>Courses</Link></li>
-								<li selected="true" className={"megaMenuItem megaMenuSelected"}><Link to={"/coursesearch/professors/"}>Professors</Link></li>
+							<Route path="/portal/professors/" render={() => <ul>
+								<li className={"megaMenuItem"}><Link to={"/portal/"}>Courses</Link></li>
+								<li selected="true" className={"megaMenuItem megaMenuSelected"}><Link to={"/portal/professors/"}>Professors</Link></li>
 							</ul> } />
 						</nav>
 				</div>
 				<div class="centerContent">
 					<div class="textBoxContainer shadow rounded">
-						<Route exact path="/coursesearch/" render={() => 
+						<Route exact path="/portal/" render={() => 
 							<table style={{margin: "5px auto"}}><thead>
 								<tr>
 									<th>Course</th>
@@ -69,13 +69,13 @@ class CourseSearch extends Component {
 							</thead><tbody>
 								{this.state.courses.map((course, i) => (
 									<tr>
-										<td><Link to={"/coursesearch/" + course._id}>{course.coursename}</Link></td>
-										<td><Link to={"/coursesearch/professors/" + course.prof}>{course.prof}</Link></td>
+										<td><Link to={"/portal/" + course._id}>{course.coursename}</Link></td>
+										<td><Link to={"/portal/professors/" + course.prof}>{course.prof}</Link></td>
 									</tr>
 								))}
 							</tbody></table>
 						} />
-						<Route exact path="/coursesearch/professors/" component={ ProfessorDisplay } />
+						<Route exact path="/portal/professors/" component={ ProfessorDisplay } />
 					</div>
 				</div>
 			</div>
@@ -84,4 +84,4 @@ class CourseSearch extends Component {
     }
 }
   
-export default CourseSearch;
+export default Portal;
