@@ -4,12 +4,12 @@ import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import CourseSearch from './components/courseSearch';
+import Portal from './components/portal';
 
 ReactDOM.render(<Router>
 <Route exact path="/" component={App} >
 </Route>
-<Route path="/coursesearch" component = {CourseSearch}>
+<Route path="/portal" component = {Portal}>
 </Route>
 </Router>, 
 document.getElementById('root'));
