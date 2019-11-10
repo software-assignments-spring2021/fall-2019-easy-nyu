@@ -30,7 +30,7 @@ class Portal extends Component {
             }
             }).then(response => {
             if (this._isMounted) {
-                console.log(response)
+                console.log(response[0].prof)
                 this.setState({ courses: response })
             }
         });
@@ -92,7 +92,7 @@ class Portal extends Component {
 								{this.state.courses.map((course, i) => (
 									<tr>
 										<td><Link to={"/portal/" + course._id}>{course.coursename}</Link></td>
-										<td><Link to={"/portal/professors/" + course.prof}>{course.prof}</Link></td>
+										<td><Link to={"/portal/professors/" + course.prof[0]._id}>{course.prof[0].professorname}</Link></td>
 									</tr>
 								))}
 							</tbody></table>

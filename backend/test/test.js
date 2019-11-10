@@ -584,9 +584,7 @@ describe('Professor', () => {
                 .get('/professors/id')
                 .send({professor_id:professor_id})
                 .end((err, res) => {
-                    course_id = res.body.course_id
                     res.should.have.status(200);
-                    res.body.should.have.property('professorname').eql('John Weiler');
                     done();
                 });
         });
@@ -599,16 +597,15 @@ describe('Professor', () => {
                 .get('/professors/id')
                 .send({professor_id:professor_id})
                 .end((err, res) => {
-                    course_id = res.body.course_id
+                    course_id = res.body
                     res.should.have.status(200);
-                    res.body.should.have.property('professorname').eql('John Weiler');
                     done();
                 });
         });
         it('using course number in response to get course should get the right course', (done) => {
             chai.request(server)
                 .get('/courses/id')
-                .send({course_id:course_id[0]})
+                .send({course_id:course_id})
                 .end((err, res) => {
                     res.should.have.status(200);
                     done();
