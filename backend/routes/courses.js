@@ -11,11 +11,14 @@ function sort_courses_on_comments (course_array) {
 
 // Get Request
 router.route('/').get((req, res) => {
-    Course.find({}, (err, data) => {
+    Course.find()
+    .populate('prof')
+    .exec((err, data) => {
         if (err) {
             res.status(400).json('Error: ' + err)
         } else {
-            res.json(sort_courses_on_comments(data));
+            const courses = sort_courses_on_comments(data)
+            res.json(courses);
         }
     })
 });
