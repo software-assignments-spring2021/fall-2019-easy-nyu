@@ -8,14 +8,10 @@ import { Container, Row } from "react-bootstrap";
 class ProfessorDisplay extends Component {
     constructor(props) {
         super(props);
-        this._isMounted = false;
+        this._isMounted = true;
         this.state = {
             professors: [],
         };
-    }
-
-    componentWillMount() {
-        this._isMounted = true;
     }
 
     componentWillUnmount() {
@@ -32,7 +28,6 @@ class ProfessorDisplay extends Component {
                 }
             }).then(response => {
                 if (this._isMounted) {
-                    console.log(response)
                     this.setState({ professors: response })
                 }
             });

@@ -1,22 +1,15 @@
 import React, { Component } from "react";
-import {useParams} from 'react-router'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './course.css';
 import NYUNavBar from "./navbar";
-import Table from 'react-bootstrap/Table';
 import { Container, Row } from "react-bootstrap";
 
 class CourseDetail extends Component {
     constructor(props) {
         super(props);
-        this._isMounted = false;
+        this._isMounted = true;
         this.state = {
             courses: [],
         };
-    }
-
-    componentWillMount() {
-        this._isMounted = true;
     }
 
     componentWillUnmount() {

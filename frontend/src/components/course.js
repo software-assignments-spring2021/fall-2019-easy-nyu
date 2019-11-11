@@ -8,14 +8,10 @@ import { Container, Row } from "react-bootstrap";
 class Course extends Component {
     constructor(props) {
         super(props);
-        this._isMounted = false;
+        this._isMounted = true;
         this.state = {
             courses: [],
         };
-    }
-
-    componentWillMount() {
-        this._isMounted = true;
     }
 
     componentWillUnmount() {
@@ -55,7 +51,7 @@ class Course extends Component {
                             </thead>
                             <tbody>
                                 {this.state.courses.map((course, i) => (
-                                    <tr>
+                                    <tr key={i}>
                                         <td key={"courseNum_" + i}><Link to={`/course/${course._id}`} key={i}>{course.coursename}</Link></td>
                                         <td key={"courseId_" + i}>{course.description}</td>
                                     </tr>
