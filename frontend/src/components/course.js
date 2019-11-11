@@ -32,7 +32,7 @@ class Course extends Component {
             }
             }).then(response => {
             if (this._isMounted) {
-                console.log(response[0].prof)
+                console.log(response[0])
                 this.setState({ courses: response })
             }
         });
@@ -50,15 +50,15 @@ class Course extends Component {
                         <Table striped bordered hover >
                             <thead>
                                 <tr>
-                                    <th>Course</th>
-                                    <th>Professor</th>
+                                    <th>Course Number</th>
+                                    <th>Course Name</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {this.state.courses.map((course, i) => (
                                     <tr>
-                                        <td><Link to={"/portal/" + course._id}>{course.coursename}</Link></td>
-                                        <td><Link to={"/portal/professors/" + course.prof[0]._id}>{course.prof[0].professorname}</Link></td>
+                                        <td key={"courseNum_" + i}><Link to={"/courses/" + course._id}>{course.coursename}</Link></td>
+                                        <td key={"courseId_" + i}>{course.description}</td>
                                     </tr>
                                 ))}
                             </tbody>

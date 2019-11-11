@@ -11,7 +11,7 @@ class Professor extends Component {
     render () {
         return (
             <tr>
-                <td><Link to={"/portal/professors/" + this.props.id}>{this.props.name}</Link></td>
+                <td><Link to={"/professors/" + this.props.id}>{this.props.name}</Link></td>
                 <td>{this.props.description}</td>
             </tr>
         )
