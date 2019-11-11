@@ -48,8 +48,8 @@ router.route('/add').post((req, res) => {
     })
 });
 
-router.route('/id').get((req, res) => {
-    Course.findOne({ _id: req.body.course_id }, (err, data) => {
+router.route('/:id').get((req, res) => {
+    Course.findOne({ _id: req.params.id }, (err, data) => {
         if (err) {
             res.status(400).json('Error: ' + err)
         } else {
