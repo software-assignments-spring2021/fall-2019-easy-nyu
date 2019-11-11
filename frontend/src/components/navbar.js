@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {Navbar, Nav, Button} from 'react-bootstrap'
+import logo from'../img/logo.png';
 import './navbar.css'
 
 class NYUNavBar extends Component {
@@ -12,7 +13,7 @@ class NYUNavBar extends Component {
         return (
             <Navbar bg="nyu" variant="dark">
 				<Navbar.Brand href="/">
-					<img class="headerLogo" src="logo.png" height="42" width="200">
+					<img class="headerLogo" src={logo} height="42" width="200">
 					</img>
 				</Navbar.Brand>
 				<Nav className="mr-auto">
