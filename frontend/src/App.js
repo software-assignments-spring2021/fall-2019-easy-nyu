@@ -4,21 +4,20 @@ import './App.css';
 import Course from './components/course';
 import ProfessorDisplay from './components/professorDisplay'
 import Home from './components/home';
-import CourseDetail from './components/courseDetail'
 
 //import ProfessorDisplay from './components/professorDisplay';
 
 function App() {
 	return (
 		<Router>
-			<Route exact path="/course">
-				<Course />
-			</Route>
-			<Route path="/professor" component={ProfessorDisplay}>
-			</Route>
-			<Route exact path="/" component={Home}>
-			</Route>
-			<Route exact path="/course/:id" component={CourseDetail} />
+			<Switch>
+				<Route path="/course" component={Course}>
+				</Route>
+				<Route path="/professor" component={ProfessorDisplay}>
+				</Route>
+				<Route path="/" component={Home}>
+				</Route>
+			</Switch>
 		</Router>
 	);
 }

@@ -32,6 +32,7 @@ class Course extends Component {
             }
             }).then(response => {
             if (this._isMounted) {
+                console.log(response[0])
                 this.setState({ courses: response })
             }
         });
@@ -56,7 +57,7 @@ class Course extends Component {
                             <tbody>
                                 {this.state.courses.map((course, i) => (
                                     <tr>
-                                        <td key={"courseNum_" + i}><Link to={`/course/${course._id}`} key={i}>{course.coursename}</Link></td>
+                                        <td key={"courseNum_" + i}><Link to={"/courses/" + course._id}>{course.coursename}</Link></td>
                                         <td key={"courseId_" + i}>{course.description}</td>
                                     </tr>
                                 ))}
