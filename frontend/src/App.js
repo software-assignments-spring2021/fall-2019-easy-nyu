@@ -5,15 +5,13 @@ import Course from './components/course';
 import ProfessorDisplay from './components/professorDisplay'
 import Home from './components/home';
 
-//import ProfessorDisplay from './components/professorDisplay';
-
 function App() {
 	return (
 		<Router>
 			<Switch>
-				<Route path="/course" component={Course}>
+				<Route path="/courses" component={Course}>
 				</Route>
-				<Route path="/professor" component={ProfessorDisplay}>
+				<Route path="/professors" component={ProfessorDisplay}>
 				</Route>
 				<Route path="/" component={Home}>
 				</Route>

@@ -32,7 +32,6 @@ class ProfessorDisplay extends Component {
                 }
             }).then(response => {
                 if (this._isMounted) {
-                    console.log(response)
                     this.setState({ professors: response })
                 }
             });

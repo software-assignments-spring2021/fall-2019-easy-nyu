@@ -17,8 +17,8 @@ class NYUNavBar extends Component {
 				</Navbar.Brand>
 				<Nav className="mr-auto">
 					<Nav.Link href="/">Home</Nav.Link>
-					<Nav.Link href="/professor">Professors</Nav.Link>
-					<Nav.Link href="/course">Courses</Nav.Link>
+					<Nav.Link href="/professors">Professors</Nav.Link>
+					<Nav.Link href="/courses">Courses</Nav.Link>
 				</Nav>
 				<Button variant="outline-light">My Profile</Button>
                 <Button variant="outline-light">Log out</Button>
