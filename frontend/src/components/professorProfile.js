@@ -23,7 +23,8 @@ class ProfessorProfile extends Component {
     }
 
     componentDidMount() {
-        fetch('/professors/id', { method: "GET" })
+        const id = this.props.match.params.id
+        fetch(`/professors/${id}`, { method: "GET" })
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -32,12 +33,11 @@ class ProfessorProfile extends Component {
                 }
             }).then(response => {
                 if (this._isMounted) {
-                    console.log(response)
                     this.setState
                     (
                         {
-                            comments: response,
-                            courses: response
+                            courses: response.course_id, 
+                            comments: response.comments
                         }
                     )
                 }

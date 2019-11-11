@@ -5,29 +5,20 @@ import Course from './components/course';
 import ProfessorDisplay from './components/professorDisplay'
 import Home from './components/home';
 import CourseDetail from './components/courseDetail'
+import ProfessorProfile from './components/professorProfile'
 
 function App() {
 	return (
 		<Router>
-<<<<<<< HEAD
-			<Switch>
-				<Route path="/courses" component={Course}>
-				</Route>
-				<Route path="/professors" component={ProfessorDisplay}>
-				</Route>
-				<Route path="/" component={Home}>
-				</Route>
-			</Switch>
-=======
 			<Route exact path="/course">
 				<Course />
 			</Route>
-			<Route path="/professor" component={ProfessorDisplay}>
+			<Route exact path="/professor" component={ProfessorDisplay}>
 			</Route>
 			<Route exact path="/" component={Home}>
 			</Route>
 			<Route exact path="/course/:id" component={CourseDetail} />
->>>>>>> master
+			<Route exact path="/professor/:id" component={ProfessorProfile} />
 		</Router>
 	);
 }

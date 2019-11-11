@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom'
 import './professor.css';
-import ProfessorProfile from './professorProfile'
 
 class Professor extends Component {
     constructor(props) {
@@ -12,7 +11,7 @@ class Professor extends Component {
     render () {
         return (
             <tr>
-                <td><Link to={"/professors/" + this.props.id}>{this.props.name}</Link></td>
+                <td><Link to={"/professor/" + this.props.id}>{this.props.name}</Link></td>
                 <td>{this.props.description}</td>
             </tr>
         )
