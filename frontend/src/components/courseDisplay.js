@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom'
-import './course.css';
+import './courseDisplay.css';
 import NYUNavBar from "./navbar";
 import Table from 'react-bootstrap/Table';
 import { Container, Row } from "react-bootstrap";
 
-class Course extends Component {
+class CourseDisplay extends Component {
     constructor(props) {
         super(props);
         this._isMounted = true;
@@ -19,7 +19,7 @@ class Course extends Component {
     }
     
     componentDidMount() {
-        fetch('/courses/', { method: "GET" })
+        fetch('/courses/all', { method: "GET" })
             .then(response => {
             if (response.ok) {
                 return response.json();
@@ -41,7 +41,6 @@ class Course extends Component {
                         <h1>Courses in the Database:</h1>
                     </Row>
                     <Row className="justify-content-md-center"> 
-                        
                         <Table striped bordered hover >
                             <thead>
                                 <tr>
@@ -65,4 +64,4 @@ class Course extends Component {
     }
 }
   
-export default Course;
+export default CourseDisplay;
