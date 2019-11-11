@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Professor from './professor';
 import './professorDisplay.css';
+import NYUNavBar from "./navbar";
+import Table from 'react-bootstrap/Table';
+import { Container, Row } from "react-bootstrap";
 
 class ProfessorDisplay extends Component {
     constructor(props) {
@@ -37,22 +40,33 @@ class ProfessorDisplay extends Component {
     render() {
         return (
             <div id="show-prof-div" style={{ textAlign: "center" }}>
-                <h1>Professors in the Database:</h1>
-				<table style={{margin: "5px auto"}}><thead>
-					<tr>
-						<th>Name</th>
-						<th>Description</th>
-					</tr>
-				</thead><tbody>
-					{this.state.professors.map((prof, i) => (
-						<Professor
-							key={prof._id}
-							id={prof._id}
-							name={prof.professorname}
-							description={prof.description}
-						></Professor>
-					))}
-				</tbody></table>
+                <NYUNavBar />
+                <Container>
+                    <Row className="justify-content-md-center">
+                        <h1>Professors in the Database:</h1>
+                    </Row>
+                    <Row className="justify-content-md-center"> 
+                        
+                        <Table striped bordered hover >
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.professors.map((prof, i) => (
+                                    <Professor
+                                        key={prof._id}
+                                        id={prof._id}
+                                        name={prof.professorname}
+                                        description={prof.description}
+                                    ></Professor>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </Row>
+                </Container>
             </div>
         )
     }
