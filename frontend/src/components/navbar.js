@@ -13,7 +13,7 @@ class NYUNavBar extends Component {
         return (
             <Navbar bg="nyu" variant="dark">
 				<Navbar.Brand href="/">
-					<img class="headerLogo" src={logo} height="42" width="200">
+					<img src={logo} height="42" width="200" alt="ez-nyu-logo">
 					</img>
 				</Navbar.Brand>
 				<Nav className="mr-auto">

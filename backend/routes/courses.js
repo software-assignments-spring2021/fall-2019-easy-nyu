@@ -10,7 +10,7 @@ function sort_courses_on_comments (course_array) {
 }
 
 // Get Request
-router.route('/').get((req, res) => {
+router.route('/all').get((req, res) => {
     Course.find()
     .populate('prof')
     .exec((err, data) => {
@@ -48,45 +48,41 @@ router.route('/add').post((req, res) => {
     })
 });
 
-router.route('/:id').get((req, res) => {
-    Course.findOne({ _id: req.params.id }, (err, data) => {
+router.route('/').get((req, res) => {
+    Course.findOne({ _id:req.query.id })
+    .populate('prof')
+    .exec((err, data) => {
         if (err) {
             res.status(400).json('Error: ' + err)
         } else {
+            console.log(data)
             res.json(data);
         }
     })
 });
-/*
-// Get course by id
-router.route('/:id').get((req,res) => {
-    Course.findById(req.params.id)
-        .then(course => res.json(course))
-        .catch(err => res.status(400).json('Error: ' + err));
-});
 
-// Delete course by id
-router.route('/:id').delete((req,res) => {
-    Course.findByIdAndDelete(req.params.id)
-        .then(() => res.json('Course deleted.'))
-        .catch(err => res.status(400).json('Error: ' + err));
-});
+// // Delete course by id
+// router.route('/:id').delete((req,res) => {
+//     Course.findByIdAndDelete(req.params.id)
+//         .then(() => res.json('Course deleted.'))
+//         .catch(err => res.status(400).json('Error: ' + err));
+// });
 
-// Update course by id
-router.route('/update/:id').post((req,res) => {
-    Course.findById(req.params.id)
-        .then(course => {
-            course.coursename = req.body.coursename;
-            course.description = req.body.description;
-            course.semester = req.body.semester;
-            course.prof = req.body.prof;
-            course.ta = req.body.ta;
+// // Update course by id
+// router.route('/update/:id').post((req,res) => {
+//     Course.findById(req.params.id)
+//         .then(course => {
+//             course.coursename = req.body.coursename;
+//             course.description = req.body.description;
+//             course.semester = req.body.semester;
+//             course.prof = req.body.prof;
+//             course.ta = req.body.ta;
 
-            course.save()
-                .then(() => res.json('Course updated!'))
-                .catch(err => res.status(400).json('Error: ' + err));
-        })
-        .catch(err => res.status(400).json('Error: ' + err));
-});
-*/
+//             course.save()
+//                 .then(() => res.json('Course updated!'))
+//                 .catch(err => res.status(400).json('Error: ' + err));
+//         })
+//         .catch(err => res.status(400).json('Error: ' + err));
+// });
+
 module.exports = router;
