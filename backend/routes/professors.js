@@ -39,7 +39,7 @@ router.route('/add').post((req, res) => {
 // Get All Professor
 router.route('/all').get((req, res) => {
     Professor.find()
-    .populate('course_id', 'comments')
+    .populate('course_id')
     .exec((err, data) => {
         if (err) {
             res.status(400).json('Error: ' + err)
@@ -63,7 +63,7 @@ router.route('/all').get((req, res) => {
 // Get Prof info by Professor id
 router.route('/').get((req, res) => {
     Professor.findOne({ _id: req.query.id })
-    .populate('course_id', 'comments')
+    .populate('course_id')
     .exec((err, data) => {
         if (err) {
             res.status(400).json('Error: ' + err)
