@@ -27,12 +27,21 @@ const test_login_credential = {
 
 before(function (done) {
     chai.request(server)
+<<<<<<< HEAD
+      .post('/api/users/register')
+      .send(test_login_credential)
+      .end(function(err, response){
+        done();
+      });
+    });
+=======
         .post('/api/auth/register')
         .send(test_login_credential)
         .end(function (err, response) {
             done();
         });
 });
+>>>>>>> 4c26d457c8228c40edd3c1605dccf2898dfbab73
 
 //run once after all tests
 after(function (done) {
