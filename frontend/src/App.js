@@ -1,30 +1,24 @@
 import React from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css';
-import Login from './components/login'
-import Signup from './components/signup'
-import ProfessorDisplay from './components/professorDisplay';
+import CourseDisplay from './components/courseDisplay';
+import ProfessorDisplay from './components/professorDisplay'
+import Home from './components/home';
+import CourseDetail from './components/courseDetail'
+import ProfessorProfile from './components/professorProfile'
 
 function App() {
 	return (
-		<div>
-			<div id="header" class="headerContent">
-				<img class="headerLogo" src="logo.png">
-				</img>
-			</div>
-
-			<div id="title" class="pageTitle">Welcome to EasyNYU</div>
-			
-			<div class="centerContent">
-				<div class="textBoxContainer shadow rounded">
-					<div class="textBox">
-						<Login /><br />
-						<Signup /><br />
-						<Link to='/coursesearch' className="buttonLink">Public Course Search</Link>
-					</div>
-				</div>
-			</div>
-		</div>
+		<Router>
+			<Route exact path="/course" component={CourseDisplay}>
+			</Route>
+			<Route exact path="/professor" component={ProfessorDisplay}>
+			</Route>
+			<Route exact path="/" component={Home}>
+			</Route>
+			<Route exact path="/course/:id" component={CourseDetail} />
+			<Route exact path="/professor/:id" component={ProfessorProfile} />
+		</Router>
 	);
 }
 
