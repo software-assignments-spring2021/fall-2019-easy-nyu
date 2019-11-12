@@ -25,9 +25,22 @@ router.route('/add').post((req, res) => {
     })
 });
 
+// // Get All Professor
+// router.route('/all').get((req, res) => {
+//     Professor.find({}, (err, data) => {
+//         if (err) {
+//             res.status(400).json('Error: ' + err)
+//         } else {
+//             res.json(data);
+//         }
+//     })
+// });
+
 // Get All Professor
 router.route('/all').get((req, res) => {
-    Professor.find({}, (err, data) => {
+    Professor.find()
+    .populate('course_id')
+    .exec((err, data) => {
         if (err) {
             res.status(400).json('Error: ' + err)
         } else {
@@ -36,9 +49,22 @@ router.route('/all').get((req, res) => {
     })
 });
 
+// // Get Prof info by Professor id
+// router.route('/:id').get((req, res) => {
+//     Professor.findOne({ _id: req.params.id }, (err, data) => {
+//         if (err) {
+//             res.status(400).json('Error: ' + err)
+//         } else {
+//             res.json(data);
+//         }
+//     })
+// });
+
 // Get Prof info by Professor id
-router.route('/id').get((req, res) => {
-    Professor.findOne({ _id: req.query.professor_id }, (err, data) => {
+router.route('/').get((req, res) => {
+    Professor.findOne({ _id: req.query.id })
+    .populate('course_id')
+    .exec((err, data) => {
         if (err) {
             res.status(400).json('Error: ' + err)
         } else {
