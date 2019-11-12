@@ -214,7 +214,7 @@ describe('Comment', () => {
     describe('/POST comment', () => {
         it('it should POST a comment to a course', (done) => {
             chai.request(server)
-                .get('/courses')
+                .get('/courses/all')
                 .end((err, res) => {
                     const current_course_id = res.body[0]._id;
                     const newComment = {
