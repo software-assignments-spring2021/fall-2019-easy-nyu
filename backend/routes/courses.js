@@ -55,7 +55,6 @@ router.route('/').get((req, res) => {
         if (err) {
             res.status(400).json('Error: ' + err)
         } else {
-            console.log(data)
             res.json(data);
         }
     })

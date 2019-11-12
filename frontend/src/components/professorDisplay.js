@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Professor from './professor';
+import { Link } from 'react-router-dom'
 import './professorDisplay.css';
 import NYUNavBar from "./navbar";
 import Table from 'react-bootstrap/Table';
@@ -41,7 +42,6 @@ class ProfessorDisplay extends Component {
                         <h1>Professors in the Database:</h1>
                     </Row>
                     <Row className="justify-content-md-center"> 
-                        
                         <Table striped bordered hover >
                             <thead>
                                 <tr>
