@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import NYUNavBar from "./navbar";
-import Table from 'react-bootstrap/Table';
-import { Container, Row } from "react-bootstrap";
+import { Container, Table, Row } from "react-bootstrap";
+import { Link } from 'react-router-dom'
 import './professorProfile.css';
 
 class ProfessorProfile extends Component {
     constructor(props) {
         super(props);
-        this._isMounted = false;
+        this._isMounted = true;
         this.state = {
+            professorname: '',
+            description: '',
             comments: [],
             courses: []
         };
@@ -23,8 +25,8 @@ class ProfessorProfile extends Component {
     }
 
     componentDidMount() {
-        const id = this.props.match.params.id
-        fetch(`/professors/${id}`, { method: "GET" })
+        const id = 
+        fetch(`/professors?id=${this.props.match.params.id}`, { method: "GET" })
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -33,9 +35,10 @@ class ProfessorProfile extends Component {
                 }
             }).then(response => {
                 if (this._isMounted) {
-                    this.setState
-                    (
+                    this.setState(
                         {
+                            professorname: response.professorname,
+                            description: response.description,
                             courses: response.course_id, 
                             comments: response.comments
                         }
@@ -43,10 +46,37 @@ class ProfessorProfile extends Component {
                 }
             });
     }
+
     render() {
         return (
-            <div id="show-prof-profile-div" style={{ textAlign: "center" }}>
+            <div>
                 <NYUNavBar />
+                <Container>
+                    <Row className="justify-content-md-center">
+                        <h1>{`${this.state.professorname}`}</h1>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <h2>{`${this.state.description}`}</h2>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <Table striped bordered hover >
+                            {/* <tbody>
+                                <tr>
+                                    {this.state.courses.map((course, i) => (
+                                        <td key={i}><Link to={`//`}>{course.coursename}</Link></td>
+                                    ))}
+                                </tr>
+                            </tbody> */}
+                            <tbody>
+                                <tr>
+                                    {this.state.comments.map((comment, i) => (
+                                        <td key={i}><Link to={`//`}>{comment.comment}</Link></td>
+                                    ))}
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </Row>
+                </Container>
             </div>
         )
     }
