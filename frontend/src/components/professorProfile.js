@@ -60,20 +60,27 @@ class ProfessorProfile extends Component {
                     </Row>
                     <Row className="justify-content-md-center">
                         <Table striped bordered hover >
-                            {/* <tbody>
+                            <thead>
                                 <tr>
+                                    <td>{`Courses taughtyed by Prof. ${this.state.professorname}`}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    {console.log(this.state.courses)}
                                     {this.state.courses.map((course, i) => (
                                         <td key={i}><Link to={`//`}>{course.coursename}</Link></td>
                                     ))}
                                 </tr>
-                            </tbody> */}
-                            <tbody>
+                            </tbody>
+                            {/* <tbody>
                                 <tr>
+                                    {console.log(this.state.comments)}
                                     {this.state.comments.map((comment, i) => (
                                         <td key={i}><Link to={`//`}>{comment.comment}</Link></td>
                                     ))}
                                 </tr>
-                            </tbody>
+                            </tbody> */}
                         </Table>
                     </Row>
                 </Container>
