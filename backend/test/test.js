@@ -39,8 +39,6 @@ after(function (done) {
     console.log('Deleting test database');
     mongoose.connection.db.dropDatabase(done);
 });
-
-let professor_id;
 let course_id;
 let comment_id;
 
@@ -51,7 +49,7 @@ describe('Course', () => {
     describe('/GET courses', () => {
         it('it should GET all the courses', (done) => {
             chai.request(server)
-                .get('/courses')
+                .get('/courses/all')
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
