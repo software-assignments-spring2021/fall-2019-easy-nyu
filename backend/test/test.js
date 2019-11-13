@@ -267,7 +267,6 @@ describe('Comment', () => {
 
 // Unit Test for Auth Register and Login
 describe('Register and Login', () => {
-
     // Test the /POST route for Register
     describe('Register', () => {
         it('Should not allow register without email', (done) => {
