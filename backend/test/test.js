@@ -209,7 +209,6 @@ describe('Course', () => {
 
 // Unit Test for Comment
 describe('Comment', () => {
-
     // Test the /POST route
     describe('/POST comment', () => {
         it('it should POST a comment to a course', (done) => {
@@ -234,9 +233,9 @@ describe('Comment', () => {
 
         it('it should have a comment to link back to a course', (done) => {
             chai.request(server)
-                .get('/courses')
+                .get('/courses/all')
                 .end((err, res) => {
-                    const current_course_id = res.body;
+                    const current_course_id = res.body[0]._id;
                     const newComment = {
                         comment: "The Prof is hilarious",
                         course_id: current_course_id
@@ -248,7 +247,7 @@ describe('Comment', () => {
                             res.body.should.have.property('course_id').eql(current_course_id);
                         });
 
-                    const second_course_id = res.body;
+                    const second_course_id = res.body[1]._id;
                     const NewComment = {
                         comment: "Second comment test",
                         course_id: second_course_id
@@ -450,27 +449,27 @@ describe('Courses Display', () => {
     describe('Trending Orders', () => {
         it('it should display courses from most to least comments', (done) => {
             chai.request(server)
-                .get('/courses')
+                .get('/courses/all')
                 .end((err, res) => {
-                    // var i;
-                    // for (var i = 0; i < res.body.length - 1; i++) {
-                    //     let compare;
-                    //     if (res.body[i].comments.length >= res.body[i + 1].comments.length) {
-                    //         compare = true;
-                    //     } else {
-                    //         compare = false;
-                    //     }
-                    //     compare.should.be.eql(true);
-                    // }
+                    var i;
+                    for (var i = 0; i < res.body.length - 1; i++) {
+                        let compare;
+                        if (res.body[i].comments.length >= res.body[i + 1].comments.length) {
+                            compare = true;
+                        } else {
+                            compare = false;
+                        }
+                        compare.should.be.eql(true);
+                    }
                     done();
                 });
         });
         it('it should match number of comments', (done) => {
             chai.request(server)
-                .get('/courses')
+                .get('/courses/all')
                 .end((err, res) => {
-                    // res.body[0].comments.length.should.be.eql(2);
-                    // res.body[1].comments.length.should.be.eql(1);
+                    res.body[0].comments.length.should.be.eql(2);
+                    res.body[1].comments.length.should.be.eql(1);
                     done();
                 });
         });
