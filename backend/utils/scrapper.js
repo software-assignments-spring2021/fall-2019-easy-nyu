@@ -12,13 +12,15 @@ const puppeteer = require('puppeteer');
     const schoolSel = selectArr[1] // set the select school drop down
     const subjectSel = selectArr[2] // set the select subject drop down
     for (i = 1; i < courseCountArr[0]; i++) {
-        console.log('!!')
         await schoolSel.click() // drop down the school selection
         const schoolArr = await frame.$$('div.bs-container > div.dropdown-menu > ul > li > a'); // get the school selection
         await schoolArr[i].click() // click the i^th school
         await subjectSel.click() // drop down the subject selection
         const subArr = await frame.$$('div.bs-container > div.dropdown-menu > ul > li > a'); 
-        console.log(subArr.length)
+        await subArr[0].click() // click to close 
+        for (k = 1; k < subArr.length; k++) {
+            
+        }
         await subArr[0].click()
     }
     // without eval
