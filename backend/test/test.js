@@ -39,8 +39,6 @@ after(function (done) {
     console.log('Deleting test database');
     mongoose.connection.db.dropDatabase(done);
 });
-
-let professor_id;
 let course_id;
 let comment_id;
 
@@ -51,7 +49,7 @@ describe('Course', () => {
     describe('/GET courses', () => {
         it('it should GET all the courses', (done) => {
             chai.request(server)
-                .get('/courses')
+                .get('/courses/all')
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -209,12 +207,11 @@ describe('Course', () => {
 
 // Unit Test for Comment
 describe('Comment', () => {
-
     // Test the /POST route
     describe('/POST comment', () => {
         it('it should POST a comment to a course', (done) => {
             chai.request(server)
-                .get('/courses')
+                .get('/courses/all')
                 .end((err, res) => {
                     const current_course_id = res.body[0]._id;
                     const newComment = {
@@ -234,7 +231,7 @@ describe('Comment', () => {
 
         it('it should have a comment to link back to a course', (done) => {
             chai.request(server)
-                .get('/courses')
+                .get('/courses/all')
                 .end((err, res) => {
                     const current_course_id = res.body[0]._id;
                     const newComment = {
@@ -267,7 +264,6 @@ describe('Comment', () => {
 
 // Unit Test for Auth Register and Login
 describe('Register and Login', () => {
-
     // Test the /POST route for Register
     describe('Register', () => {
         it('Should not allow register without email', (done) => {
@@ -451,7 +447,7 @@ describe('Courses Display', () => {
     describe('Trending Orders', () => {
         it('it should display courses from most to least comments', (done) => {
             chai.request(server)
-                .get('/courses')
+                .get('/courses/all')
                 .end((err, res) => {
                     var i;
                     for (var i = 0; i < res.body.length - 1; i++) {
@@ -468,7 +464,7 @@ describe('Courses Display', () => {
         });
         it('it should match number of comments', (done) => {
             chai.request(server)
-                .get('/courses')
+                .get('/courses/all')
                 .end((err, res) => {
                     res.body[0].comments.length.should.be.eql(2);
                     res.body[1].comments.length.should.be.eql(1);
@@ -581,7 +577,7 @@ describe('Professor', () => {
     describe('/Get professor by id should be successful', () => {
         it('it should get John Weiler', (done) => {
             chai.request(server)
-                .get('/professors/id')
+                .get('/professors')
                 .send({professor_id:professor_id})
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -594,7 +590,7 @@ describe('Professor', () => {
         let course_id;
         it('getting professor with id should get John Weiler', (done) => {
             chai.request(server)
-                .get('/professors/id')
+                .get('/professors')
                 .send({professor_id:professor_id})
                 .end((err, res) => {
                     course_id = res.body
@@ -604,7 +600,7 @@ describe('Professor', () => {
         });
         it('using course number in response to get course should get the right course', (done) => {
             chai.request(server)
-                .get('/courses/id')
+                .get('/courses')
                 .send({course_id:course_id})
                 .end((err, res) => {
                     res.should.have.status(200);

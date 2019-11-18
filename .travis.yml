@@ -7,6 +7,7 @@ install:
 - cd backend ; npm install -dev
 - cd ../frontend ; npm install
 script:
+- cd ..
 - cd backend ; npm test
 - cd ../frontend ; npm test a
 cache:
