@@ -39,8 +39,6 @@ after(function (done) {
     console.log('Deleting test database');
     mongoose.connection.db.dropDatabase(done);
 });
-
-let professor_id;
 let course_id;
 let comment_id;
 
