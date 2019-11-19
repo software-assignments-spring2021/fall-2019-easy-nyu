@@ -37,7 +37,7 @@ class UserProfile extends Component {
                 <NYUNavBar />
 
                 <div class="text-center">
-                    <img headshot1 class="rounded" alt="..."></img>
+                    <img src={headshot1} class="rounded" alt="..."></img>
                 </div>
 
                 <Container>
