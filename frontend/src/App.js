@@ -6,6 +6,7 @@ import ProfessorDisplay from './components/professorDisplay'
 import Home from './components/home';
 import CourseDetail from './components/courseDetail'
 import ProfessorProfile from './components/professorProfile'
+import UserProfile from './components/userProfile'
 
 function App() {
 	return (
@@ -18,6 +19,7 @@ function App() {
 			</Route>
 			<Route exact path="/course/:id" component={CourseDetail} />
 			<Route exact path="/professor/:id" component={ProfessorProfile} />
+			<Route exact path="/profile" component={UserProfile} />
 		</Router>
 	);
 }

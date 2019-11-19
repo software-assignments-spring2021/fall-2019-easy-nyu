@@ -2,14 +2,15 @@ import React, { Component } from "react";
 import NYUNavBar from "./navbar";
 import { Container, Table, Row } from "react-bootstrap";
 import { Link } from 'react-router-dom'
-import './professorProfile.css';
 
-class ProfessorProfile extends Component {
+import headshot1 from'../img/headshot1.jpeg';
+
+class UserProfile extends Component {
     constructor(props) {
         super(props);
         this._isMounted = true;
         this.state = {
-            professorname: '',
+            username: '',
             description: '',
             comments: [],
             courses: []
@@ -25,35 +26,18 @@ class ProfessorProfile extends Component {
     }
 
     componentDidMount() {
-        const id = 
-        fetch(`/professors?id=${this.props.match.params.id}`, { method: "GET" })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Network response was not ok.');
-                }
-            }).then(response => {
-                if (this._isMounted) {
-                    this.setState(
-                        {
-                            professorname: response.professorname,
-                            description: response.description,
-                            courses: response.course_id, 
-                            comments: response.comments
-                        }
-                    )
-                }
-            });
     }
 
     render() {
         return (
             <div class="app">
                 <NYUNavBar />
+
+                <img headshot1 class="img-fluid" alt="Responsive image">
+
                 <Container>
                     <Row className="justify-content-md-center">
-                        <h1>{`${this.state.professorname}`}</h1>
+                        <h1>{`${this.state.username}`}</h1>
                     </Row>
                     <Row className="justify-content-md-center">
                         <h2>{`${this.state.description}`}</h2>
@@ -62,7 +46,7 @@ class ProfessorProfile extends Component {
                         <Table striped bordered hover >
                             <thead>
                                 <tr>
-                                    <td>{`Courses taughtyed by Prof. ${this.state.professorname}`}</td>
+                                    <td>{`Courses taughtyed by Prof. ${this.state.username}`}</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -88,5 +72,5 @@ class ProfessorProfile extends Component {
         )
     }
 }
-  
-export default ProfessorProfile;
+
+export default UserProfile;

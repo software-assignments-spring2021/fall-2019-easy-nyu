@@ -5,6 +5,7 @@ import NYUNavBar from "./navbar";
 import Table from 'react-bootstrap/Table';
 import { Container, Row } from "react-bootstrap";
 
+
 class CourseDisplay extends Component {
     constructor(props) {
         super(props);
