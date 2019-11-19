@@ -23,6 +23,7 @@ router.route('/profile/:nid').get((req, res) => {
                 //can't find user profile by nid
                 const newUser = new User({
                     nid,
+                    name,
                     description,
                     score
                 });
@@ -46,6 +47,7 @@ router.route('/profile/:nid').get((req, res) => {
 // Post Request - Add a new course to database
 router.route('/profile/update').post((req, res) => {
     const nid = req.body.nid;
+    const name = req.body.name;
     const description = req.body.description;
     const score = req.body.score;
 
@@ -63,31 +65,10 @@ router.route('/profile/update').post((req, res) => {
     })   
 });
 
+//basic backend: show info from database
 
-/*
-router.route('/add').post((req, res) => {
-    const coursename = req.body.coursename;
-    const description = req.body.description;
-    const semester = req.body.semester;
-    const prof = req.body.prof;
-    const ta = req.body.ta;
-    const newCourse = new Course({
-        coursename,
-        description,
-        semester,
-        prof,
-        ta
-    });
-
-    newCourse.save((err, course) => {
-        if (err) {
-            res.send(err);
-        }
-        else {
-            res.json({message: "Course added!", course: course});
-        }
-    })
-});
-*/
+//nicer functionality:
+//update profile: class, college, major
+//fetch anything from database and show, edit then submit;
 
 module.exports = router;
