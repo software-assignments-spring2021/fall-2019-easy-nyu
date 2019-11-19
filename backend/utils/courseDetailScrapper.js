@@ -17,12 +17,11 @@ function dbConnection() {
     })
 }
 
-
-function fatchSingleCourse(baseUrl, courseUrl) {
+function fatchSingleCourse(baseUrl, courseUrl, courseSchoolMajor) {
+    let course = courseSchoolMajor
     let promise = new Promise(function (resolve, reject) {
         setTimeout(() => {
             const url = baseUrl + courseUrl
-            const course = {}
             const professor = {}
             axios.get(url)
                 .then((response) => {
@@ -79,69 +78,64 @@ function fatchSingleCourse(baseUrl, courseUrl) {
     return promise
 }
 
-(async() => {
-    const courseStr = fs.readFileSync("./course_num_clean.txt").toString();
-    courseArr = courseStr.split(',')
-    const baseUrl = "https://m.albert.nyu.edu/app/catalog/classsection/NYUNV/1204/"
-    const classInfo = await fatchSingleCourse(baseUrl, courseArr[2])
-    console.log(classInfo[0])
-    console.log(classInfo[1])
-})
-
-dbConnection()
-
-course = {
-    name: 'Advanced Introduction to Environmental Ethics',
-    number: '7411',
-    level: 'Graduate',
-    unit: '3 units',
-    description:
-        'Advanced Introduction to Environmental Ethics - This course situates theoretical developments in practical ethics broadly and in environmental ethics specifically. The course builds on the  theoretical materials by examining a series of cases including ethics and    agriculture, corporate responsibility and environmental injustice, and the environmental health consequences of war.',
-    requirement: 'Restriction for GPH-GU 1006',
-    note:
-        'Open to MA Bioethics students only, or by permission of department.'
-}
-
-prof = { name: 'Adam Jared Lerner' }
-
-const newCourse = new Course(course)
-const newProfessor = new Professor(prof)
-// newCourse.save((err, course) => {
-//     if (err) {
-//         console.log(err)
-//     } else {
-//         console.log(course._id)
-//     }
-// })
-// newProfessor.save((err, course) => {
-//     if (err) {
-//         console.log(err)
-//     } else {
-//         console.log(course._id)
-//     }
-// })
 async function storeToDB(course, prof) {
-    const findExistingCourse = Course.findOne({name : course.name})
+    const findExistingCourse = Course.findOne({name : course.name, major : course.major, school: course.school})
     const findExistingProf = Professor.findOne({name : prof.name})
     await Promise.all([findExistingCourse, findExistingProf]).then(async function(values) {
         const existingCourse = values[0]
         const existingProf = values[1]
         if (existingCourse && existingProf) {
-            console.log("info already in db")
+            console.log("info already in db: ", existingCourse.name, " ", existingProf.name)
         } else if (existingCourse) {
+            // course already in database
             prof.courses = [existingCourse._id]
             newProf = new Professor(prof)
             savedProf = await newProf.save()
-            await Course.findByIdAndUpdate(existingCourse, { $addToSet : {profs : savedProf._id } })
+            await Course.findByIdAndUpdate(existingCourse._id, { $addToSet : {profs : savedProf._id } })
+            console.log("Course Already Exist: ", existingCourse.name, "Adding ", savedProf.name)
         } else if (existingProf) {
+            // professor already in database
             course.prof = [existingProf._id]
             newCourse = new Course(course)
             savedCourse = await newCourse.save()
-            existingProf.courses.push(savedCourse._id)
-            await Professor.findByIdAndUpdate(existingProf, {profs : existingProf.courses})
+            await Professor.findByIdAndUpdate(existingProf._id, {$addToSet : {courses : savedCourse._id }})
+            console.log("Professor Already Exist: ", existingProf.name, "Adding ", savedCourse.name)
+        } else {
+            // both not  in database
+            newProf = new Professor(prof)
+            savedProf = await newProf.save()
+            newCourse = new Course(course)
+            savedCourse = await newCourse.save()
+            await Course.findByIdAndUpdate(savedCourse._id, { $addToSet : {profs : savedProf._id } })
+            await Professor.findByIdAndUpdate(savedProf._id, {$addToSet : {courses : savedCourse._id }})
+            console.log("Adding: ", savedProf.name, "Adding: ", savedCourse.name)
         }
     });
 }
 
-storeToDB(course, prof)
 
+// dbConnection()
+// storeToDB(course, prof)
+
+(async() => {
+    dbConnection()
+    const courseStr = fs.readFileSync("./course_num_clean.txt").toString();
+    courseArr = courseStr.split(',')
+    const baseUrl = "https://m.albert.nyu.edu/app/catalog/classsection/NYUNV/1204/"
+    const course = {}
+    for (let i = 0; i < courseArr.length; i++) {
+        if (courseArr[i][0] === 'm') {
+            course.major = courseArr[i].slice(6,)
+        } else if (courseArr[i][0] === 's') {
+            course.school = courseArr[i].slice(7,)
+        } else {
+            const info = await fatchSingleCourse(baseUrl, courseArr[i], course)
+            if (info) {
+                courseInfo = info[0]
+                profInfo = info[1]
+                storeToDB(courseInfo, profInfo)
+            }
+        }
+    }
+    // const info = await fatchSingleCourse(baseUrl, courseArr[2])
+})()

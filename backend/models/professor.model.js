@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 
 const professorSchema = new Schema({
     name: {type: String, required: true},
-    courses: { type: mongoose.Schema.Types.ObjectId, ref: 'Course' },
-    comments: { type : mongoose.Schema.Types.ObjectId, ref: 'Comment' },
+    courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],
+    comments: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 }, {
     timestamps: true,
 });
