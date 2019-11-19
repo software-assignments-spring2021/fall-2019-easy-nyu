@@ -17,86 +17,68 @@ function dbConnection() {
     })
 }
 
-const courseStr = fs.readFileSync("./course_num_clean.txt").toString();
-courseArr = courseStr.split(',')
-const baseUrl = "https://m.albert.nyu.edu/app/catalog/classsection/NYUNV/1204/"
-// for (const courseNum of courseArr) {
-//     const url = baseUrl + courseNum
-//     axios.get('https://buttercms.com/docs/api/')
-//     .then((response) => {
-
-//     })
-// }
-
-dbConnection()
-const url = baseUrl + courseArr[0]
-axios.get(url)
-    .then((response) => {
-        const $ = cheerio.load(response.data)
-        const leftElem = $('div.pull-left')
-        const rightElem = $('div.pull-right')
-        const title = $('div.primary-head')
-        let courseName = $(title[0]).text().trim()
-        if (leftElem.length !== rightElem.length) {
-            console.error(`divs dont match at ${url}`);
-        } else {
-            let isClass = false
-            let courseNumber, courseLevel, courseUnit, courseDescription, courseRequirements, courseNote
-            let professorName
-            for (let i = 0; i < leftElem.length; i++) {
-                let varName = $(leftElem[i]).text().trim()
-                let varVal = $(rightElem[i]).text().trim()
-                switch (varName) {
-                    case "Session":
-                        if (varVal === "Regular Academic Session") {
-                            isClass = true
-                        }
-                        break;
-                    case "Class Number":
-                        courseNumber = varVal
-                        break;
-                    case "Career":
-                        courseLevel = varVal
-                        break;
-                    case "Units":
-                        courseUnit = varVal
-                        break;
-                    case "Description":
-                        courseDescription = varVal
-                        break;
-                    case "Enrollment Requirements":
-                        courseRequirements = varVal
-                        break;
-                    case "Notes":
-                        courseNote = varVal
-                        break;
-                    case "Instructor(s)":
-                        professorName = varVal
-                        break;
+function fatchSingleCourse(baseUrl, courseUrl) {
+    const url = baseUrl + courseUrl
+    const course = {}
+    const professor = {}
+    axios.get(url)
+        .then((response) => {
+            const $ = cheerio.load(response.data)
+            const leftElem = $('div.pull-left')
+            const rightElem = $('div.pull-right')
+            const title = $('div.primary-head')
+            let courseName = $(title[0]).text().trim()
+            let promise = new Promise(function(resolve, reject) {
+                setTimeout(() => resolve("done"), 1000);
+              });
+            if (leftElem.length !== rightElem.length) {
+                console.error(`divs dont match at ${url}`);
+            } else {
+                let isClass = false
+                for (let i = 0; i < leftElem.length; i++) {
+                    let varName = $(leftElem[i]).text().trim()
+                    let varVal = $(rightElem[i]).text().trim()
+                    console.log(varVal)
+                    switch (varName) {
+                        case "Session":
+                            if (varVal === "Regular Academic Session") {
+                                isClass = true
+                            }
+                            break;
+                        case "Class Number":
+                            course.courseNumber = varVal
+                            break;
+                        case "Career":
+                            course.courseLevel = varVal
+                            break;
+                        case "Units":
+                            course.courseUnit = varVal
+                            break;
+                        case "Description":
+                            course.courseDescription = varVal
+                            break;
+                        case "Enrollment Requirements":
+                            course.courseRequirements = varVal
+                            break;
+                        case "Notes":
+                            course.courseNote = varVal
+                            break;
+                        case "Instructor(s)":
+                            professor.professorName = varVal
+                            break;
+                    }
+                }
+                if (isClass) {
+                    return [course, professor]
                 }
             }
-            if (isClass) {
-                Course.findOne({ name: courseName })
-                    .then((data) => {
-                        console.log(data.length)
-                        const newCourse = new Course({
-                            courseName,
-                            courseNumber,
-                            courseLevel,
-                            courseUnit,
-                            courseDescription,
-                            courseRequirements,
-                            courseNote
-                        });
-                    })
-                    .then((data) => {
-                        Professor.findOne({ name: professorName })
-                            .then((data) => {
-                                const newCourse = new Course({
-                                    professorName
-                                });
-                            })
-                    })
-            }
-        }
-    })
+        })
+}
+
+(async => {
+    const courseStr = fs.readFileSync("./course_num_clean.txt").toString();
+    courseArr = courseStr.split(',')
+    const baseUrl = "https://m.albert.nyu.edu/app/catalog/classsection/NYUNV/1204/"
+    const classInfo = fatchSingleCourse(baseUrl, courseArr[2])
+})()
+
