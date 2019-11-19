@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const passport = require('passport');
-
 require('dotenv').config();
 
 const app = express();
@@ -17,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 function connect_to_db () {
   // Connect to MongoDB
   let uri = process.env.ATLAS_URI;
+  console.log(uri)
   if (process.env.NODE_ENV === "test") {
       uri = process.env.Testing_URI;
   }

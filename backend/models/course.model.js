@@ -2,14 +2,16 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const courseSchema = new Schema({
-    coursename: {type: String, required: true},
-    description: {type: String, required: true},
-    semester: {type: String, required: true},
-    prof: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Professor' }],
-    ta: {type: String, required: false},
-    comments: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
-    course_id: mongoose.Schema.ObjectId
+const courseSchema = new Schema({ 
+    name: {type: String, required: true},
+    number: {type: String},
+    level: {type: String},
+    unit: {type: String},
+    description: {type: String},
+    requirement: {type: String},
+    note: {type: String},
+    profs: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Professor' }],
+    comments: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 }, {
     timestamps: true,
 });
