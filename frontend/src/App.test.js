@@ -11,6 +11,8 @@ it('renders without crashing', () => {
 });
 
 
-it('renders without crashing', () => {
+it('renders all pages without crashing', () => {
     var wrapper = mount(<App />);
+    wrapper.find('.nav-link').at(1).simulate('click');
+    wrapper.find('.nav-link').at(2).simulate('click');
 });
