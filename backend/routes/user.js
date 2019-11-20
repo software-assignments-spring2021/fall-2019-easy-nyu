@@ -63,31 +63,4 @@ router.route('/profile/update').post((req, res) => {
     })   
 });
 
-
-/*
-router.route('/add').post((req, res) => {
-    const coursename = req.body.coursename;
-    const description = req.body.description;
-    const semester = req.body.semester;
-    const prof = req.body.prof;
-    const ta = req.body.ta;
-    const newCourse = new Course({
-        coursename,
-        description,
-        semester,
-        prof,
-        ta
-    });
-
-    newCourse.save((err, course) => {
-        if (err) {
-            res.send(err);
-        }
-        else {
-            res.json({message: "Course added!", course: course});
-        }
-    })
-});
-*/
-
 module.exports = router;

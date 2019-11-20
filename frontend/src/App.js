@@ -10,12 +10,9 @@ import ProfessorProfile from './components/professorProfile'
 function App() {
 	return (
 		<Router>
-			<Route exact path="/course" component={CourseDisplay}>
-			</Route>
-			<Route exact path="/professor" component={ProfessorDisplay}>
-			</Route>
-			<Route exact path="/" component={Home}>
-			</Route>
+			<Route exact path="/course" component={CourseDisplay}></Route>
+			<Route exact path="/professor" component={ProfessorDisplay}></Route>
+			<Route exact path="/" component={Home}></Route>
 			<Route exact path="/course/:id" component={CourseDetail} />
 			<Route exact path="/professor/:id" component={ProfessorProfile} />
 		</Router>

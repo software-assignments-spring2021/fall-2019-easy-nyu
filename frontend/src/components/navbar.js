@@ -21,7 +21,7 @@ class NYUNavBar extends Component {
 					<Nav.Link href="/professor">Professors</Nav.Link>
 					<Nav.Link href="/course">Courses</Nav.Link>
 				</Nav>
-				<Button variant="outline-light">My Profile</Button>
+				<Button variant="outline-light" href="/userprofile">My Profile</Button>
                 <Button variant="outline-light">Log out</Button>
 			</Navbar>
         )
