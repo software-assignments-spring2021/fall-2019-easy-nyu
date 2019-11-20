@@ -8,7 +8,6 @@ const jwt = require("jsonwebtoken");
 // Load User model
 const User = require("../models/user.model");
 
-
 // get user profile by user credentials; if not, create new profile
 router.route('/profile/:nid').get((req, res) => {
     console.log(req.params)
@@ -62,5 +61,11 @@ router.route('/profile/update').post((req, res) => {
         }
     })   
 });
+
+router.route('/:id').get((req, res) => {
+    User.findById(req.params.id)
+      .then(user => res.json(user))
+      .catch(err => res.status(400).json('Error: ' + err));
+});  
 
 module.exports = router;

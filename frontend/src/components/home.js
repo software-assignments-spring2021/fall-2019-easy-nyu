@@ -3,7 +3,6 @@ import './home.css';
 import Login from './login'
 import Signup from './signup'
 import Navbar from './navbar'
-import UserProfile from './userProfile'
 
 class Home extends Component {
     constructor(props) {

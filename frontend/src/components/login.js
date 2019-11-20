@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Modal from 'react-bootstrap/Modal'
 import './login.css'
+import axios from 'axios';
 
 class Login extends Component {
     constructor(props) {
@@ -13,7 +14,11 @@ class Login extends Component {
             password: "",
             password2: "",
             showModal: false,
-            errorMsg: ""
+            errorMsg: "",
+
+            loginStatus:'',
+            success:false,
+            token:''
         };
     }
 
@@ -38,36 +43,61 @@ class Login extends Component {
     }
 
     send() {
-        fetch('/api/auth/login', {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                name: this.state.name,
-                email: this.state.email,
-                nid: this.state.nid,
-                password: this.state.password,
-                password2: this.state.password2
+        // fetch('http://localhost:4000/api/auth/login', {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({
+        //         name: this.state.name,
+        //         email: this.state.email,
+        //         nid: this.state.nid,
+        //         password: this.state.password,
+        //         password2: this.state.password2
+        //     })
+        // })
+        //     .then(response => {
+        //         if (response.ok) {
+        //             console.log(response);
+        //             this.setState({success:true,loginStatus:'Logged in!'});
+        //             localStorage.setItem('jwt',response.data.token);
+        //             localStorage.setItem('userID',response.data.id);
+        //             return response.json();
+        //         } else {
+        //             console.log(response.data);
+        //             response.json()
+        //             .then(errors => {
+        //                 this.setState({
+        //                     errorMsg: Object.values(errors)[0]
+        //                 })
+        //             })
+        //         }
+        //     })
+        //     .then(
+        //         this.setState({
+        //             nid: "",
+        //             password: "",
+        //         })
+        //     );
+
+       const auth={
+                    name: this.state.name,
+                    email: this.state.email,
+                    nid: this.state.nid,
+                    password: this.state.password,
+                    password2: this.state.password2
+        }
+       
+        axios.post('http://localhost:4000/api/auth/login', auth)
+            .then(res => {
+                //store jwt in Cookie
+                localStorage.setItem('jwtToken',res.data.token);
+                localStorage.setItem('userID',res.data.id);
+                // user id is not stored in localStorage.userID
             })
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    response.json()
-                    .then(errors => {
-                        this.setState({
-                            errorMsg: Object.values(errors)[0]
-                        })
-                    })
-                }
-            })
-            .then(
-                this.setState({
-                    nid: "",
-                    password: "",
-                })
-            );
-        
+            .catch(err => {
+                console.log(err);
+                this.setState({loginStatus:'Incorrect email or password',success:false});
+            });
+
     }
 
     render() {
@@ -90,7 +120,7 @@ class Login extends Component {
                         <p className='error-msg'>{this.state.errorMsg}</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button className="login-btn" onClick={(evt) => { this.send(); }}>Login</button>
+                        <button className="login-btn" onClick={(evt) => { this.send(); this.handleClose(); }}>Login</button>
                     </Modal.Footer>
                 </Modal>
             </div>
