@@ -9,8 +9,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
 
 // get user profile by user credentials; if not, create new profile
-router.route('/profile/:nid').get((req, res) => {
-    console.log(req.params)
+router.route('/:nid').get((req, res) => {
+    console.log(req.params);
     const nid = req.params.nid
     const description = 'nyu student'
     const score = 0
@@ -43,7 +43,7 @@ router.route('/profile/:nid').get((req, res) => {
 
 
 // Post Request - Add a new course to database
-router.route('/profile/update').post((req, res) => {
+router.route('/update').post((req, res) => {
     const nid = req.body.nid;
     const description = req.body.description;
     const score = req.body.score;
@@ -61,11 +61,5 @@ router.route('/profile/update').post((req, res) => {
         }
     })   
 });
-
-router.route('/:id').get((req, res) => {
-    User.findById(req.params.id)
-      .then(user => res.json(user))
-      .catch(err => res.status(400).json('Error: ' + err));
-});  
 
 module.exports = router;

@@ -16,7 +16,7 @@ function App() {
 			<Route exact path="/" component={Home}></Route>
 			<Route exact path="/course/:id" component={CourseDetail} />
 			<Route exact path="/professor/:id" component={ProfessorProfile} />
-			<Route exact path="/userprofile" component={UserProfile} />
+			<Route exact path="/userprofile/:id" component={UserProfile} />
 		</Router>
 	);
 }

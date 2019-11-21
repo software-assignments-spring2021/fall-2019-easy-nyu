@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import Modal from 'react-bootstrap/Modal'
 import './login.css'
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
     constructor(props) {
         super(props);
-
+        this.send = this.send.bind(this);
         this.state = {
             name: "",
             email: "",
@@ -77,21 +78,22 @@ class Login extends Component {
         //             password: "",
         //         })
         //     );
-
-       const auth={
+        const { history } = this.props;
+        const auth={
                     name: this.state.name,
                     email: this.state.email,
                     nid: this.state.nid,
                     password: this.state.password,
                     password2: this.state.password2
         }
-       
         axios.post('http://localhost:4000/api/auth/login', auth)
             .then(res => {
                 //store jwt in Cookie
                 localStorage.setItem('jwtToken',res.data.token);
                 localStorage.setItem('userID',res.data.id);
                 // user id is not stored in localStorage.userID
+                const { history } = this.props;
+                if(history) history.push('/userprofile/'+res.data.id);
             })
             .catch(err => {
                 console.log(err);
@@ -101,6 +103,7 @@ class Login extends Component {
     }
 
     render() {
+        const { history } = this.props;
         return (
             <div>
                 <button className="buttonLink" onClick={this.handlePopup}> Login </button>
@@ -120,7 +123,7 @@ class Login extends Component {
                         <p className='error-msg'>{this.state.errorMsg}</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button className="login-btn" onClick={(evt) => { this.send(); this.handleClose(); }}>Login</button>
+                        <button className="login-btn" onClick={(evt) => { this.send(); this.handleClose();}}>Login</button>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -128,4 +131,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);
