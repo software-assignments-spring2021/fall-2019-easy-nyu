@@ -25,17 +25,29 @@ router.route('/all').get((req, res) => {
 
 // Post Request - Add a new course to database
 router.route('/add').post((req, res) => {
-    const coursename = req.body.coursename;
+    const name = req.body.name;
+    const major = req.body.major;
+    const school = req.body.school;
+    const level = req.body.level;
+    const number = req.body.number;
+    const unit = req.body.unit;
     const description = req.body.description;
-    const semester = req.body.semester;
-    const prof = req.body.prof;
-    const ta = req.body.ta;
+    const requirement = req.body.requirement;
+    const note = req.body.note;
+    const profs = req.body.profs;
+    const comments = req.body.comments;
     const newCourse = new Course({
-        coursename,
+        name,
+        major,
+        school,
+        level,
+        number,
+        unit,
         description,
-        semester,
-        prof,
-        ta
+        requirement,
+        note,
+        profs,
+        comments
     });
 
     newCourse.save((err, course) => {
