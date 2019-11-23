@@ -46,7 +46,7 @@ class ProfessorDisplay extends Component {
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Description</th>
+                                    <th>School</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,8 +54,8 @@ class ProfessorDisplay extends Component {
                                     <Professor
                                         key={prof._id}
                                         id={prof._id}
-                                        name={prof.professorname}
-                                        description={prof.description}
+                                        name={prof.name}
+                                        school={prof.school}
                                     ></Professor>
                                 ))}
                             </tbody>

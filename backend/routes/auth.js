@@ -37,7 +37,7 @@ router.post("/register", (req, res) => {
                     if (err) throw err;
                     newAuth.password = hash;
                     newAuth.save()
-                        .then(auth => res.json(auth))
+                        .then(auth => res.json(auth._id))
                         .catch(err => console.log(err))
                         .then(console.log("auth added:", req.body.name));
                 });

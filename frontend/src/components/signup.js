@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Modal from 'react-bootstrap/Modal'
+import {Button} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 import './signup.css'
 
 class Signup extends Component {
@@ -61,27 +63,31 @@ class Signup extends Component {
                     return response.json();
                 } else {
                     response.json()
-                    .then(errors => {
-                        this.setState({
-                            errorMsg: Object.values(errors)[0]
+                        .then(errors => {
+                            this.setState({
+                                errorMsg: Object.values(errors)[0]
+                            })
                         })
+                }
+            }).then((res) => {
+                if (res !== undefined) {
+                    this.setState({
+                        name: "",
+                        email: "",
+                        nid: "",
+                        password: "",
+                        password2: "",
+                        errorMsg: "",
+                        showModal: false
                     })
                 }
-            }).then(
-                this.setState({
-                    name: "",
-                    email: "",
-                    nid: "",
-                    password: "",
-                    password2: "",
-                })
-            );
+            });
     }
 
     render() {
         return (
             <div>
-                <button className="buttonLink" onClick={this.handlePopup}> Create Account </button>
+                <p className="display-signup" onClick={this.handlePopup}>Create Account</p>
                 <Modal show={this.state.showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Create Account</Modal.Title>
