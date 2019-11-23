@@ -9,7 +9,7 @@ const courseSchema = new Schema({
     number: {type: String},
     level: {type: String},
     unit: {type: String},
-    description: {type: String},
+    description: {type: String, required: true},
     requirement: {type: String},
     note: {type: String},
     profs: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Professor' }],
