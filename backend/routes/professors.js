@@ -3,14 +3,12 @@ let Professor = require('../models/professor.model');
 
 // create professor 
 router.route('/add').post((req, res) => {
-    const professorname = req.body.professorname;
-    const description = req.body.description;
-    const course_id = req.body.course_id;
+    const name = req.body.name;
+    const courses = req.body.courses;
     const comments = req.body.comments;
     const newProfessor = new Professor({
-        professorname,
-        description,
-        course_id,
+        name,
+        courses,
         comments
     });
 
@@ -19,7 +17,7 @@ router.route('/add').post((req, res) => {
             res.send(err);
         }
         else {
-            console.log("Professor added!", prof.professorname)
+            console.log("Professor added!", prof.name)
             res.json({message: "Professor added!", prof: prof});
         }
     })
