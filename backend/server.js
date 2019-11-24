@@ -16,7 +16,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 function connect_to_db () {
   // Connect to MongoDB
   let uri = process.env.ATLAS_URI;
-  console.log(uri)
   if (process.env.NODE_ENV === "test") {
       uri = process.env.Testing_URI;
   }
@@ -36,7 +35,7 @@ function connect_to_db () {
   const professorRouter = require('./routes/professors');
   app.use('/professors', professorRouter);
   const userRouter = require('./routes/user');
-  app.use('/users', userRouter);
+  app.use('/userprofile', userRouter);
 
   // Passport middleware
   app.use(passport.initialize());

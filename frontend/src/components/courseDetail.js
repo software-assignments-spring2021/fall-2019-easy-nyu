@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import NYUNavBar from "./navbar";
-import { Container, Table, Row } from "react-bootstrap";
+import { Container, Table, Row, Button } from "react-bootstrap";
 import { Link } from 'react-router-dom'
+import Comment from './comment';
 
 class CourseDetail extends Component {
     constructor(props) {
@@ -72,6 +73,19 @@ class CourseDetail extends Component {
                             </tbody>
                         </Table>
                     </Row>
+					<Row className="justify-content-md-center">
+						<h3>Comments ({this.state.comments.length})</h3>
+					</Row>
+						{this.state.comments.map((comment, i) => (
+					<Row className="justify-content-md-center"><Table striped bordered hover ><tbody><tr><td>
+							<Comment id={comment} />
+					</td></tr></tbody></Table></Row>
+						))}
+						
+						{/* SHOW THIS ROW ONLY IF LOGGED IN*/}
+					<Row className="justify-content-md-center">
+						<Button>Add Comment</Button>
+					</Row>
                 </Container>
             </div>
         )

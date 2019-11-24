@@ -64,7 +64,7 @@ router.post("/login", (req, res) => {
     ]}).then(auth => {
         // Check if auth exists
         if (!auth) {
-            return res.status(403).json({ emailnotfound: "Email not found" });
+            return res.status(403).json({ emailnotfound: "Netid not found" });
         }
         // Check password
         bcrypt.compare(password, auth.password).then(isMatch => {
@@ -75,6 +75,7 @@ router.post("/login", (req, res) => {
                     id: auth.id,
                     name: auth.name
                 };
+               
                 // Sign token
                 jwt.sign(
                     payload,
@@ -82,7 +83,8 @@ router.post("/login", (req, res) => {
                     (err, token) => {
                         res.json({
                             success: true,
-                            token: "Bearer " + token
+                            token: "Bearer " + token,
+                            id: auth._id
                         });
                     },
                     {
