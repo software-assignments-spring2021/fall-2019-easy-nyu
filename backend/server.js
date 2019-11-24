@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const passport = require('passport');
-
 require('dotenv').config();
 
 const app = express();
@@ -13,13 +12,13 @@ app.use(express.json());
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 function connect_to_db () {
   // Connect to MongoDB
   let uri = process.env.ATLAS_URI;
   if (process.env.NODE_ENV === "test") {
-      uri = process.env.Testing_URI;
+      uri = process.env.Testing_URI; 
   }
+  console.log(uri)
   mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
   const connection = mongoose.connection;
   connection.once('open', () => {
@@ -36,7 +35,7 @@ function connect_to_db () {
   const professorRouter = require('./routes/professors');
   app.use('/professors', professorRouter);
   const userRouter = require('./routes/user');
-  app.use('/users', userRouter);
+  app.use('/userprofile', userRouter);
 
   // Passport middleware
   app.use(passport.initialize());
