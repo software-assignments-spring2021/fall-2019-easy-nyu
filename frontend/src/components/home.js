@@ -15,13 +15,6 @@ class Home extends Component {
             <div>
                 <Navbar />
                 <div id="title" className="pageTitle">Welcome to EasyNYU</div>
-                <div class="centerContent">
-                    <div class="textBoxContainer shadow rounded">
-                        <div class="textBox">
-                            <Login/>
-                        </div>
-                    </div>
-                </div>
             </div>
         )
     }
