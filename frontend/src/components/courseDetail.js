@@ -3,6 +3,7 @@ import NYUNavBar from "./navbar";
 import { Container, Table, Row, Button } from "react-bootstrap";
 import { Link } from 'react-router-dom'
 import Comment from './comment';
+import AddComment from './addComment';
 
 class CourseDetail extends Component {
     constructor(props) {
@@ -84,7 +85,7 @@ class CourseDetail extends Component {
 						
 						{/* SHOW THIS ROW ONLY IF LOGGED IN*/}
 					<Row className="justify-content-md-center">
-						<Button>Add Comment</Button>
+						<AddComment courseid={this.props.match.params.id}/>
 					</Row>
                 </Container>
             </div>
