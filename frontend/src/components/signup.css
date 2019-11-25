@@ -42,10 +42,3 @@
     text-align: center;
     display: block;
   }
-  .display-signup {
-    margin-left: 5px;
-    display: inline;
-    cursor:pointer;
-    color:steelblue;
-    text-decoration:underline;
-  }

@@ -55,3 +55,10 @@
     font-size: small;
     overflow: hidden;
   }
+  .display-signup {
+    margin-left: 5px;
+    display: inline;
+    cursor:pointer;
+    color:steelblue;
+    text-decoration:underline;
+  }
