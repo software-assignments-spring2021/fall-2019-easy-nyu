@@ -2,8 +2,8 @@ const cheerio = require('cheerio');
 const axios = require('axios');
 const mongoose = require('mongoose');
 const fs = require('fs');
-const Course = require('../models/course.model');
-const Professor = require('../models/professor.model');
+const Course = require('./course.model');
+const Professor = require('./professor.model');
 
 require('dotenv').config();
 
@@ -17,18 +17,18 @@ function dbConnection() {
     })
 }
 
-function fatchSingleCourse(baseUrl, courseUrl, courseSchoolMajor) {
-    let course = courseSchoolMajor
+function fatchSingleCourse(baseUrl, courseUrl, course) {
     let promise = new Promise(function (resolve, reject) {
         setTimeout(() => {
             const url = baseUrl + courseUrl
-            const professor = {}
             axios.get(url)
                 .then((response) => {
                     const $ = cheerio.load(response.data)
                     const leftElem = $('div.pull-left')
                     const rightElem = $('div.pull-right')
                     const title = $('div.primary-head')
+                    const courseCodeSec = $('h1.page-title')
+                    course.code = $(courseCodeSec[0]).text().trim()
                     course.name = $(title[0]).text().trim()
                     if (leftElem.length !== rightElem.length) {
                         console.error(`divs dont match at ${url}`);
@@ -63,12 +63,23 @@ function fatchSingleCourse(baseUrl, courseUrl, courseSchoolMajor) {
                                     course.note = varVal
                                     break;
                                 case "Instructor(s)":
-                                    professor.name = varVal
+                                    profNameArr = varVal.split(',')
                                     break;
+                                case "Topic":
+                                    if (varVal[0] !== "R") {
+                                        course.topic = varVal
+                                    }
                             }
                         }
                         if (isClass) {
-                            res = [course, professor]
+                            const profArr = []
+                            for (let i = 0; i < profNameArr.length; i++) {
+                                let professor = {}
+                                professor.name = profNameArr[i].trim()
+                                professor.school = course.school
+                                profArr.push(professor)
+                            }
+                            res = {course: course, profs: profArr}
                         }
                         resolve(res)
                     }
@@ -95,7 +106,8 @@ async function storeToDB(course, prof) {
             console.log("Course Already Exist: ", existingCourse.name, "Adding ", savedProf.name)
         } else if (existingProf) {
             // professor already in database
-            course.prof = [existingProf._id]
+            console.log("step:1", existingProf._id)
+            course.profs = [existingProf._id]
             newCourse = new Course(course)
             savedCourse = await newCourse.save()
             await Professor.findByIdAndUpdate(existingProf._id, {$addToSet : {courses : savedCourse._id }})
@@ -106,8 +118,9 @@ async function storeToDB(course, prof) {
             savedProf = await newProf.save()
             newCourse = new Course(course)
             savedCourse = await newCourse.save()
-            await Course.findByIdAndUpdate(savedCourse._id, { $addToSet : {profs : savedProf._id } })
-            await Professor.findByIdAndUpdate(savedProf._id, {$addToSet : {courses : savedCourse._id }})
+            savedInfo = await Promise.all([savedProf, savedCourse])
+            await Course.findByIdAndUpdate(savedInfo[1]._id, { $addToSet : {profs : savedInfo[0]._id } })
+            await Professor.findByIdAndUpdate(savedInfo[0]._id, {$addToSet : {courses : savedInfo[1]._id }})
             console.log("Adding: ", savedProf.name, "Adding: ", savedCourse.name)
         }
     });
@@ -121,7 +134,8 @@ async function storeToDB(course, prof) {
     dbConnection()
     const courseStr = fs.readFileSync("./course_num_clean.txt").toString();
     courseArr = courseStr.split(',')
-    const baseUrl = "https://m.albert.nyu.edu/app/catalog/classsection/NYUNV/1204/"
+    console.log(courseArr.length)
+    const baseUrl = "https://m.albert.nyu.edu/app/catalog/classsection/NYUNV/1198/"
     const course = {}
     for (let i = 0; i < courseArr.length; i++) {
         if (courseArr[i][0] === 'm') {
@@ -131,11 +145,27 @@ async function storeToDB(course, prof) {
         } else {
             const info = await fatchSingleCourse(baseUrl, courseArr[i], course)
             if (info) {
-                courseInfo = info[0]
-                profInfo = info[1]
-                storeToDB(courseInfo, profInfo)
+                courseInfo = info.course
+                profInfo = info.profs
+                for (professor of profInfo) {
+                    await storeToDB(courseInfo, professor)
+                }
             }
         }
     }
-    // const info = await fatchSingleCourse(baseUrl, courseArr[2])
 })()
+
+// async function testSingle(){
+//     dbConnection()
+//     const info = await fatchSingleCourse("https://m.albert.nyu.edu/app/catalog/classsection/NYUNV/1198/", 10510, {school: "CAS"})
+//     if (info) {
+//         courseInfo = info.course
+//         profInfo = info.profs
+//         console.log(info)
+//         for (professor of profInfo) {
+//             await storeToDB(courseInfo, professor)
+//         }
+//     }
+// }
+
+// testSingle()
