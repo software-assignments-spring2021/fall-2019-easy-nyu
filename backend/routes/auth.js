@@ -137,8 +137,4 @@ router.post("/register-test", (req, res) => {
     });
 });
 
-<<<<<<< HEAD
 module.exports = router;
-=======
-module.exports = router;
->>>>>>> 36bbb4d7d418047407d686fd818b7a60f5ef6a84
