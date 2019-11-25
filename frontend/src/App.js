@@ -11,15 +11,12 @@ import UserProfile from './components/userProfile'
 function App() {
 	return (
 		<Router>
-			<Route exact path="/course" component={CourseDisplay}>
-			</Route>
-			<Route exact path="/professor" component={ProfessorDisplay}>
-			</Route>
-			<Route exact path="/" component={Home}>
-			</Route>
+			<Route exact path="/course" component={CourseDisplay}></Route>
+			<Route exact path="/professor" component={ProfessorDisplay}></Route>
+			<Route exact path="/" component={Home}></Route>
 			<Route exact path="/course/:id" component={CourseDetail} />
 			<Route exact path="/professor/:id" component={ProfessorProfile} />
-			<Route exact path="/profile" component={UserProfile} />
+			<Route exact path="/userprofile/:id" component={UserProfile} />
 		</Router>
 	);
 }

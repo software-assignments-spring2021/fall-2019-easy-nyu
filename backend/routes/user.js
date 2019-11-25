@@ -8,10 +8,9 @@ const jwt = require("jsonwebtoken");
 // Load User model
 const User = require("../models/user.model");
 
-
 // get user profile by user credentials; if not, create new profile
-router.route('/profile/:nid').get((req, res) => {
-    console.log(req.params)
+router.route('/:nid').get((req, res) => {
+    console.log(req.params);
     const nid = req.params.nid
     const description = 'nyu student'
     const score = 0
@@ -45,7 +44,7 @@ router.route('/profile/:nid').get((req, res) => {
 
 
 // Post Request - Add a new course to database
-router.route('/profile/update').post((req, res) => {
+router.route('/update').post((req, res) => {
     const nid = req.body.nid;
     const name = req.body.name;
     const description = req.body.description;
@@ -64,11 +63,5 @@ router.route('/profile/update').post((req, res) => {
         }
     })   
 });
-
-//basic backend: show info from database
-
-//nicer functionality:
-//update profile: class, college, major
-//fetch anything from database and show, edit then submit;
 
 module.exports = router;

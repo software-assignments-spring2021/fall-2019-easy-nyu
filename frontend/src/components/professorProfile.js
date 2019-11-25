@@ -10,6 +10,7 @@ class ProfessorProfile extends Component {
         this._isMounted = true;
         this.state = {
             professorname: '',
+            _id: '',
             description: '',
             comments: [],
             courses: []
@@ -37,9 +38,10 @@ class ProfessorProfile extends Component {
                 if (this._isMounted) {
                     this.setState(
                         {
-                            professorname: response.professorname,
-                            description: response.description,
-                            courses: response.course_id, 
+                            professorname: response.name,
+                            id: response._id,
+                            school: response.school,
+                            courses: response.courses, 
                             comments: response.comments
                         }
                     )
@@ -69,18 +71,10 @@ class ProfessorProfile extends Component {
                                 <tr>
                                     {console.log(this.state.courses)}
                                     {this.state.courses.map((course, i) => (
-                                        <td key={i}><Link to={`//`}>{course.coursename}</Link></td>
+                                        <td key={i}><Link to={`/${this.state.id}/${course._id}`}>{course.name}</Link></td>
                                     ))}
                                 </tr>
                             </tbody>
-                            {/* <tbody>
-                                <tr>
-                                    {console.log(this.state.comments)}
-                                    {this.state.comments.map((comment, i) => (
-                                        <td key={i}><Link to={`//`}>{comment.comment}</Link></td>
-                                    ))}
-                                </tr>
-                            </tbody> */}
                         </Table>
                     </Row>
                 </Container>

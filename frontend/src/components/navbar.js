@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {Navbar, Nav, Button} from 'react-bootstrap'
 import logo from'../img/logo.png';
+import Login from './login'
 import './navbar.css'
 
 class NYUNavBar extends Component {
@@ -21,8 +22,7 @@ class NYUNavBar extends Component {
 					<Nav.Link href="/professor">Professors</Nav.Link>
 					<Nav.Link href="/course">Courses</Nav.Link>
 				</Nav>
-				<Button href="/profile" variant="outline-light">My Profile</Button>
-                <Button variant="outline-light">Log out</Button>
+				<Login />
 			</Navbar>
         )
     }
