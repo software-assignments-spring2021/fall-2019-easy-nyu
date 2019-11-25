@@ -3,6 +3,8 @@ import NYUNavBar from "./navbar";
 import { Container, Table, Row } from "react-bootstrap";
 import { Link } from 'react-router-dom'
 import './professorProfile.css';
+import Comment from './comment';
+import AddComment from './addComment';
 
 class ProfessorProfile extends Component {
     constructor(props) {
@@ -38,7 +40,7 @@ class ProfessorProfile extends Component {
                 if (this._isMounted) {
                     this.setState(
                         {
-                            professorname: response.name,
+                            professorname: response.professorname,
                             id: response._id,
                             school: response.school,
                             courses: response.courses, 
@@ -64,7 +66,7 @@ class ProfessorProfile extends Component {
                         <Table striped bordered hover >
                             <thead>
                                 <tr>
-                                    <td>{`Courses taughtyed by Prof. ${this.state.professorname}`}</td>
+                                    <td>{`Courses taught by ${this.state.professorname}`}</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -77,6 +79,19 @@ class ProfessorProfile extends Component {
                             </tbody>
                         </Table>
                     </Row>
+					<Row className="justify-content-md-center">
+						<h3>Comments ({this.state.comments.length})</h3>
+					</Row>
+						{this.state.comments.map((comment, i) => (
+					<Row className="justify-content-md-center"><Table striped bordered hover ><tbody><tr><td>
+							<Comment id={comment} />
+					</td></tr></tbody></Table></Row>
+						))}
+						
+						{/* SHOW THIS ROW ONLY IF LOGGED IN*/}
+					<Row className="justify-content-md-center">
+						<AddComment profid={this.props.match.params.id}/>
+					</Row>
                 </Container>
             </div>
         )

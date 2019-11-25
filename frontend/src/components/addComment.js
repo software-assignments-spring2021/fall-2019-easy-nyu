@@ -13,6 +13,7 @@ class AddComment extends Component {
         this.state = {
             comment: "",
 			course_id: this.props.courseid,
+			prof_id: this.props.profid,
             showModal: false
         };
     }
@@ -36,7 +37,8 @@ class AddComment extends Component {
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
 					comment: this.state.comment,
-					course_id: this.state.course_id
+					course_id: this.state.course_id,
+					prof_id: this.state.prof_id
 				})
 			}).then(response => {
 				return response.json();
