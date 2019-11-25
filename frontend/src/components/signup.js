@@ -85,9 +85,15 @@ class Signup extends Component {
     }
 
     render() {
+        let buttonDisplay;
+        if (this.props.onNavbar) {
+            buttonDisplay = <Button variant="outline-light" onClick={this.handlePopup}>Signup</Button>
+        } else {
+            buttonDisplay = <p className="display-signup" onClick={this.handlePopup}>Create Account</p>
+        } 
         return (
             <div>
-                <p className="display-signup" onClick={this.handlePopup}>Create Account</p>
+                {buttonDisplay}
                 <Modal show={this.state.showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Create Account</Modal.Title>
