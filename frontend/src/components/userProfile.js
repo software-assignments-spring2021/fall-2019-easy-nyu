@@ -42,7 +42,7 @@ class UserProfile extends Component {
         return (
             <div>
                 <Navbar />
-                show whatever please
+                show something
             </div>
         )
     }
