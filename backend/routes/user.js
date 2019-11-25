@@ -10,7 +10,6 @@ const User = require("../models/user.model");
 
 // get user profile by user credentials; if not, create new profile
 router.route('/:nid').get((req, res) => {
-    console.log(req.params);
     const nid = req.params.nid
     const description = 'nyu student'
     const score = 0
