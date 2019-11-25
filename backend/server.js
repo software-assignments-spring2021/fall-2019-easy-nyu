@@ -18,12 +18,8 @@ function connect_to_db () {
   if (process.env.NODE_ENV === "test") {
       uri = process.env.Testing_URI; 
   }
-<<<<<<< HEAD
-  mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
-=======
   console.log(uri)
   mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
->>>>>>> 36bbb4d7d418047407d686fd818b7a60f5ef6a84
   const connection = mongoose.connection;
   connection.once('open', () => {
       console.log("MongoDB database is connected successfully");
