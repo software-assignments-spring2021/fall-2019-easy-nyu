@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const passport = require('passport');
-
 require('dotenv').config();
 
 const app = express();
@@ -13,14 +12,18 @@ app.use(express.json());
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 function connect_to_db () {
   // Connect to MongoDB
   let uri = process.env.ATLAS_URI;
   if (process.env.NODE_ENV === "test") {
-      uri = process.env.Testing_URI;
+      uri = process.env.Testing_URI; 
   }
+<<<<<<< HEAD
   mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
+=======
+  console.log(uri)
+  mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
+>>>>>>> 36bbb4d7d418047407d686fd818b7a60f5ef6a84
   const connection = mongoose.connection;
   connection.once('open', () => {
       console.log("MongoDB database is connected successfully");
@@ -36,7 +39,7 @@ function connect_to_db () {
   const professorRouter = require('./routes/professors');
   app.use('/professors', professorRouter);
   const userRouter = require('./routes/user');
-  app.use('/users', userRouter);
+  app.use('/userprofile', userRouter);
 
   // Passport middleware
   app.use(passport.initialize());

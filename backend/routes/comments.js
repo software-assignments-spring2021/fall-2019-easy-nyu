@@ -83,4 +83,15 @@ router.route('/add').post((req, res) => {
     }
 });
 
+router.route('/:id').get((req, res) => {
+    Comment.findOne({ _id:req.params.id })
+    .exec((err, data) => {
+        if (err) {
+            res.status(400).json('Error: ' + err)
+        } else {
+            res.json(data);
+        }
+    })
+});
+
 module.exports = router;

@@ -1,19 +1,24 @@
 import React, { Component } from "react";
 import Modal from 'react-bootstrap/Modal'
+import {Button} from 'react-bootstrap'
+import Signup from './signup'
 import './login.css'
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
     constructor(props) {
         super(props);
-
+        this.send = this.send.bind(this);
         this.state = {
             name: "",
             email: "",
             nid: "",
             password: "",
-            password2: "",
             showModal: false,
-            errorMsg: ""
+            errorMsg: "",
+            success:false,
+            token:''
         };
     }
 
@@ -38,42 +43,36 @@ class Login extends Component {
     }
 
     send() {
-        fetch('/api/auth/login', {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                name: this.state.name,
-                email: this.state.email,
-                nid: this.state.nid,
-                password: this.state.password,
-                password2: this.state.password2
+        const { history } = this.props;
+        const auth={
+                    name: this.state.name,
+                    email: this.state.email,
+                    nid: this.state.nid,
+                    password: this.state.password,
+                    password2: this.state.password2
+        }
+        axios.post('/api/auth/login', auth)
+            .then(res => {
+                //store jwt in Cookie
+                localStorage.setItem('jwtToken',res.data.token);
+                localStorage.setItem('userID',res.data.id);
+                // user id is not stored in localStorage.userID
+                const { history } = this.props;
+                if(history) history.push('/userprofile/'+res.data.id);
+                this.handleClose()
             })
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    response.json()
-                    .then(errors => {
-                        this.setState({
-                            errorMsg: Object.values(errors)[0]
-                        })
-                    })
-                }
-            })
-            .then(
-                this.setState({
-                    nid: "",
-                    password: "",
-                })
-            );
-        
+            .catch(err => {
+                console.log(err);
+                this.setState({errorMsg:'Incorrect email or password',success:false});
+            });
+
     }
 
     render() {
+        const { history } = this.props;
         return (
             <div>
-                <button className="buttonLink" onClick={this.handlePopup}> Login </button>
+                <Button variant="outline-light" onClick={this.handlePopup}>Login</Button>
                 <Modal show={this.state.showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Login</Modal.Title>
@@ -87,10 +86,14 @@ class Login extends Component {
                             Password:
                             <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
                         </label>
+                        <div className="signup">
+                            <p className="inline">Not Registered?</p> 
+                            <Signup/>
+                        </div>
                         <p className='error-msg'>{this.state.errorMsg}</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button className="login-btn" onClick={(evt) => { this.send(); }}>Login</button>
+                        <button className="login-btn" onClick={(evt) => { this.send();}}>Login</button>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -98,4 +101,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);

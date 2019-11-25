@@ -37,7 +37,7 @@ router.post("/register", (req, res) => {
                     if (err) throw err;
                     newAuth.password = hash;
                     newAuth.save()
-                        .then(auth => res.json(auth))
+                        .then(auth => res.json(auth._id))
                         .catch(err => console.log(err))
                         .then(console.log("auth added:", req.body.name));
                 });
@@ -64,7 +64,7 @@ router.post("/login", (req, res) => {
     ]}).then(auth => {
         // Check if auth exists
         if (!auth) {
-            return res.status(403).json({ emailnotfound: "Email not found" });
+            return res.status(403).json({ emailnotfound: "Netid not found" });
         }
         // Check password
         bcrypt.compare(password, auth.password).then(isMatch => {
@@ -75,6 +75,7 @@ router.post("/login", (req, res) => {
                     id: auth.id,
                     name: auth.name
                 };
+               
                 // Sign token
                 jwt.sign(
                     payload,
@@ -82,7 +83,8 @@ router.post("/login", (req, res) => {
                     (err, token) => {
                         res.json({
                             success: true,
-                            token: "Bearer " + token
+                            token: "Bearer " + token,
+                            id: auth._id
                         });
                     },
                     {
@@ -135,4 +137,8 @@ router.post("/register-test", (req, res) => {
     });
 });
 
+<<<<<<< HEAD
 module.exports = router;
+=======
+module.exports = router;
+>>>>>>> 36bbb4d7d418047407d686fd818b7a60f5ef6a84

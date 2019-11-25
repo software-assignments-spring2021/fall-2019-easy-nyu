@@ -8,10 +8,9 @@ const jwt = require("jsonwebtoken");
 // Load User model
 const User = require("../models/user.model");
 
-
 // get user profile by user credentials; if not, create new profile
-router.route('/profile/:nid').get((req, res) => {
-    console.log(req.params)
+router.route('/:nid').get((req, res) => {
+    console.log(req.params);
     const nid = req.params.nid
     const description = 'nyu student'
     const score = 0
@@ -44,7 +43,7 @@ router.route('/profile/:nid').get((req, res) => {
 
 
 // Post Request - Add a new course to database
-router.route('/profile/update').post((req, res) => {
+router.route('/update').post((req, res) => {
     const nid = req.body.nid;
     const description = req.body.description;
     const score = req.body.score;
@@ -62,32 +61,5 @@ router.route('/profile/update').post((req, res) => {
         }
     })   
 });
-
-
-/*
-router.route('/add').post((req, res) => {
-    const coursename = req.body.coursename;
-    const description = req.body.description;
-    const semester = req.body.semester;
-    const prof = req.body.prof;
-    const ta = req.body.ta;
-    const newCourse = new Course({
-        coursename,
-        description,
-        semester,
-        prof,
-        ta
-    });
-
-    newCourse.save((err, course) => {
-        if (err) {
-            res.send(err);
-        }
-        else {
-            res.json({message: "Course added!", course: course});
-        }
-    })
-});
-*/
 
 module.exports = router;

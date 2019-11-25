@@ -9,10 +9,11 @@ class Professor extends Component {
     }
 
     render () {
+        console.log(this.props.name)
         return (
             <tr>
                 <td><Link to={"/professor/" + this.props.id}>{this.props.name}</Link></td>
-                <td>{this.props.description}</td>
+                <td>{this.props.school}</td>
             </tr>
         )
     }

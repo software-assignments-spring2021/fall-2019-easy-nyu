@@ -27,29 +27,18 @@ const test_login_credential = {
 
 before(function (done) {
     chai.request(server)
-<<<<<<< HEAD
-      .post('/api/users/register')
-      .send(test_login_credential)
-      .end(function(err, response){
-        done();
-      });
-    });
-=======
         .post('/api/auth/register')
         .send(test_login_credential)
         .end(function (err, response) {
             done();
         });
 });
->>>>>>> 4c26d457c8228c40edd3c1605dccf2898dfbab73
 
 //run once after all tests
 after(function (done) {
     console.log('Deleting test database');
     mongoose.connection.db.dropDatabase(done);
 });
-
-let professor_id;
 let course_id;
 let comment_id;
 
@@ -60,7 +49,7 @@ describe('Course', () => {
     describe('/GET courses', () => {
         it('it should GET all the courses', (done) => {
             chai.request(server)
-                .get('/courses')
+                .get('/courses/all')
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -68,10 +57,10 @@ describe('Course', () => {
                     done();
                 });
         });
-        it('adding a prof to test course', (done) => {
+        it('it should add a prof to test course', (done) => {
             const prof = {
-                professorname: "Amos Bloomberg",
-                description: "This is a professor",
+                name: "Amos Bloomberg",
+                courses: [],
             }
             chai.request(server)
                 .post('/professors/add')
@@ -89,9 +78,14 @@ describe('Course', () => {
     describe('/POST courses Failed Cases', () => {
         it('it should not POST a book without prof field', (done) => {
             const course = {
-                coursename: "CSCI-UA 480",
-                description: " Agile Software Development",
-                semester: "Fall 2019"
+                name: "ECON-UA 331",
+                major: "Economics",
+                school: "CAS",
+                level: "300-elective",
+                unit: "4",
+                description: "Monetary Banking Theory",
+                semester: "Fall 2019",
+                comments: []
             }
             chai.request(server)
                 .post('/courses/add')
@@ -104,24 +98,14 @@ describe('Course', () => {
 
         it('it should not POST a book without coursename field', (done) => {
             const course = {
-                description: " Agile Software Development",
+                major: "Economics",
+                school: "CAS",
+                level: "300-elective",
+                unit: "4",
+                description: "Monetary Banking Theory",
                 semester: "Fall 2019",
-                prof: [test_course_prof]
-            }
-            chai.request(server)
-                .post('/courses/add')
-                .send(course)
-                .end((err, res) => {
-                    res.should.have.property('error');
-                    done();
-                });
-        });
-
-        it('it should not POST a book without semester field', (done) => {
-            const course = {
-                coursename: "CSCI-UA 480",
-                description: " Agile Software Development",
-                prof: [test_course_prof]
+                profs: [test_course_prof],
+                comments: []
             }
             chai.request(server)
                 .post('/courses/add')
@@ -134,9 +118,14 @@ describe('Course', () => {
 
         it('it should not POST a book without description field', (done) => {
             const course = {
-                coursename: "CSCI-UA 480",
+                name: "ECON-UA 331",
+                major: "Economics",
+                school: "CAS",
+                level: "300-elective",
+                unit: "4",
                 semester: "Fall 2019",
-                prof: [test_course_prof]
+                profs: [test_course_prof],
+                comments: []
             }
             chai.request(server)
                 .post('/courses/add')
@@ -149,12 +138,17 @@ describe('Course', () => {
     });
 
     describe('/POST courses Success Case #1', () => {
-        it('it should POST a course without a TA', (done) => {
+        it('it should POST a course with an unit', (done) => {
             const course = {
-                coursename: "ECON-UA 331",
+                name: "ECON-UA 331",
+                major: "Economics",
+                school: "CAS",
+                level: "300-elective",
+                unit: "4",
                 description: "Monetary Banking Theory",
                 semester: "Fall 2019",
-                prof: [test_course_prof]
+                profs: [test_course_prof],
+                comments: []
             }
             chai.request(server)
                 .post('/courses/add')
@@ -162,23 +156,27 @@ describe('Course', () => {
                 .end((err, res) => {
                     res.body.should.be.a('object');
                     res.body.should.have.property('message').eql('Course added!');
-                    res.body.course.should.have.property('coursename');
+                    res.body.course.should.have.property('name');
                     res.body.course.should.have.property('description');
-                    res.body.course.should.have.property('semester');
-                    res.body.course.should.have.property('prof');
+                    res.body.course.should.have.property('comments');
+                    res.body.course.should.have.property('profs');
                     done();
                 });
         });
     });
 
     describe('/POST courses Success Case #2', () => {
-        it('it should POST a course with a TA', (done) => {
+        it('it should POST a course without an unit', (done) => {
             const course = {
-                coursename: "CSCI-UA 480",
-                description: " Agile Software Development",
+                name: "CSCI-UA 480",
+                major: "Computer Science",
+                school: "CAS",
+                level: "400-elective",
+                //unit: "4",
+                description: "Agile Software Development",
                 semester: "Fall 2019",
-                prof: [test_course_prof],
-                ta: "Karan"
+                profs: [test_course_prof],
+                comments: []
             }
             chai.request(server)
                 .post('/courses/add')
@@ -186,11 +184,10 @@ describe('Course', () => {
                 .end((err, res) => {
                     res.body.should.be.a('object');
                     res.body.should.have.property('message').eql('Course added!');
-                    res.body.course.should.have.property('coursename');
+                    res.body.course.should.have.property('name');
                     res.body.course.should.have.property('description');
-                    res.body.course.should.have.property('semester');
-                    res.body.course.should.have.property('prof');
-                    res.body.course.should.have.property('ta');
+                    res.body.course.should.have.property('comments');
+                    res.body.course.should.have.property('profs');
                     done();
                 });
         });
@@ -199,11 +196,15 @@ describe('Course', () => {
     describe('/Connection with Comment', () => {
         it('it should have an array of comments', (done) => {
             const course = {
-                coursename: "CORE-UA 400",
-                description: "Justice and Injustice",
+                name: "ECON-UA 331",
+                major: "Economics",
+                school: "CAS",
+                level: "300-elective",
+                unit: "4",
+                description: "Monetary Banking Theory",
                 semester: "Fall 2019",
-                prof: [test_course_prof],
-                ta: "Alex Weisberg"
+                profs: [test_course_prof],
+                comments: []
             }
             chai.request(server)
                 .post('/courses/add')
@@ -218,12 +219,11 @@ describe('Course', () => {
 
 // Unit Test for Comment
 describe('Comment', () => {
-
     // Test the /POST route
     describe('/POST comment', () => {
         it('it should POST a comment to a course', (done) => {
             chai.request(server)
-                .get('/courses')
+                .get('/courses/all')
                 .end((err, res) => {
                     const current_course_id = res.body[0]._id;
                     const newComment = {
@@ -243,7 +243,7 @@ describe('Comment', () => {
 
         it('it should have a comment to link back to a course', (done) => {
             chai.request(server)
-                .get('/courses')
+                .get('/courses/all')
                 .end((err, res) => {
                     const current_course_id = res.body[0]._id;
                     const newComment = {
@@ -276,7 +276,6 @@ describe('Comment', () => {
 
 // Unit Test for Auth Register and Login
 describe('Register and Login', () => {
-
     // Test the /POST route for Register
     describe('Register', () => {
         it('Should not allow register without email', (done) => {
@@ -460,7 +459,7 @@ describe('Courses Display', () => {
     describe('Trending Orders', () => {
         it('it should display courses from most to least comments', (done) => {
             chai.request(server)
-                .get('/courses')
+                .get('/courses/all')
                 .end((err, res) => {
                     var i;
                     for (var i = 0; i < res.body.length - 1; i++) {
@@ -477,7 +476,7 @@ describe('Courses Display', () => {
         });
         it('it should match number of comments', (done) => {
             chai.request(server)
-                .get('/courses')
+                .get('/courses/all')
                 .end((err, res) => {
                     res.body[0].comments.length.should.be.eql(2);
                     res.body[1].comments.length.should.be.eql(1);
@@ -489,7 +488,6 @@ describe('Courses Display', () => {
 
 // Unit Test for Professor
 describe('Professor', () => {
-
     // Test the /GET route
     describe('/GET professor', () => {
         it('it should GET all the professors', (done) => {
@@ -508,24 +506,8 @@ describe('Professor', () => {
     describe('/POST professor Failed Cases', () => {
         it('it should not POST a professor without prof name field', (done) => {
             const prof = {
-                description: "This is a professor",
-                course_id: course_id,
-                comments: "5dbcb1811c9d440000450e81"
-            }
-            chai.request(server)
-                .post('/professors/add')
-                .send(prof)
-                .end((err, res) => {
-                    res.should.have.property('error');
-                    done();
-                });
-        });
-
-        it('it should not POST a professor without description field', (done) => {
-            const prof = {
-                professorname: "John Weiler",
-                course_id: "5dbb3024135b6e5f5466647d",
-                comments: "5dbcb1811c9d440000450e81"
+                courses: [course_id],
+                comments: ["5dbcb1811c9d440000450e81"]
             }
             chai.request(server)
                 .post('/professors/add')
@@ -540,9 +522,9 @@ describe('Professor', () => {
     describe('/POST Professor Success Case #1', () => {
         it('it should POST a prof without a comment', (done) => {
             const prof = {
-                professorname: "John Weiler",
-                description: "This is a professor",
-                course_id: "5dbb3024135b6e5f5466647d"
+                name: "John Weiler",
+                courses: ["5dbb3024135b6e5f5466647d"],
+                comments: ["5dbcb1811c9d440000450e81"]
             }
             chai.request(server)
                 .post('/professors/add')
@@ -559,9 +541,9 @@ describe('Professor', () => {
     describe('/POST Professor Success Case #2', () => {
         it('it should POST a prof without a course', (done) => {
             const prof = {
-                professorname: "Joe Versoza",
-                description: "This is a professor",
-                comments: "5dbcb1811c9d440000450e81"
+                name: "Joe Versoza",
+                courses: ["5dbb3024135b6e5f5466647d"],
+                comments: ["5dbcb1811c9d440000450e81"]
             }
             chai.request(server)
                 .post('/professors/add')
@@ -590,7 +572,7 @@ describe('Professor', () => {
     describe('/Get professor by id should be successful', () => {
         it('it should get John Weiler', (done) => {
             chai.request(server)
-                .get('/professors/id')
+                .get('/professors')
                 .send({professor_id:professor_id})
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -603,7 +585,7 @@ describe('Professor', () => {
         let course_id;
         it('getting professor with id should get John Weiler', (done) => {
             chai.request(server)
-                .get('/professors/id')
+                .get('/professors')
                 .send({professor_id:professor_id})
                 .end((err, res) => {
                     course_id = res.body
@@ -613,7 +595,7 @@ describe('Professor', () => {
         });
         it('using course number in response to get course should get the right course', (done) => {
             chai.request(server)
-                .get('/courses/id')
+                .get('/courses')
                 .send({course_id:course_id})
                 .end((err, res) => {
                     res.should.have.status(200);

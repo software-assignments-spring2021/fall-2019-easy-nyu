@@ -14,12 +14,11 @@ class Home extends Component {
         return (
             <div>
                 <Navbar />
-                <div id="title" class="pageTitle">Welcome to EasyNYU</div>
+                <div id="title" className="pageTitle">Welcome to EasyNYU</div>
                 <div class="centerContent">
                     <div class="textBoxContainer shadow rounded">
                         <div class="textBox">
-                            <Login /><br />
-                            <Signup />
+                            <Login/>
                         </div>
                     </div>
                 </div>
