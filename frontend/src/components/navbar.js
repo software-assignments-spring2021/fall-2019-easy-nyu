@@ -17,12 +17,12 @@ class NYUNavBar extends Component {
 	
 	signoutHandler(){
 		this.setState({loggedIn:false});
-		localStorage.setItem('jwtToken',undefined);
-		localStorage.setItem('userID',undefined);
+		localStorage.setItem('jwtToken',null);
+		localStorage.setItem('userID',null);
 	}
 
     render () {
-		if (localStorage.getItem('jwtToken').trim() != "undefined") {
+		if ((localStorage.getItem('jwtToken') + "") != "null") {
 			return (
 				<Navbar bg="nyu" variant="dark">
 					<Navbar.Brand href="/">
