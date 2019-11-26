@@ -35,7 +35,7 @@ class NYUNavBar extends Component {
 						<Nav.Link href="/course">Courses</Nav.Link>
 					</Nav>
 					<Button href={`/userprofile/${localStorage.getItem('userID')}`} variant="outline-light">My Profile</Button>
-					<Button variant="outline-light" onClick={this.signoutHandler}>Sign Out</Button>
+					<Button href={'/'} variant="outline-light" onClick={this.signoutHandler}>Sign Out</Button>
 				</Navbar>
 			)
 		} else {
