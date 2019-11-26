@@ -107,7 +107,6 @@ class ProfessorProfile extends Component {
 
                         <tbody>
                             <tr>
-                                {/* {Render all the courses taught by the prof} */}
                                 {this.state.courses.map((course, i) => (
                                     <td key={i}>
                                         <Link to={`/${this.state.id}/${course._id}`}>{course.name}</Link>
