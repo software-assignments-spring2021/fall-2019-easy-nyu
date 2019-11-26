@@ -33,6 +33,7 @@ class ProfessorDisplay extends Component {
                 }
             });
     }
+    
     render() {
         return (
             <div id="show-prof-div" style={{ textAlign: "center" }}>

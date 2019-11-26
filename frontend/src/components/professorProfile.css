@@ -6,4 +6,8 @@
     width:50%;
     text-align: center;
     align-self: center;
-} 
+}
+
+td{
+    display:block;
+}
