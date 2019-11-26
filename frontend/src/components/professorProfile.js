@@ -15,7 +15,9 @@ class ProfessorProfile extends Component {
             _id: '',
             description: '',
             comments: [],
-            courses: []
+            courses: [], 
+            comments_for_prof: []
+            
         };
     }
 
@@ -38,13 +40,41 @@ class ProfessorProfile extends Component {
             }).then(response => {
                 if (this._isMounted) {
                     console.log(response);
+                    var i;
+                    var j;
+                    var counter = 0;
+                    let comment_for_course = [];
+                    for (i = 0; i < response.courses.length; i++) {
+                        let entry = [];
+                        for (j = 0; j < response.comments.length; j++) {
+                            if (response.comments[j].course_id == response.courses[i]._id) {
+                                if (response.comments[j].prof_id != null) {
+                                    if (counter <= 2) {
+                                        entry.push(response.comments[j]);
+                                        counter++;
+                                    }
+                                }
+                            }
+                        }
+                        comment_for_course.push(entry);
+                    }
+                    var k;
+                    let comment_for_prof = [];
+                    for (k = 0; k < response.comments.length; k++) {
+                        if (response.comments[k].course_id == null) {
+                            if (response.comments[k].prof_id != null) {
+                                comment_for_prof.push(response.comments[j])
+                            }
+                        }
+                    }
                     this.setState(
                         {
                             professorname: response.name,
                             id: response._id,
                             school: response.school,
                             courses: response.courses, 
-                            comments: response.comments
+                            comments: comment_for_course,
+                            comments_for_prof: comment_for_prof
                         }
                     )
                 }
@@ -77,6 +107,7 @@ class ProfessorProfile extends Component {
 
                         <tbody>
                             <tr>
+                                {/* {Render all the courses taught by the prof} */}
                                 {this.state.courses.map((course, i) => (
                                     <td key={i}>
                                         <Link to={`/${this.state.id}/${course._id}`}>{course.name}</Link>
