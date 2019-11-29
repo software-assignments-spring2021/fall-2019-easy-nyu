@@ -15,7 +15,9 @@ class ProfessorProfile extends Component {
             _id: '',
             description: '',
             comments: [],
-            courses: []
+            courses: [], 
+            comments_for_prof: []
+            
         };
     }
 
@@ -28,7 +30,6 @@ class ProfessorProfile extends Component {
     }
 
     componentDidMount() {
-        const id = 
         fetch(`/professors?id=${this.props.match.params.id}`, { method: "GET" })
             .then(response => {
                 if (response.ok) {
@@ -38,13 +39,42 @@ class ProfessorProfile extends Component {
                 }
             }).then(response => {
                 if (this._isMounted) {
+                    console.log(response);
+                    var i;
+                    var j;
+                    var counter = 0;
+                    let comment_for_course = [];
+                    for (i = 0; i < response.courses.length; i++) {
+                        let entry = [];
+                        for (j = 0; j < response.comments.length; j++) {
+                            if (response.comments[j].course_id == response.courses[i]._id) {
+                                if (response.comments[j].prof_id != null) {
+                                    if (counter <= 2) {
+                                        entry.push(response.comments[j]);
+                                        counter++;
+                                    }
+                                }
+                            }
+                        }
+                        comment_for_course.push(entry);
+                    }
+                    var k;
+                    let comment_for_prof = [];
+                    for (k = 0; k < response.comments.length; k++) {
+                        if (response.comments[k].course_id == null) {
+                            if (response.comments[k].prof_id != null) {
+                                comment_for_prof.push(response.comments[j])
+                            }
+                        }
+                    }
                     this.setState(
                         {
-                            professorname: response.professorname,
+                            professorname: response.name,
                             id: response._id,
                             school: response.school,
                             courses: response.courses, 
-                            comments: response.comments
+                            comments: comment_for_course,
+                            comments_for_prof: comment_for_prof
                         }
                     )
                 }
@@ -55,44 +85,81 @@ class ProfessorProfile extends Component {
         return (
             <div>
                 <NYUNavBar />
-                <Container>
+                <center><container>
                     <Row className="justify-content-md-center">
-                        <h1>{`${this.state.professorname}`}</h1>
+                        <h1>Prof. {this.state.professorname}</h1>
                     </Row>
                     <Row className="justify-content-md-center">
-                        <h2>{`${this.state.description}`}</h2>
+                        <h3>School: {this.state.school}</h3>
                     </Row>
                     <Row className="justify-content-md-center">
-                        <Table striped bordered hover >
-                            <thead>
-                                <tr>
-                                    <td>{`Courses taught by ${this.state.professorname}`}</td>
+                        <AddComment profid={this.props.match.params.id}/>
+                    </Row>
+                    <Table striped bordered hover>
+                        <tr>
+                            <th>Comments for the Professor</th>
+                        </tr>
+                        <tr>
+                            {this.state.comments_for_prof.map((prof_comment, i) => (
+                                <td key={i}>
+                                    <p>{prof_comment}</p>
+                                </td>
+                            ))}
+                        </tr>
+                    </Table>
+
+                    {/* {Option Two for Display} */}
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>{`Courses Taught By ${this.state.professorname}`}</th>
+                                <th>{`Comments on Course`}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.courses.map((course, i) => (
+                                <tr key={course._id}>
+                                        <td>
+                                            <Link to={`/${this.state.id}/${course._id}`}>{course.name}</Link>                  
+                                        </td>
+                                        <td>
+                                        {this.state.comments[i].map((comment, j) => (
+                                            <p key={j}>{this.state.comments[i][j]}</p>
+                                        ))}
+                                        </td>
                                 </tr>
-                            </thead>
-                            <tbody>
+                                ))}
+                        </tbody>
+                    </Table>
+                    
+                    {/* {Option Two for Display} */}
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>{`Courses Taught By ${this.state.professorname}`}</th>
+                                <th>{`Comments on Course`}</th>
+                            </tr>
+                        </thead>
+                            {this.state.courses.map((course, i) => (
                                 <tr>
-                                    {console.log(this.state.courses)}
-                                    {this.state.courses.map((course, i) => (
-                                        <td key={i}><Link to={`/${this.state.id}/${course._id}`}>{course.name}</Link></td>
-                                    ))}
+                                    <td key={course._id}>
+                                        <Link to={`/${this.state.id}/${course._id}`}>{course.name}</Link>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                {this.state.comments[i].map((comment, j) => (
+                                                    <td key={j}>
+                                                        <p>{this.state.comments[i][j]}</p>
+                                                    </td>
+                                                ))}
+                                            </tr>
+                                        </table>
+                                    </td>
                                 </tr>
-                            </tbody>
-                        </Table>
-                    </Row>
-					<Row className="justify-content-md-center">
-						<h3>Comments ({this.state.comments.length})</h3>
-					</Row>
-						{this.state.comments.map((comment, i) => (
-					<Row className="justify-content-md-center"><Table striped bordered hover ><tbody><tr><td>
-							<Comment id={comment} />
-					</td></tr></tbody></Table></Row>
-						))}
-						
-						{/* SHOW THIS ROW ONLY IF LOGGED IN*/}
-					<Row className="justify-content-md-center">
-						<AddComment profid={this.props.match.params.id}/>
-					</Row>
-                </Container>
+                            ))}
+                    </Table>
+                </container></center>
             </div>
         )
     }
