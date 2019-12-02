@@ -61,9 +61,11 @@ class ProfessorProfile extends Component {
                     var k;
                     let comment_for_prof = [];
                     for (k = 0; k < response.comments.length; k++) {
+                        console.log(response.comments[0].course_id);
+                        console.log(response.comments[0].prof_id);
                         if (response.comments[k].course_id == null) {
                             if (response.comments[k].prof_id != null) {
-                                comment_for_prof.push(response.comments[j])
+                                comment_for_prof.push(response.comments[k])
                             }
                         }
                     }
