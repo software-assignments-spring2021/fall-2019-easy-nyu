@@ -62,7 +62,7 @@ router.route('/add').post((req, res) => {
 
 router.route('/').get((req, res) => {
     Course.findOne({ _id:req.query.id })
-    .populate('prof')
+    .populate({path:'profs', select:"name"})
     .exec((err, data) => {
         if (err) {
             res.status(400).json('Error: ' + err)
