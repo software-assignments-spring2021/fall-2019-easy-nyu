@@ -136,7 +136,42 @@ class CourseDetail extends Component {
                         </tr>
                     </Table>
                 </div>
-                
+                <div align="left">
+                    <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>{`All Professors Taught ${this.state.code}`}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.profs.map((prof, i) => (
+                            <tr key={prof._id}>
+                                    <td>
+                                        <Link to={`/${this.state.id}/${prof._id}`}>{prof.name}</Link>                  
+                                    </td>
+                            </tr>
+                            ))}
+                    </tbody>
+                </Table>
+                </div>
+                <div align="right">
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>{`Comments for ${this.state.code}`}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.comments.map((comment, i) => (
+                                <tr key={comment._id}>
+                                        <td>
+                                            <p>{this.state.comments[i]}</p>                  
+                                        </td>
+                                </tr>
+                                ))}
+                        </tbody>
+                    </Table>
+                </div>
             </div>
         )
     }
