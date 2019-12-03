@@ -62,7 +62,8 @@ class CourseDetail extends Component {
         return (
             <div>
                 <NYUNavBar />
-                <div align="left">
+                <div class="tables-container">
+                <div>
                     <Table striped bordered hover>
                         <tr>
                             <td>
@@ -130,7 +131,7 @@ class CourseDetail extends Component {
                         </tr>
                     </Table>
                 </div>
-                <div align="right">
+                <div>
                     <Table striped bordered hover>
                         <tr>
                             <td>
@@ -147,7 +148,7 @@ class CourseDetail extends Component {
                         </tr>
                     </Table>
                 </div>
-                <div align="left">
+                <div>
                     <Table striped bordered hover>
                     <thead>
                         <tr>
@@ -165,7 +166,7 @@ class CourseDetail extends Component {
                     </tbody>
                 </Table>
                 </div>
-                <div align="right">
+                <div>
                     <Table striped bordered hover>
                         <thead>
                             <tr>
@@ -182,6 +183,7 @@ class CourseDetail extends Component {
                                 ))}
                         </tbody>
                     </Table>
+                </div>
                 </div>
             </div>
         )

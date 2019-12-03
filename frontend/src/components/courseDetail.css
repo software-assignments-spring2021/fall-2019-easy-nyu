@@ -8,12 +8,34 @@
     align-self: center;
 }
 
-.left {
-    text-align: left;
-    width:50%;
+.tables-container {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.right {
-    text-align: right;
-    width:50%;
+.tables-container > div {
+    flex: 0 50%;
+}
+
+.tables-container table {
+    width: 100%;
+    
+}
+
+/* --- */
+table {
+    border:1px solid black;
+}
+
+table th {
+    border:1px solid red;
+}
+
+html, body {
+    margin:0;
+    padding:0;
+}
+
+.same-height table {
+    height:100%;
 }
