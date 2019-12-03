@@ -12,6 +12,7 @@ class CourseDetail extends Component {
         this._isMounted = true;
         this.state = {
             code: '',
+            name: '',
             profs: [],
             comments: [],
             description: '',
@@ -39,8 +40,10 @@ class CourseDetail extends Component {
             })
             .then(response => {
                 if (this._isMounted) {
+                    console.log(response);
                     this.setState({
                         code: response.code,
+                        name: response.name,
                         profs: response.profs,
                         comments: response.comments,
                         description: response.description,
@@ -67,6 +70,14 @@ class CourseDetail extends Component {
                             </td>
                             <td>
                                 {this.state.code}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Name
+                            </td>
+                            <td>
+                                {this.state.name}
                             </td>
                         </tr>
                         <tr>
