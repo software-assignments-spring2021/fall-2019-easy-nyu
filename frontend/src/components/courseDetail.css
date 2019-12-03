@@ -19,6 +19,7 @@
 
 .tables-container table {
     width: 100%;
+    height:100%;
 }
 
 /* --- */
@@ -37,4 +38,8 @@ html, body {
 
 .same-height table {
     height:100%;
+}
+
+.tables-container table th, .tables-container table td {
+    vertical-align: middle;
 }
