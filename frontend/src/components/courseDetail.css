@@ -11,10 +11,12 @@
 .tables-container {
     display: flex;
     flex-wrap: wrap;
+    margin: -15px 0;
 }
 
 .tables-container > div {
     flex: 0 50%;
+    margin: 15px 0;
 }
 
 .tables-container table {
