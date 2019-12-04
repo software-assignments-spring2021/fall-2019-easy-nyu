@@ -159,7 +159,7 @@ class CourseDetail extends Component {
                         {this.state.profs.map((prof, i) => (
                             <tr key={prof._id}>
                                     <td>
-                                        <Link to={`/${this.state.id}/${prof._id}`}>{prof.name}</Link>                  
+                                        <Link to={`/professor/${prof._id}`}>{prof.name}</Link>
                                     </td>
                             </tr>
                             ))}

@@ -3,7 +3,6 @@ import NYUNavBar from "./navbar";
 import { Container, Table, Row } from "react-bootstrap";
 import { Link } from 'react-router-dom'
 import './professorProfile.css';
-import Comment from './comment';
 import AddComment from './addComment';
 
 class ProfessorProfile extends Component {
@@ -17,7 +16,6 @@ class ProfessorProfile extends Component {
             comments: [],
             courses: [], 
             comments_for_prof: []
-            
         };
     }
 
@@ -39,6 +37,7 @@ class ProfessorProfile extends Component {
                 }
             }).then(response => {
                 if (this._isMounted) {
+                    // Prepossess comment based on prof and course ids
                     console.log(response);
                     var i;
                     var j;
@@ -58,6 +57,7 @@ class ProfessorProfile extends Component {
                         }
                         comment_for_course.push(entry);
                     }
+                    // Comment that belongs to a specific prof
                     var k;
                     let comment_for_prof = [];
                     for (k = 0; k < response.comments.length; k++) {
@@ -122,7 +122,7 @@ class ProfessorProfile extends Component {
                             {this.state.courses.map((course, i) => (
                                 <tr key={course._id}>
                                         <td>
-                                            <Link to={`/${this.state.id}/${course._id}`}>{course.name}</Link>                  
+                                            <Link to={`/course/${course._id}`}>{course.name}</Link>
                                         </td>
                                         <td>
                                         {this.state.comments[i].map((comment, j) => (
@@ -145,7 +145,7 @@ class ProfessorProfile extends Component {
                             {this.state.courses.map((course, i) => (
                                 <tr>
                                     <td key={course._id}>
-                                        <Link to={`/${this.state.id}/${course._id}`}>{course.name}</Link>
+                                        <Link to={`/course/${course._id}`}>{course.name}</Link>
                                     </td>
                                     <td>
                                         <table>
