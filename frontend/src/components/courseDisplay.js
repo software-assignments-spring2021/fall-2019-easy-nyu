@@ -11,6 +11,7 @@ class CourseDisplay extends Component {
         this._isMounted = true;
         this.state = {
             courses: [],
+			status: "Loading..."
         };
     }
 
@@ -24,12 +25,13 @@ class CourseDisplay extends Component {
             if (response.ok) {
                 return response.json();
             } else {
+				this.setState({ status: "Network response was not ok." })
                 throw new Error('Network response was not ok.');
             }
             }).then(response => {
                 if (this._isMounted) {
                     console.log(response);
-                    this.setState({ courses: response })
+                    this.setState({ courses: response, status: "" })
                 }
             }
         );
@@ -60,6 +62,7 @@ class CourseDisplay extends Component {
                             </tbody>
                         </Table>
                     </Row>
+					<Row className="justify-content-md-center">{this.state.status}</Row>
                 </Container>
             </div>
         )
