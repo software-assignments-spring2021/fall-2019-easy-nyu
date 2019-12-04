@@ -110,7 +110,7 @@ class ProfessorProfile extends Component {
                         </tr>
                     </Table>
 
-                    {/* {Option Two for Display} */}
+                    {/* {Option One for Display} */}
                     <Table striped bordered hover>
                         <thead>
                             <tr>

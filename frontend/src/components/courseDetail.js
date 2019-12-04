@@ -4,17 +4,24 @@ import { Container, Table, Row, Button } from "react-bootstrap";
 import { Link } from 'react-router-dom'
 import Comment from './comment';
 import AddComment from './addComment';
+import './courseDetail.css';
 
 class CourseDetail extends Component {
     constructor(props) {
         super(props);
         this._isMounted = true;
         this.state = {
-            professors: [],
+            code: '',
+            name: '',
+            profs: [],
             comments: [],
-            description: "",
-            coursename: "",
-            semester: "",
+            description: '',
+            level: '',
+            major: '',
+            requirement: '',
+            school: '',
+            topic: '',
+            unit: ''
         };
     }
 
@@ -32,62 +39,152 @@ class CourseDetail extends Component {
             }
             })
             .then(response => {
-            if (this._isMounted) {
-                this.setState({ 
-                    professors: response.prof,
-                    comments: response.comments,
-                    description: response.description,
-                    coursename: response.coursename,
-                    semester: response.semester
-                })
+                if (this._isMounted) {
+                    console.log(response);
+                    this.setState({
+                        code: response.code,
+                        name: response.name,
+                        profs: response.profs,
+                        comments: response.comments,
+                        description: response.description,
+                        level: response.level,
+                        major: response.major,
+                        requirement: response.requirement,
+                        school: response.school,
+                        topic: response.topic,
+                        unit: response.unit
+                    })
+                }
             }
-        }
-            );
+        );
     }
     render() {
         return (
             <div>
                 <NYUNavBar />
-                <Container>
-                    <Row className="justify-content-md-center">
-                        <h1>{`${this.state.semester}`}</h1>
-                    </Row>
-                    <Row className="justify-content-md-center">
-                        <h1>{`${this.state.coursename}`}</h1>
-                    </Row>
-                    <Row className="justify-content-md-center">
-                        <h1>{`${this.state.description}`}</h1>
-                    </Row>
-                    <Row className="justify-content-md-center">
-                        <Table striped bordered hover >
-                            <thead>
-                                <tr>
-                                    <td>{`Professors Teaching ${this.state.description}`}</td>
+                <div class="tables-container">
+                <div>
+                    <Table striped bordered hover>
+                        <tr>
+                            <td>
+                                Course ID
+                            </td>
+                            <td>
+                                {this.state.code}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Name
+                            </td>
+                            <td>
+                                {this.state.name}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Major
+                            </td>
+                            <td>
+                                {this.state.major}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                School
+                            </td>
+                            <td>
+                                {this.state.school}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Level
+                            </td>
+                            <td>
+                                {this.state.level}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Requirements
+                            </td>
+                            <td>
+                                {this.state.requirement}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Topic
+                            </td>
+                            <td>
+                                {this.state.topic}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Class Units
+                            </td>
+                            <td>
+                                {this.state.unit}
+                            </td>
+                        </tr>
+                    </Table>
+                </div>
+                <div>
+                    <Table striped bordered hover>
+                        <tr>
+                            <td>
+                                Course Description
+                            </td>
+                            <td>
+                                {this.state.description}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan = "2">
+                                <AddComment profid={this.props.match.params.id}/>
+                            </td>
+                        </tr>
+                    </Table>
+                </div>
+                <div>
+                    <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>{`All Professors Taught ${this.state.code}`}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.profs.map((prof, i) => (
+                            <tr key={prof._id}>
+                                    <td>
+                                        <Link to={`/${this.state.id}/${prof._id}`}>{prof.name}</Link>                  
+                                    </td>
+                            </tr>
+                            ))}
+                    </tbody>
+                </Table>
+                </div>
+                <div>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>{`Comments for ${this.state.code}`}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.comments.map((comment, i) => (
+                                <tr key={comment._id}>
+                                        <td>
+                                            <p>{this.state.comments[i]}</p>                  
+                                        </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    {this.state.professors.map((prof, i) => (
-                                        <td key={i}><Link to={`//`}>{prof.professorname}</Link></td>
-                                    ))}
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </Row>
-					<Row className="justify-content-md-center">
-						<h3>Comments ({this.state.comments.length})</h3>
-					</Row>
-						{this.state.comments.map((comment, i) => (
-					<Row className="justify-content-md-center"><Table striped bordered hover ><tbody><tr><td>
-							<Comment id={comment} />
-					</td></tr></tbody></Table></Row>
-						))}
-						
-						{/* SHOW THIS ROW ONLY IF LOGGED IN*/}
-					<Row className="justify-content-md-center">
-						<AddComment courseid={this.props.match.params.id}/>
-					</Row>
-                </Container>
+                                ))}
+                        </tbody>
+                    </Table>
+                </div>
+                </div>
             </div>
         )
     }

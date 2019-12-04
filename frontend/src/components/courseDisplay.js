@@ -27,10 +27,12 @@ class CourseDisplay extends Component {
                 throw new Error('Network response was not ok.');
             }
             }).then(response => {
-            if (this._isMounted) {
-                this.setState({ courses: response })
+                if (this._isMounted) {
+                    console.log(response);
+                    this.setState({ courses: response })
+                }
             }
-        });
+        );
     }
     render() {
         return (
@@ -51,8 +53,8 @@ class CourseDisplay extends Component {
                             <tbody>
                                 {this.state.courses.map((course, i) => (
                                     <tr key={i}>
-                                        <td key={"courseNum_" + i}><Link to={`/course/${course._id}`} key={i}>{course.coursename}</Link></td>
-                                        <td key={"courseId_" + i}>{course.description}</td>
+                                        <td key={"courseNum_" + i}><Link to={`/course/${course._id}`} key={i}>{course.code}</Link></td>
+                                        <td key={"courseId_" + i}>{course.name}</td>
                                     </tr>
                                 ))}
                             </tbody>
