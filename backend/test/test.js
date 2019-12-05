@@ -216,7 +216,7 @@ describe('Course', () => {
         });
     });
 });
-
+/*
 // Unit Test for Comment
 describe('Comment', () => {
     // Test the /POST route
@@ -273,7 +273,7 @@ describe('Comment', () => {
         });
     });
 });
-
+*/
 // Unit Test for Auth Register and Login
 describe('Register and Login', () => {
     // Test the /POST route for Register
