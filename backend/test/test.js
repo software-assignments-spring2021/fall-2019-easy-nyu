@@ -25,12 +25,24 @@ const test_login_credential = {
     password2: '123456'
 };
 
+var token;
+
 before(function (done) {
     chai.request(server)
         .post('/api/auth/register')
         .send(test_login_credential)
         .end(function (err, response) {
-            done();
+            chai.request(server)
+                .post('/api/auth/login')
+                .send({
+					email: 'yz3559@nyu.edu',
+					password: '123456'
+				})
+                .end((err, res) => {
+                    token = res.body.token
+                    done();
+                });
+            //done();
         });
 });
 
@@ -216,7 +228,7 @@ describe('Course', () => {
         });
     });
 });
-/*
+
 // Unit Test for Comment
 describe('Comment', () => {
     // Test the /POST route
@@ -231,7 +243,8 @@ describe('Comment', () => {
                         course_id: current_course_id
                     }
                     chai.request(server)
-                        .post('/comments/add')
+                        .post('/comments/add')					
+						.set('Authorization', token)
                         .send(newComment)
                         .end((err, res) => {
                             res.body.should.be.a('object');
@@ -251,7 +264,8 @@ describe('Comment', () => {
                         course_id: current_course_id
                     }
                     chai.request(server)
-                        .post('/comments/add')
+                        .post('/comments/add')					
+						.set('Authorization', token)
                         .send(newComment)
                         .end((err, res) => {
                             res.body.should.have.property('course_id').eql(current_course_id);
@@ -263,7 +277,8 @@ describe('Comment', () => {
                         course_id: second_course_id
                     }
                     chai.request(server)
-                        .post('/comments/add')
+                        .post('/comments/add')					
+						.set('Authorization', token)
                         .send(NewComment)
                         .end((err, res) => {
                             res.body.should.have.property('course_id').eql(second_course_id);
@@ -273,7 +288,7 @@ describe('Comment', () => {
         });
     });
 });
-*/
+
 // Unit Test for Auth Register and Login
 describe('Register and Login', () => {
     // Test the /POST route for Register
