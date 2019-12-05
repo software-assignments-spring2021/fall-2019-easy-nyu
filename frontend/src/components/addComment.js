@@ -34,7 +34,7 @@ class AddComment extends Component {
 		if (this.state.comment != "") {
 			fetch('/comments/add', {
 				method: "POST",
-				headers: { "Content-Type": "application/json" },
+				headers: { "Content-Type": "application/json", 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken') },
 				body: JSON.stringify({
 					comment: this.state.comment,
 					course_id: this.state.course_id,
