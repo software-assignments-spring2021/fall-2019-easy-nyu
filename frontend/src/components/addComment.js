@@ -51,6 +51,8 @@ class AddComment extends Component {
 	
     render() {
         const { history } = this.props;
+	if ((localStorage.getItem('jwtToken') + "") != "null") {
+
         return (
             <div>
                 <Button onClick={this.handlePopup}>Add Comment</Button>
@@ -70,6 +72,9 @@ class AddComment extends Component {
                 </Modal>
             </div>
         )
+    	} else {
+		return (<div></div>);
+	}
     }
 }
 
