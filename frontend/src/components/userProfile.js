@@ -27,14 +27,23 @@ class UserProfile extends Component {
         this.setState({ showModal: false });
     }
 
-    handleNameChange(e){
-        this.setState({name:e.target.value})
+    handleNameChange = (event) => {
+        this.setState({ name: event.target.value });
     }
 
-    handlePasswordChange(e){
-        this.setState({password:e.target.value})
+    handleEmailChange = (event) => {
+        this.setState({ email: event.target.value });
     }
 
+    handleNidChange = (event) => {
+        this.setState({ nid: event.target.value });
+    }
+
+    handlePasswordChange = (event) => {
+        this.setState({ password: event.target.value });
+    }
+
+    // Set web token to be null after logout
     signoutHandler(){
         const {history} = this.props;
         this.setState({loggedIn:false});
@@ -43,13 +52,29 @@ class UserProfile extends Component {
         history.push('/');
     }
 
+    // Func to update user profile
+    updateProfile() {
+        const modified_auth={
+            name: this.state.name,
+            email: this.state.email,
+            nid: this.state.nid,
+            password: this.state.password,
+        }
+
+        axios.post('http://localhost:4000/userprofile/update', modified_auth)
+            .then(res =>{
+                console.log(res.data);
+            })
+            .catch(err => {console.log('Err' + err);});
+    }
+
+    // Load a specific user profile
     componentDidMount() {
         let loggedin = (localStorage.getItem('jwtToken') === null) ? false:true;
         if(loggedin){
             const userID = localStorage.getItem('userID');
             axios.get('http://localhost:4000/userprofile/' + userID)
             .then(res =>{
-                console.log(res.data);
                 this.setState({
                     email: res.data.email,
                     name: res.data.name,
@@ -61,20 +86,21 @@ class UserProfile extends Component {
             .catch(err => {console.log('Err' + err);});
         }
     }
-
+    
+    // To display the user profile
     render() {
         return (
             <div>
                 <Navbar />
                 <container>
                     <Row className="justify-content-md-center">
-                        <h1>{this.state.name}'s Profile</h1>
+                        <h1>{this.state.name}'s User Profile</h1>
                     </Row>
-
+                    
                     <center><Table striped bordered hover>
                         <tr>
                             <td>
-                                Name
+                                UserName
                             </td>
                             <td>
                                 {this.state.name}
@@ -98,21 +124,39 @@ class UserProfile extends Component {
                         </tr>
                         <tr>
                             <td>
-                                Edit Profile?
+                                Want to Edit Your Profile?
                             </td>
                             <td>
-                                <Button onClick={this.handlePopup}>Edit</Button>
-                                <Modal show={this.state.showModal} onHide={this.handleClose}>
-                                    <Modal.Header closeButton>
-                                        <Modal.Title>Edit UserName</Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <input value={this.state.name} type="text" onChange={this.handleNameChange} className="form-control" placeholder="Name" required />
-                                    </Modal.Body>
-                                </Modal>
+                            <Button onClick={this.handlePopup}>Let's do it!</Button>
+                            <Modal show={this.state.showModal} onHide={this.handleClose}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Edit User Profile</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <label className="ilabel">
+                                        Name:
+                                        <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange} />
+                                    </label>
+                                    <label className="ilabel">
+                                        Net ID:
+                                        <input type="text" name="nid" value={this.state.nid} onChange={this.handleNidChange} />
+                                    </label>
+                                    <label className="ilabel">
+                                        Email:
+                                        <input type="text" name="email" value={this.state.email} onChange={this.handleEmailChange} />
+                                    </label>
+                                    <label className="ilabel">
+                                        Password:
+                                        <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
+                                    </label>    
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <button className="login-btn" onClick={(evt) => { this.updateProfile(); this.handleClose();}}>Edit</button>
+                                </Modal.Footer>
+                            </Modal>
                             </td>
                         </tr>
-                    </Table></center>
+                    </Table></center> 
                 </container>
             </div>
         )
