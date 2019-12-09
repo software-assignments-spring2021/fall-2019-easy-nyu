@@ -141,11 +141,13 @@ class CourseDetail extends Component {
                                 {this.state.description}
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan = "2">
-                                <AddComment profid={this.props.match.params.id}/>
-                            </td>
-                        </tr>
+						if ((localStorage.getItem('jwtToken') + "") != "null") {
+							<tr>
+								<td colspan = "2">
+									<AddComment profid={this.props.match.params.id}/>
+								</td>
+							</tr>
+						}
                     </Table>
                 </div>
                 <div>

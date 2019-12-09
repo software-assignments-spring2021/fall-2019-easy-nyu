@@ -94,9 +94,11 @@ class ProfessorProfile extends Component {
                     <Row className="justify-content-md-center">
                         <h3>School: {this.state.school}</h3>
                     </Row>
-                    <Row className="justify-content-md-center">
-                        <AddComment profid={this.props.match.params.id}/>
-                    </Row>
+					if ((localStorage.getItem('jwtToken') + "") != "null") {
+						<Row className="justify-content-md-center">
+							<AddComment profid={this.props.match.params.id}/>
+						</Row>
+					}
                     <Table striped bordered hover>
                         <tr>
                             <th>Comments for the Professor</th>
