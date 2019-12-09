@@ -2,63 +2,40 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-// Load input validation
-//const validateRegisterInput = require("../validation/register");
-//const validateLoginInput = require("../validation/login");
-// Load User model
+const Auth = require("../models/auth.model");
 const User = require("../models/user.model");
 
-// get user profile by user credentials; if not, create new profile
+// Find user by net id
 router.route('/:nid').get((req, res) => {
-    const nid = req.params.nid
-    const description = 'nyu student'
-    const score = 0
-    User.findOne({ nid: nid }, (err, data) => {
-        if (err) {
-            res.send(err);
-        } else {
-            if (data === null) {
-                //can't find user profile by nid
-                const newUser = new User({
-                    nid,
-                    description,
-                    score
-                });
-    
-                newUser.save((err, user) => {
-                    if (err) {
-                        res.send(err);
-                    }
-                    else {
-                        res.json({message: "User profile created!", user: user});
-                    }
-                });    
-            } else {
-                res.json({message: "User profile get!", data: data});
-            }
-        }
-    })
+    Auth.findById(req.params.nid)
+      .then(user => res.json(user))
+      .catch(err => res.status(400).json('Error: ' + err));
 });
 
-
-// Post Request - Add a new course to database
-router.route('/update').post((req, res) => {
-    const nid = req.body.nid;
-    const description = req.body.description;
-    const score = req.body.score;
-
-    User.findOne({ nid: req.body.nid }, (err, data) => {
-        if (err) {
-            res.status(400).json('Error: ' + err);
-        } else {
-
-            User.update({
-                description: description,
-                score: score
-            });
-            res.json({message: "User profile updated!", user: user});
-        }
-    })   
+// Update user profile by id
+router.route('/update').post((req,res) => {
+    Auth.findOne({
+        $or: [
+            { email: req.body.email },
+            { nid: req.body.nid }
+        ]
+    })
+    .then(auth => {
+        auth.name = req.body.name;
+        auth.nid = req.body.nid
+        auth.email = req.body.email;
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(req.body.password, salt, (err, hash) => {
+                if (err) throw err;
+                auth.password = hash;
+                // Synchronous password generation 
+                auth.save()
+                    .then(() => res.json('Auth updated!'))
+                    .catch(err => res.status(400).json('Error: ' + err));
+            })
+        })
+    })
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
 module.exports = router;

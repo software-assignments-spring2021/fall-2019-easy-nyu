@@ -65,7 +65,6 @@ class Login extends Component {
                 console.log(err);
                 this.setState({errorMsg:'Incorrect email or password',success:false});
             });
-
     }
 
     render() {
