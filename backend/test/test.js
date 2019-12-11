@@ -240,11 +240,13 @@ describe('Comment', () => {
                     const current_course_id = res.body[0]._id;
                     const newComment = {
                         comment: "You need to write four essays for this class",
+			rating: 2,
+			recommend: false,
                         course_id: current_course_id
                     }
                     chai.request(server)
                         .post('/comments/add')					
-						.set('Authorization', token)
+			.set('Authorization', token)
                         .send(newComment)
                         .end((err, res) => {
                             res.body.should.be.a('object');
@@ -261,11 +263,13 @@ describe('Comment', () => {
                     const current_course_id = res.body[0]._id;
                     const newComment = {
                         comment: "The Prof is hilarious",
+			rating: 5,
+			recommend: true,
                         course_id: current_course_id
                     }
                     chai.request(server)
                         .post('/comments/add')					
-						.set('Authorization', token)
+			.set('Authorization', token)
                         .send(newComment)
                         .end((err, res) => {
                             res.body.should.have.property('course_id').eql(current_course_id);
@@ -274,11 +278,13 @@ describe('Comment', () => {
                     const second_course_id = res.body[1]._id;
                     const NewComment = {
                         comment: "Second comment test",
+			rating: 5,
+			recommend: true,
                         course_id: second_course_id
                     }
                     chai.request(server)
                         .post('/comments/add')					
-						.set('Authorization', token)
+			.set('Authorization', token)
                         .send(NewComment)
                         .end((err, res) => {
                             res.body.should.have.property('course_id').eql(second_course_id);
