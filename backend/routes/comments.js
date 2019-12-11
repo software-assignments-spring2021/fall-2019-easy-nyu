@@ -81,7 +81,7 @@ router.route('/add').post((req, res) => {
 					'course_id' : course_id,
 					'prof_id' : prof_id, 
 					'rating': user_rating, 
-					'reccomend': user_recommend
+					'recommend': user_recommend
 					}
 				);
 				newComment.save((err, data) => {
