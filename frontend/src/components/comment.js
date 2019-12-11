@@ -6,7 +6,9 @@ class Comment extends Component {
         super(props);
 			this.state = {
 				name: "",
-				comment: ""
+				comment: "",
+				rating: 0,
+				recommend: false
 			}
         this._isMounted = true;
 	}
@@ -33,14 +35,15 @@ class Comment extends Component {
 			});
 			if (response.anonymous == true) {
 				this.setState({
-					name: "Anonymous",
-					comment: response.comment
-				});
-			} else {
-				this.setState({
-					comment: response.comment
+					name: "Anonymous"
 				});
 			}
+			this.setState({
+				comment: response.comment,
+				rating: response.rating,
+				recommend: response.recommend
+			});
+			
 		})
 	}
 	
@@ -48,7 +51,9 @@ class Comment extends Component {
 		return (
 			<div>
 				<strong>{this.state.name}</strong><br />
+				<h3>{String.fromCharCode(9733).repeat(this.state.rating)}</h3>
 				<p>{this.state.comment}</p>
+				<p>Would Recommend: {this.state.recommend ? "Yes" : "No"}</p>
 				<a>Edit</a> | <a>Delete</a>
 			</div>
 		)
