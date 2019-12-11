@@ -4,6 +4,7 @@ import { Container, Table, Row } from "react-bootstrap";
 import { Link } from 'react-router-dom'
 import './professorProfile.css';
 import AddComment from './addComment';
+import Comment from './comment';
 
 class ProfessorProfile extends Component {
     constructor(props) {
@@ -76,7 +77,7 @@ class ProfessorProfile extends Component {
                             school: response.school,
                             courses: response.courses, 
                             comments: comment_for_course,
-                            comments_for_prof: comment_for_prof
+                            comments_for_prof: response.comments
                         }
                     )
                 }
@@ -103,12 +104,13 @@ class ProfessorProfile extends Component {
                         </tr>
                         <tr>
                             {this.state.comments_for_prof.map((prof_comment, i) => (
-                                <td key={i}>
-                                    <p>{prof_comment}</p>
-                                </td>
+                                <Comment id={prof_comment} />
                             ))}
                         </tr>
                     </Table>
+                    
+                    
+
 
                     {/* {Option One for Display} */}
                     <Table striped bordered hover>
