@@ -16,7 +16,8 @@ class AddComment extends Component {
 			prof_id: this.props.profid,
             showModal: false,
             recommend: true,
-            rating: 5
+            rating: 5,
+            anonymous: false
         };
     }
 	
@@ -44,6 +45,9 @@ class AddComment extends Component {
         this.setState({ recommend: false });
     }
 	
+    handleAnonymous = (event) => {
+        this.setState({ anonymous: event.target.checked });
+    }
 	send() {
 		if (this.state.comment != "") {
 			fetch('/comments/add', {
@@ -88,7 +92,9 @@ class AddComment extends Component {
                                 <option value="4" label="****"></option>
                                 <option value="5" label="*****"></option>
                             </datalist>
-                            Would you recommend to others? <input type="radio" id="recommendyes" value="true" name="recommend" onChange={this.handleRecommendYes} checked/><label for="recommendyes" className="ilabel">Yes</label> <input type="radio" id="recommendno" value="false" name="recommend" onChange={this.handleRecommendNo}/><label for="recommendno"  className="ilabel">No</label> 
+                            Would you recommend to others? <input type="radio" id="recommendyes" value="true" name="recommend" onChange={this.handleRecommendYes} checked/><label for="recommendyes" className="ilabel">Yes</label> <input type="radio" id="recommendno" value="false" name="recommend" onChange={this.handleRecommendNo}/><label for="recommendno"  className="ilabel">No</label><br />
+                            <input type="checkbox" id="anonymous" name="anonymous" onChange={this.handleAnonymous} /> Hide name from comment
+                    
                     </Modal.Body>
                     <Modal.Footer>
                         <button className="" onClick={(evt) => { this.send();}}>Post Comment</button>
