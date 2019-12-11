@@ -51,7 +51,7 @@ class Comment extends Component {
 		return (
 			<div>
 				<strong>{this.state.name}</strong><br />
-				<h3>{String.fromCharCode(9733).repeat(this.state.rating)}</h3>
+				<h3>{String.fromCharCode(9733).repeat(this.state.rating)}{String.fromCharCode(9734).repeat(5 - this.state.rating)}</h3>
 				<p>{this.state.comment}</p>
 				<p>Would Recommend: {this.state.recommend ? "Yes" : "No"}</p>
 				<a>Edit</a> | <a>Delete</a>
