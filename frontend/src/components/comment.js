@@ -13,6 +13,7 @@ class Comment extends Component {
         this._isMounted = true;
 	}
 	
+
 	componentDidMount() {
 		fetch('/comments/' + this.props.id, { method: "GET" }).then(response => {
 			if (response.ok) {
@@ -46,6 +47,10 @@ class Comment extends Component {
 			
 		})
 	}
+
+	delete() {
+		window.confirm('Are you sure you want to delete this comment?');
+	}
 	
 	render() {
 		return (
@@ -54,7 +59,7 @@ class Comment extends Component {
 				<h3>{String.fromCharCode(9733).repeat(this.state.rating)}{String.fromCharCode(9734).repeat(5 - this.state.rating)}</h3>
 				<p>{this.state.comment}</p>
 				<p>Would Recommend: {this.state.recommend ? "Yes" : "No"}</p>
-				<a>Edit</a> | <a>Delete</a>
+				<a href="javascript:void(0)">Edit</a> | <a href="javascript:void(0)" onClick={ () => this.delete()}>Delete</a>
 			</div>
 		)
 	}
