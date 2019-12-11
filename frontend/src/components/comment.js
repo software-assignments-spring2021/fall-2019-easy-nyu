@@ -19,10 +19,28 @@ class Comment extends Component {
                 throw new Error('Network response was not ok.');
             }
 		}).then(response => {
-			this.setState({
-				name: "Anonymous",
-				comment: response.comment
+			
+			fetch ('/userprofile/' + response.user_id, { method: "GET" }).then(response => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					throw new Error('Network response was not ok.');
+				}
+			}).then(response => {
+				this.setState({
+					name: response.name
+				});
 			});
+			if (response.anonymous == true) {
+				this.setState({
+					name: "Anonymous",
+					comment: response.comment
+				});
+			} else {
+				this.setState({
+					comment: response.comment
+				});
+			}
 		})
 	}
 	
