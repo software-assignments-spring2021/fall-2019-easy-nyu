@@ -12,6 +12,7 @@ router.route('/add').post((req, res) => {
     let newComment;
 	var user_rating = req.body.rating;
 	var user_recommend = req.body.recommend;
+	var anonymous = req.body.anonymous;
 	var authorized = false;
 	
 	var token = req.headers['authorization'];
@@ -40,7 +41,7 @@ router.route('/add').post((req, res) => {
 		}
 
 		if (prof_id == null) {
-			newComment = new Comment({'comment' : user_comment, 'course_id' : course_id, 'user_id' : commenter, 'rating': user_rating, 'recommend': user_recommend});
+			newComment = new Comment({'comment' : user_comment, 'course_id' : course_id, 'user_id' : commenter, 'rating': user_rating, 'recommend': user_recommend, 'anonymous': anonymous});
 			newComment.save((err, data) => {
 				if (err) {
 					res.send(err);
@@ -57,7 +58,7 @@ router.route('/add').post((req, res) => {
 				}
 			})
 		} else if (course_id == null) {
-			newComment = new Comment({'comment' : user_comment, 'prof_id' : prof_id, 'user_id' : commenter, 'rating': user_rating, 'recommend': user_recommend});
+			newComment = new Comment({'comment' : user_comment, 'prof_id' : prof_id, 'user_id' : commenter, 'rating': user_rating, 'recommend': user_recommend, 'anonymous': anonymous});
 			newComment.save((err, data) => {
 				if (err) {
 					res.send(err);
@@ -81,7 +82,8 @@ router.route('/add').post((req, res) => {
 					'course_id' : course_id,
 					'prof_id' : prof_id, 
 					'rating': user_rating, 
-					'recommend': user_recommend
+					'recommend': user_recommend,
+					'anonymous': anonymous
 					}
 				);
 				newComment.save((err, data) => {
