@@ -29,21 +29,22 @@ class Comment extends Component {
 				} else {
 					throw new Error('Network response was not ok.');
 				}
-			}).then(response => {
+			}).then(response2 => {
 				this.setState({
-					name: response.name
+					name: response2.name
+				});
+				if (response.anonymous == true) {
+					this.setState({
+						name: "Anonymous"
+					});
+				}
+				this.setState({
+					comment: response.comment,
+					rating: response.rating,
+					recommend: response.recommend
 				});
 			});
-			if (response.anonymous == true) {
-				this.setState({
-					name: "Anonymous"
-				});
-			}
-			this.setState({
-				comment: response.comment,
-				rating: response.rating,
-				recommend: response.recommend
-			});
+
 			
 		})
 	}
