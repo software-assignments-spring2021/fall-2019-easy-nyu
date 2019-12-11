@@ -102,11 +102,10 @@ class ProfessorProfile extends Component {
                         <tr>
                             <th>Comments for the Professor</th>
                         </tr>
-                        <tr>
+                        
                             {this.state.comments_for_prof.map((prof_comment, i) => (
-                                <Comment id={prof_comment} />
+                                <tr><td><Comment id={prof_comment} /></td></tr>
                             ))}
-                        </tr>
                     </Table>
                     
                     
