@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import Modal from 'react-bootstrap/Modal'
 import {Button} from 'react-bootstrap'
-import Signup from './signup'
+import Login from './login'
 import './login.css'
-import axios from 'axios';
-import { withRouter } from 'react-router-dom';
 
 class AddComment extends Component {
     constructor(props) {
@@ -51,30 +49,34 @@ class AddComment extends Component {
 	
     render() {
         const { history } = this.props;
-	if ((localStorage.getItem('jwtToken') + "") != "null") {
-
-        return (
-            <div>
-                <Button onClick={this.handlePopup}>Add Comment</Button>
-                <Modal show={this.state.showModal} onHide={this.handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Add Comment</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <label className="ilabel">
-                            Comment:<br />
-                            <textarea name="comment" value={this.state.comment} onChange={this.handleChange}/>
-                        </label>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button className="" onClick={(evt) => { this.send();}}>Post Comment</button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-        )
-    	} else {
-		return (<div></div>);
-	}
+	    if ((localStorage.getItem('jwtToken') + "") != "null") {
+            return (
+                <div>
+                    <Button onClick={this.handlePopup}>Add Comment</Button>
+                    <Modal show={this.state.showModal} onHide={this.handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Add Comment</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <label className="ilabel">
+                                Comment:<br />
+                                <textarea name="comment" value={this.state.comment} onChange={this.handleChange}/>
+                            </label>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <button className="" onClick={(evt) => { this.send();}}>Post Comment</button>
+                        </Modal.Footer>
+                    </Modal>
+                </div>
+            )
+            } else {
+            return (
+                <div>
+                    Wanna add a comment? Please login or signup.
+                    <Login>Login to add a comment</Login>
+                </div>
+            );
+        }
     }
 }
 
