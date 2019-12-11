@@ -14,7 +14,9 @@ class AddComment extends Component {
             comment: "",
 			course_id: this.props.courseid,
 			prof_id: this.props.profid,
-            showModal: false
+            showModal: false,
+            recommend: true,
+            rating: 5
         };
     }
 	
@@ -29,6 +31,18 @@ class AddComment extends Component {
 	handleChange = (event) => {
         this.setState({ comment: event.target.value });
     }
+
+    handleRate = (event) => {
+        this.setState({ rating: event.target.value });
+    }
+
+    handleRecommendYes = (event) => {
+        this.setState({ recommend: true });
+    }
+
+    handleRecommendNo = (event) => {
+        this.setState({ recommend: false });
+    }
 	
 	send() {
 		if (this.state.comment != "") {
@@ -38,7 +52,9 @@ class AddComment extends Component {
 				body: JSON.stringify({
 					comment: this.state.comment,
 					course_id: this.state.course_id,
-					prof_id: this.state.prof_id
+                    prof_id: this.state.prof_id,
+                    rating: this.state.rating,
+                    recommend: this.state.recommend
 				})
 			}).then(response => {
 				return response.json();
@@ -64,7 +80,7 @@ class AddComment extends Component {
                         <label className="ilabel">
                             Comment:<br /></label>
                             <textarea name="comment" value={this.state.comment} onChange={this.handleChange}/><br />
-                            <label for="rating" className="ilabel">Rating:</label><input name="rating" id="rating" type="range" min="1" max="5" list="stars" />
+                            <label for="rating" className="ilabel">Rating:</label><input name="rating" id="rating" type="range" min="1" max="5" list="stars" value={this.state.rating} onChange={this.handleRate}/>
                             <datalist id="stars">
                                 <option value="1" label="*"></option>
                                 <option value="2" label="**"></option>
@@ -72,7 +88,7 @@ class AddComment extends Component {
                                 <option value="4" label="****"></option>
                                 <option value="5" label="*****"></option>
                             </datalist>
-                            Would you recommend to others? <input type="radio" id="recommendyes" value="true" name="recommend"/><label for="recommendyes" className="ilabel">Yes</label> <input type="radio" id="recommendno" value="false" name="recommend" /><label for="recommendno"  className="ilabel">No</label> 
+                            Would you recommend to others? <input type="radio" id="recommendyes" value="true" name="recommend" onChange={this.handleRecommendYes} checked/><label for="recommendyes" className="ilabel">Yes</label> <input type="radio" id="recommendno" value="false" name="recommend" onChange={this.handleRecommendNo}/><label for="recommendno"  className="ilabel">No</label> 
                     </Modal.Body>
                     <Modal.Footer>
                         <button className="" onClick={(evt) => { this.send();}}>Post Comment</button>
