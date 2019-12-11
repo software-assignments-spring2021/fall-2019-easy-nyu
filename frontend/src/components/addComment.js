@@ -62,9 +62,17 @@ class AddComment extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <label className="ilabel">
-                            Comment:<br />
-                            <textarea name="comment" value={this.state.comment} onChange={this.handleChange}/>
-                        </label>
+                            Comment:<br /></label>
+                            <textarea name="comment" value={this.state.comment} onChange={this.handleChange}/><br />
+                            <label for="rating" className="ilabel">Rating:</label><input name="rating" id="rating" type="range" min="1" max="5" list="stars" />
+                            <datalist id="stars">
+                                <option value="1" label="*"></option>
+                                <option value="2" label="**"></option>
+                                <option value="3" label="***"></option>
+                                <option value="4" label="****"></option>
+                                <option value="5" label="*****"></option>
+                            </datalist>
+                            Would you recommend to others? <input type="radio" id="recommendyes" value="true" name="recommend"/><label for="recommendyes" className="ilabel">Yes</label> <input type="radio" id="recommendno" value="false" name="recommend" /><label for="recommendno"  className="ilabel">No</label> 
                     </Modal.Body>
                     <Modal.Footer>
                         <button className="" onClick={(evt) => { this.send();}}>Post Comment</button>
