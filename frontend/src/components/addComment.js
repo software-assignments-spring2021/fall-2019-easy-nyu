@@ -17,7 +17,8 @@ class AddComment extends Component {
             showModal: false,
             recommend: true,
             rating: 5,
-            anonymous: false
+            anonymous: false,
+            errorMsg: ""
         };
     }
 	
@@ -44,12 +45,14 @@ class AddComment extends Component {
     handleRecommendNo = (event) => {
         this.setState({ recommend: false });
     }
-	
+
     handleAnonymous = (event) => {
         this.setState({ anonymous: event.target.checked });
     }
+
+	
 	send() {
-		if (this.state.comment != "") {
+		if (this.state.comment.length >= 15) {
 			fetch('/comments/add', {
 				method: "POST",
 				headers: { "Content-Type": "application/json", 'Authorization': localStorage.getItem('jwtToken') },
@@ -58,10 +61,15 @@ class AddComment extends Component {
 					course_id: this.state.course_id,
                     prof_id: this.state.prof_id,
                     rating: this.state.rating,
-                    recommend: this.state.recommend
+                    recommend: this.state.recommend,
+                    anonymous: this.state.anonymous
 				})
 			}).then(response => {
-				return response.json();
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Network response was not ok.")
+                }
 			}).then(response => {
 				this.handleClose();
 				window.location.reload();
@@ -94,7 +102,7 @@ class AddComment extends Component {
                             </datalist>
                             Would you recommend to others? <input type="radio" id="recommendyes" value="true" name="recommend" onChange={this.handleRecommendYes} checked/><label for="recommendyes" className="ilabel">Yes</label> <input type="radio" id="recommendno" value="false" name="recommend" onChange={this.handleRecommendNo}/><label for="recommendno"  className="ilabel">No</label><br />
                             <input type="checkbox" id="anonymous" name="anonymous" onChange={this.handleAnonymous} /> Hide name from comment
-                    
+                            <p className='error-msg'>{this.state.errorMsg}</p>
                     </Modal.Body>
                     <Modal.Footer>
                         <button className="" onClick={(evt) => { this.send();}}>Post Comment</button>
