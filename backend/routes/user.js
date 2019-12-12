@@ -7,7 +7,7 @@ const User = require("../models/user.model");
 
 // Find user by net id
 router.route('/:nid').get((req, res) => {
-    Auth.findById(req.params.nid)
+    Auth.findById(req.params.nid, "_id name nid email")
       .then(user => res.json(user))
       .catch(err => res.status(400).json('Error: ' + err));
 });
