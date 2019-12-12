@@ -8,7 +8,8 @@ class Comment extends Component {
 				name: "",
 				comment: "",
 				rating: 0,
-				recommend: false
+				recommend: false,
+				datePosted: ""
 			}
         this._isMounted = true;
 	}
@@ -41,7 +42,8 @@ class Comment extends Component {
 				this.setState({
 					comment: response.comment,
 					rating: response.rating,
-					recommend: response.recommend
+					recommend: response.recommend,
+					datePosted: new Date(response.createdAt).toString()
 				});
 			});
 
@@ -60,7 +62,8 @@ class Comment extends Component {
 				<h3>{String.fromCharCode(9733).repeat(this.state.rating)}{String.fromCharCode(9734).repeat(5 - this.state.rating)}</h3>
 				<p>{this.state.comment}</p>
 				<p>Would Recommend: {this.state.recommend ? "Yes" : "No"}</p>
-				<a href="javascript:void(0)">Edit</a> | <a href="javascript:void(0)" onClick={ () => this.delete()}>Delete</a>
+				<a href="javascript:void(0)">Edit</a> | <a href="javascript:void(0)" onClick={ () => this.delete()}>Delete</a><br />
+				<small><p style={{'text-align':'left','margin-bottom':'0px'}}>Commented on {this.state.datePosted}</p></small>
 			</div>
 		)
 	}
