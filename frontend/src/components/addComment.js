@@ -74,7 +74,9 @@ class AddComment extends Component {
 				this.handleClose();
 				window.location.reload();
 			});
-		}
+		} else {
+            this.setState({errorMsg: "Comment must be at least 15 characters"});
+        }
 	}
 	
     render() {
@@ -100,8 +102,8 @@ class AddComment extends Component {
                                 <option value="4" label="****"></option>
                                 <option value="5" label="*****"></option>
                             </datalist>
-                            Would you recommend to others? <input type="radio" id="recommendyes" value="true" name="recommend" onChange={this.handleRecommendYes} checked/><label for="recommendyes" className="ilabel">Yes</label> <input type="radio" id="recommendno" value="false" name="recommend" onChange={this.handleRecommendNo}/><label for="recommendno"  className="ilabel">No</label><br />
-                            <input type="checkbox" id="anonymous" name="anonymous" onChange={this.handleAnonymous} /> Hide name from comment
+                            Would you recommend to others? <input type="radio" id="recommendyes" value="true" name="recommend" onChange={this.handleRecommendYes} style={{'display':'inline-block', 'width':'10%'}} checked/><label for="recommendyes" className="ilabel" style={{'display':'inline-block'}}>Yes</label> <input type="radio" id="recommendno" value="false" name="recommend" style={{'display':'inline-block', 'width':'10%'}} onChange={this.handleRecommendNo}/><label for="recommendno"  className="ilabel" style={{'display':'inline-block'}}>No</label><br />
+                            <input type="checkbox" id="anonymous" name="anonymous" onChange={this.handleAnonymous} style={{'display':'inline-block', 'width':'10%'}}/> <label className="ilabel" for="anonymous" style={{'display':'inline-block'}}>Hide name from comment</label>
                             <p className='error-msg'>{this.state.errorMsg}</p>
                     </Modal.Body>
                     <Modal.Footer>
