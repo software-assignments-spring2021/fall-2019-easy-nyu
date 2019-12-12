@@ -80,7 +80,7 @@ class Login extends Component {
                 buttonDisplay = <Button onClick={this.handlePopup}>Login</Button>;
                 break;
             default:    
-                buttonDisplay = <p className="display-login" onClick={this.handlePopup}>Log in</p>;
+                buttonDisplay = <a href="javascript:void(0)" className="display-login" onClick={this.handlePopup}>Log in</a>;
         } 
         const { history } = this.props;
         return (
