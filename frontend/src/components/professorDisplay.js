@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Professor from './professor';
-import { Link } from 'react-router-dom'
 import './professorDisplay.css';
 import NYUNavBar from "./navbar";
 import Table from 'react-bootstrap/Table';

@@ -21,7 +21,7 @@ class NYUNavBar extends Component {
 	}
 
     render () {
-		if ((localStorage.getItem('jwtToken') + "") != "null") {
+		if ((localStorage.getItem('jwtToken') + "") !== "null") {
 			return (
 				<Navbar bg="nyu" variant="dark">
 					<Navbar.Brand href="/">

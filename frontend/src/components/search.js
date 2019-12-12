@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { InputGroup, FormControl, Dropdown } from 'react-bootstrap';
+import { InputGroup, FormControl } from 'react-bootstrap';
 import './search.css'
 
 class NYUNavBar extends Component {
@@ -19,15 +19,9 @@ class NYUNavBar extends Component {
                         placeholder="Search Professor/Course"
                         aria-label="Search Professor/Course"
                         aria-describedby="basic-addon2"
+                        onChange={this.handleChange.bind(this)}
                     />
                 </InputGroup>
-                <Dropdown>
-                    <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
             </div>
         )
     }

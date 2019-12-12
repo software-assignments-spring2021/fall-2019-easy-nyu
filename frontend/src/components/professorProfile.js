@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import NYUNavBar from "./navbar";
-import { Container, Table, Row } from "react-bootstrap";
+import { Table, Row } from "react-bootstrap";
 import { Link } from 'react-router-dom'
 import './professorProfile.css';
 import AddComment from './addComment';
@@ -46,7 +46,7 @@ class ProfessorProfile extends Component {
                     for (i = 0; i < response.courses.length; i++) {
                         let entry = [];
                         for (j = 0; j < response.comments.length; j++) {
-                            if (response.comments[j].course_id == response.courses[i]._id) {
+                            if (response.comments[j].course_id === response.courses[i]._id) {
                                 if (response.comments[j].prof_id != null) {
                                     if (counter <= 2) {
                                         entry.push(response.comments[j]);

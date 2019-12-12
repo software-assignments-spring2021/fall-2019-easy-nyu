@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import './home.css';
 import Login from './login'
-import Signup from './signup'
 import Navbar from './navbar'
 
 class Home extends Component {
