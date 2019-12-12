@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import NYUNavBar from "./navbar";
-import { Table } from "react-bootstrap";
+import { Container, Table, Row, Button } from "react-bootstrap";
 import { Link } from 'react-router-dom'
+import Comment from './comment';
 import AddComment from './addComment';
 import './courseDetail.css';
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Navbar from './navbar';
 import axios from 'axios';
-import {Row, Table, Button} from "react-bootstrap";
+import {Row, Container, Table, Button} from "react-bootstrap";
 import Modal from 'react-bootstrap/Modal';
 
 class UserProfile extends Component {
