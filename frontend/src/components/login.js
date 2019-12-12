@@ -68,10 +68,24 @@ class Login extends Component {
     }
 
     render() {
+        var buttonDisplay;
+        switch (this.props.buttonLocation) {
+            case "navbar":
+                buttonDisplay = <Button variant="outline-light" onClick={this.handlePopup}>Login</Button>;
+                break;
+            case "homepage":
+                buttonDisplay = <button className="buttonLink" onClick={this.handlePopup}> Login </button>;
+                break;
+            case "otherpage":
+                buttonDisplay = <Button onClick={this.handlePopup}>Login</Button>;
+                break;
+            default:    
+                buttonDisplay = <p className="display-login" onClick={this.handlePopup}>Log in</p>;
+        } 
         const { history } = this.props;
         return (
             <div>
-                <Button variant="outline-light" onClick={this.handlePopup}>Login</Button>
+                {buttonDisplay}
                 <Modal show={this.state.showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Login</Modal.Title>
