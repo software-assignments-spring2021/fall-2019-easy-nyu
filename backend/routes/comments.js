@@ -10,20 +10,15 @@ router.route('/add').post((req, res) => {
     let course_id;
     let prof_id;
     let newComment;
-	var user_rating = req.body.rating;
-	var user_recommend = req.body.recommend;
-	var anonymous = req.body.anonymous;
 	var authorized = false;
 	
 	var token = req.headers['authorization'];
 	token = token.slice(7, token.length);
-	var commenter;
 	jwt.verify(token, process.env.secretOrKey, (err, decoded) => {
 		if (err) {
 			authorized = false;
 		} else {
 			authorized = true;
-			commenter = decoded.id;
 		}
 	});
 	
@@ -41,7 +36,7 @@ router.route('/add').post((req, res) => {
 		}
 
 		if (prof_id == null) {
-			newComment = new Comment({'comment' : user_comment, 'course_id' : course_id, 'user_id' : commenter, 'rating': user_rating, 'recommend': user_recommend, 'anonymous': anonymous});
+			newComment = new Comment({'comment' : user_comment, 'course_id' : course_id});
 			newComment.save((err, data) => {
 				if (err) {
 					res.send(err);
@@ -58,7 +53,7 @@ router.route('/add').post((req, res) => {
 				}
 			})
 		} else if (course_id == null) {
-			newComment = new Comment({'comment' : user_comment, 'prof_id' : prof_id, 'user_id' : commenter, 'rating': user_rating, 'recommend': user_recommend, 'anonymous': anonymous});
+			newComment = new Comment({'comment' : user_comment, 'prof_id' : prof_id});
 			newComment.save((err, data) => {
 				if (err) {
 					res.send(err);
@@ -80,10 +75,7 @@ router.route('/add').post((req, res) => {
 					{
 					'comment' : user_comment, 
 					'course_id' : course_id,
-					'prof_id' : prof_id, 
-					'rating': user_rating, 
-					'recommend': user_recommend,
-					'anonymous': anonymous
+					'prof_id' : prof_id
 					}
 				);
 				newComment.save((err, data) => {

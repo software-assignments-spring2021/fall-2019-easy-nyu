@@ -4,7 +4,6 @@ import { Table, Row } from "react-bootstrap";
 import { Link } from 'react-router-dom'
 import './professorProfile.css';
 import AddComment from './addComment';
-import Comment from './comment';
 
 class ProfessorProfile extends Component {
     constructor(props) {
@@ -77,7 +76,7 @@ class ProfessorProfile extends Component {
                             school: response.school,
                             courses: response.courses, 
                             comments: comment_for_course,
-                            comments_for_prof: response.comments
+                            comments_for_prof: comment_for_prof
                         }
                     )
                 }
@@ -90,7 +89,7 @@ class ProfessorProfile extends Component {
                 <NYUNavBar />
                 <center><container>
                     <Row className="justify-content-md-center">
-                        <h1>{this.state.professorname}</h1>
+                        <h1>Prof. {this.state.professorname}</h1>
                     </Row>
                     <Row className="justify-content-md-center">
                         <h3>School: {this.state.school}</h3>
@@ -100,16 +99,16 @@ class ProfessorProfile extends Component {
                     </Row>
                     <Table striped bordered hover>
                         <tr>
-                            <th>Comments ({this.state.comments_for_prof.length})</th>
+                            <th>Comments for the Professor</th>
                         </tr>
-                        
+                        <tr>
                             {this.state.comments_for_prof.map((prof_comment, i) => (
-                                <tr><td><Comment id={prof_comment} /></td></tr>
+                                <td key={i}>
+                                    <p>{prof_comment}</p>
+                                </td>
                             ))}
+                        </tr>
                     </Table>
-                    
-                    
-
 
                     {/* {Option One for Display} */}
                     <Table striped bordered hover>
@@ -140,7 +139,7 @@ class ProfessorProfile extends Component {
                         <thead>
                             <tr>
                                 <th>{`Courses Taught By ${this.state.professorname}`}</th>
-                                <th>{`Comments`}</th>
+                                <th>{`Comments on Course`}</th>
                             </tr>
                         </thead>
                             {this.state.courses.map((course, i) => (
