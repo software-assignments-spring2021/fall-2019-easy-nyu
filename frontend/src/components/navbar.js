@@ -50,7 +50,7 @@ class NYUNavBar extends Component {
 						<Nav.Link href="/professor">Professors</Nav.Link>
 						<Nav.Link href="/course">Courses</Nav.Link>
 					</Nav>
-					<Login />
+					<Login buttonLocation="navbar"/>
 					<Signup onNavbar={true}/>
 				</Navbar>
 			)

@@ -18,7 +18,7 @@ class Home extends Component {
                 <div class="centerContent">
                     <div class="textBoxContainer shadow rounded">
                         <div class="textBox">
-                            <Login/>
+                            <Login buttonLocation={"homepage"}/>
                         </div>
                     </div>
                 </div>
