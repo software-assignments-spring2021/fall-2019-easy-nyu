@@ -21,13 +21,6 @@ class NYUNavBar extends Component {
                         aria-describedby="basic-addon2"
                     />
                 </InputGroup>
-                <Dropdown>
-                    <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
             </div>
         )
     }

@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import Modal from 'react-bootstrap/Modal'
 import {Button} from 'react-bootstrap'
-import Signup from './signup'
 import './login.css'
-import axios from 'axios';
-import { withRouter } from 'react-router-dom';
 
 class AddComment extends Component {
     constructor(props) {

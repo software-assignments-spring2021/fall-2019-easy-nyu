@@ -3,7 +3,6 @@ import Modal from 'react-bootstrap/Modal'
 import {Button} from 'react-bootstrap'
 import Signup from './signup'
 import './login.css'
-import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
@@ -51,7 +50,10 @@ class Login extends Component {
                     password: this.state.password,
                     password2: this.state.password2
         }
-        axios.post('/api/auth/login', auth)
+        fetch('/api/auth/login', {
+            method: "POST",
+            headers: { "Content-Type": "application/json", 'Authorization': localStorage.getItem('jwtToken') },
+            body: JSON.stringify({auth})})
             .then(res => {
                 //store jwt in Cookie
                 localStorage.setItem('jwtToken',res.data.token);
