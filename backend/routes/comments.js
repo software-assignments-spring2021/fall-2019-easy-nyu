@@ -40,18 +40,13 @@ router.route('/add').post((req, res) => {
 		catch (err) {
 			prof_id = null;
 		}
-		console.log(prof_id);
-		console.log(course_id);
 		if (prof_id == null) {
-			console.log("New comment for course");
 			newComment = new Comment({'comment' : user_comment, 'course_id' : course_id, 'user_id' : commenter, 'rating': user_rating, 'recommend': user_recommend, 'anonymous': anonymous});
 			newComment.save((err, data) => {
 				if (err) {
-					console.log("Error" + err);
 					res.status(500).send(err);
 				}
 				else {
-					console.log("Comment added!");
 					Course.findById(course_id)
 						.then(course => {
 							course.comments.push(data._id);
@@ -63,15 +58,12 @@ router.route('/add').post((req, res) => {
 				}
 			})
 		} else if (course_id == null) {
-			console.log("New comment for professor");
 			newComment = new Comment({'comment' : user_comment, 'prof_id' : prof_id, 'user_id' : commenter, 'rating': user_rating, 'recommend': user_recommend, 'anonymous': anonymous});
 			newComment.save((err, data) => {
 				if (err) {
-					console.log("Error");
 					res.status(500).send(err);
 				}
 				else {
-					console.log("Comment added!");
 					Prof.findById(prof_id)
 						.then(prof => {
 							prof.comments.push(data._id);
@@ -83,7 +75,6 @@ router.route('/add').post((req, res) => {
 				}
 			})
 		}   else {
-			console.log("New comment for course and professor");
 				newComment = new Comment
 				(
 					{
@@ -98,11 +89,9 @@ router.route('/add').post((req, res) => {
 				);
 				newComment.save((err, data) => {
 				if (err) {
-					console.log("Error");
 					res.send(err);
 				}
 				else {
-					console.log("Comment added!");
 					Course.findById(course_id)
 						.then(course => {
 							course.comments.push(data._id);
@@ -174,7 +163,6 @@ router.route('/:id').delete((req, res) => {
 									if (data.course_id) {
 										Course.findById(data.course_id).then(course => {
 											course.comments = course.comments.filter(el => el != req.params.id);
-											console.log(course.comments);
 											course.save()
 												.catch(err => res.status(500).json('Error: ' + err));
 										})
