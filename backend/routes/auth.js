@@ -37,7 +37,27 @@ router.post("/register", (req, res) => {
                     if (err) throw err;
                     newAuth.password = hash;
                     newAuth.save()
-                        .then(auth => res.json(auth._id))
+                        .then(auth => {
+                            const reg_payload = {
+                                id: auth.id,
+                                name: auth.name
+                            }
+
+                             jwt.sign(
+                                reg_payload,
+                                process.env.secretOrKey,
+                                (err, token) => {
+                                    res.json({
+                                        success: true,
+                                        token: "Bearer " + token,
+                                        id: auth._id
+                                    });
+                                },
+                                {
+                                    expiresIn: 31556926 // 1 year in seconds
+                                },
+                            );
+                        })
                         .catch(err => console.log(err))
                         .then(console.log("auth added:", req.body.name));
                 });

@@ -5,3 +5,15 @@
 .btn-outline-light{
     margin: 5px;
 }
+.my-nav {
+    float: left;
+    margin-right: 10px;
+}
+
+.search-div {
+    margin-left: 5%;
+    margin-top: 1.2%;
+    margin-bottom: 0;
+    width: 50%;
+    margin-right: 10.5%;
+}

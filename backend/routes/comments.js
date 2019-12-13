@@ -10,7 +10,7 @@ router.route('/add').post((req, res) => {
     const user_comment = req.body.comment;
     let course_id;
     let prof_id;
-	let newComment;
+    let newComment;
 	var user_rating = req.body.rating;
 	var user_recommend = req.body.recommend;
 	var anonymous = req.body.anonymous;
@@ -40,6 +40,7 @@ router.route('/add').post((req, res) => {
 		catch (err) {
 			prof_id = null;
 		}
+
 		if (prof_id == null) {
 			newComment = new Comment({'comment' : user_comment, 'course_id' : course_id, 'user_id' : commenter, 'rating': user_rating, 'recommend': user_recommend, 'anonymous': anonymous});
 			newComment.save((err, data) => {

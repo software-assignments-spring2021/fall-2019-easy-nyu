@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import {Navbar, Nav, Button} from 'react-bootstrap';
 import logo from'../img/logo.png';
 import Login from './login';
-import Signup from './signup'
-import { Link } from 'react-router-dom';
+import Signup from './signup';
 import './navbar.css';
-
+import Search from './search';
 
 
 class NYUNavBar extends Component {
@@ -29,11 +28,10 @@ class NYUNavBar extends Component {
 						<img src={logo} height="42" width="200" alt="ez-nyu-logo">
 						</img>
 					</Navbar.Brand>
-					<Nav className="mr-auto">
+					<Nav className="my-nav">
 						<Nav.Link href="/">Home</Nav.Link>
-						<Nav.Link href="/professor">Professors</Nav.Link>
-						<Nav.Link href="/course">Courses</Nav.Link>
 					</Nav>
+					<Search/>
 					<Button href={`/userprofile/${localStorage.getItem('userID')}`} variant="outline-light">My Profile</Button>
 					<Button href={'/'} variant="outline-light" onClick={this.signoutHandler}>Sign Out</Button>
 				</Navbar>
@@ -45,12 +43,10 @@ class NYUNavBar extends Component {
 						<img src={logo} height="42" width="200" alt="ez-nyu-logo">
 						</img>
 					</Navbar.Brand>
-					<Nav className="mr-auto">
+					<Nav className="my-nav">
 						<Nav.Link href="/">Home</Nav.Link>
-						<Nav.Link href="/professor">Professors</Nav.Link>
-						<Nav.Link href="/course">Courses</Nav.Link>
 					</Nav>
-					<Login />
+					<Login buttonLocation="navbar"/>
 					<Signup onNavbar={true}/>
 				</Navbar>
 			)
