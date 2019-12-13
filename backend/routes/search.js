@@ -15,13 +15,13 @@ router.route('/:query').get(async (req, res) => {
         {topic: {
             $regex: req.params.query,
             $options: 'i'}}]
-    }).select({ "name": 1, "_id": 1, "topic" : 1}).limit(5);
+    }).select({ "name": 1, "_id": 1, "topic" : 1}).limit(10);
     const profRes = await Professor.find({
         name: {
             $regex: req.params.query,
             $options: 'i'
         }
-    }).select({ "name": 1, "_id": 1}).limit(5);
+    }).select({ "name": 1, "_id": 1}).limit(10);
     resArr = []
     console.log("course:" , courseRes)
     for (course of courseRes) {
