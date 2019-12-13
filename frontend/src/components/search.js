@@ -4,12 +4,13 @@ import { Autocomplete } from '@material-ui/lab';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 
+
 class NYUNavBar extends Component {
     constructor(props) {
         super(props);
         this._isMounted = true;
         this.state = {
-            result: [{id: "123123", name: "jack"}]
+            result: []
         }
     }
 
