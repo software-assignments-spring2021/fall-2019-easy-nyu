@@ -38,7 +38,6 @@ class ProfessorProfile extends Component {
             }).then(response => {
                 if (this._isMounted) {
                     // Prepossess comment based on prof and course ids
-                    console.log(response);
                     var i;
                     var j;
                     var counter = 0;
@@ -122,7 +121,11 @@ class ProfessorProfile extends Component {
                             {this.state.courses.map((course, i) => (
                                 <tr key={course._id}>
                                         <td>
-                                            <Link to={`/course/${course._id}`}>{course.name}</Link>
+                                            <Link to={`/course/${course._id}`}>{
+                                                course.topic === undefined ? 
+                                                course.name : 
+                                                course.name + " " + course.topic
+                                            }</Link>
                                         </td>
                                         <td>
                                         {this.state.comments[i].map((comment, j) => (
@@ -132,34 +135,6 @@ class ProfessorProfile extends Component {
                                 </tr>
                                 ))}
                         </tbody>
-                    </Table>
-                    
-                    {/* {Option Two for Display} */}
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th>{`Courses Taught By ${this.state.professorname}`}</th>
-                                <th>{`Comments on Course`}</th>
-                            </tr>
-                        </thead>
-                            {this.state.courses.map((course, i) => (
-                                <tr>
-                                    <td key={course._id}>
-                                        <Link to={`/course/${course._id}`}>{course.name}</Link>
-                                    </td>
-                                    <td>
-                                        <table>
-                                            <tr>
-                                                {this.state.comments[i].map((comment, j) => (
-                                                    <td key={j}>
-                                                        <p>{this.state.comments[i][j]}</p>
-                                                    </td>
-                                                ))}
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            ))}
                     </Table>
                 </container></center>
             </div>
