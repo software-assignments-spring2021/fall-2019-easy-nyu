@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const Auth = require("../models/auth.model");
-const User = require("../models/user.model");
 
 // Find user by net id
 router.route('/:nid').get((req, res) => {

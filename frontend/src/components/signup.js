@@ -71,6 +71,12 @@ class Signup extends Component {
                 }
             }).then((res) => {
                 if (res !== undefined) {
+                    console.log(res);
+                    localStorage.setItem('jwtToken', res.token);
+                    localStorage.setItem('userID', res.id);
+                    // user id is not stored in localStorage.userID
+                    const { history } = this.props;
+                    if (history) history.push('/userprofile/' + res.id);
                     this.setState({
                         name: "",
                         email: "",
@@ -81,12 +87,6 @@ class Signup extends Component {
                         showModal: false
                     })
                 }
-                console.log(res);
-                localStorage.setItem('jwtToken',res.token);
-                localStorage.setItem('userID',res.id);
-                // user id is not stored in localStorage.userID
-                const { history } = this.props;
-                if(history) history.push('/userprofile/'+res.id);
             });
     }
 

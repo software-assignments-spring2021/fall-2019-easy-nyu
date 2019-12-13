@@ -1,0 +1,40 @@
+.MuiAutocomplete-root {
+    width: 100%;
+    background-color: #57068c;
+    color : white !important;
+}
+
+.MuiTextField-root	 {
+    color : white !important;
+}
+
+.MuiAutocomplete-input{
+    color : white !important;
+}
+
+.Mui-focused{
+    color : white !important;
+}
+
+.MuiInputLabel-filled{
+    color : white !important;
+}
+
+.MuiFilledInput-underline::after{
+    border-bottom : 2px solid white !important;
+}
+
+.MuiFilledInput-underline::before{
+    border-bottom : 1px solid white !important;
+}
+
+.MuiSvgIcon-root{
+    color : white !important;
+}
+
+.search-div {
+    margin-left: 1%;
+    margin-bottom: 0;
+    width: 62%;
+    margin-right: 2%;
+}

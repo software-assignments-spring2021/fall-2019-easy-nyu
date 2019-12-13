@@ -122,16 +122,20 @@ class ProfessorProfile extends Component {
                         <tbody>
                             {this.state.courses.map((course, i) => (
                                 <tr key={course._id}>
-                                        <td>
-                                            <Link to={`/course/${course._id}`}>{course.name}</Link>
-                                        </td>
-                                        <td>
+                                    <td>
+                                        <Link to={`/course/${course._id}`}>{
+                                            course.topic === undefined ?
+                                                course.name :
+                                                course.name + " " + course.topic
+                                        }</Link>
+                                    </td>
+                                    <td>
                                         {this.state.comments[i].map((comment, j) => (
                                             <p key={j}>{this.state.comments[i][j]}</p>
                                         ))}
-                                        </td>
+                                    </td>
                                 </tr>
-                                ))}
+                            ))}
                         </tbody>
                     </Table>
                     

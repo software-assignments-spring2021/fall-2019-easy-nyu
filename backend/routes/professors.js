@@ -38,7 +38,7 @@ router.route('/all').get((req, res) => {
 
 router.route('/').get((req, res) => {
     Professor.findOne({ _id: req.query.id })
-    .populate({path:'courses', select:"name"})
+    .populate({path:'courses'})
     .exec((err, data) => {
         if (err) {
             res.status(400).json('Error: ' + err)

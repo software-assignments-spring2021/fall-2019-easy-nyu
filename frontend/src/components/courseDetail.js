@@ -78,7 +78,15 @@ class CourseDetail extends Component {
                                 Name
                             </td>
                             <td>
-                                {this.state.name}
+                                <b>{this.state.name}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Topic
+                            </td>
+                            <td>
+                                <b>{this.state.topic}</b>
                             </td>
                         </tr>
                         <tr>
@@ -111,14 +119,6 @@ class CourseDetail extends Component {
                             </td>
                             <td>
                                 {this.state.requirement}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Topic
-                            </td>
-                            <td>
-                                {this.state.topic}
                             </td>
                         </tr>
                         <tr>

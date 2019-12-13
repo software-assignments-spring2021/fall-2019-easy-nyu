@@ -6,7 +6,6 @@ import Signup from './signup';
 import './navbar.css';
 import Search from './search';
 
-
 class NYUNavBar extends Component {
     constructor(props) {
         super(props);
@@ -28,9 +27,6 @@ class NYUNavBar extends Component {
 						<img src={logo} height="42" width="200" alt="ez-nyu-logo">
 						</img>
 					</Navbar.Brand>
-					<Nav className="my-nav">
-						<Nav.Link href="/">Home</Nav.Link>
-					</Nav>
 					<Search/>
 					<Button href={`/userprofile/${localStorage.getItem('userID')}`} variant="outline-light">My Profile</Button>
 					<Button href={'/'} variant="outline-light" onClick={this.signoutHandler}>Sign Out</Button>
@@ -43,9 +39,7 @@ class NYUNavBar extends Component {
 						<img src={logo} height="42" width="200" alt="ez-nyu-logo">
 						</img>
 					</Navbar.Brand>
-					<Nav className="my-nav">
-						<Nav.Link href="/">Home</Nav.Link>
-					</Nav>
+					<Search/>
 					<Login buttonLocation="navbar"/>
 					<Signup onNavbar={true}/>
 				</Navbar>

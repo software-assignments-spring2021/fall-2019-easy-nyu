@@ -36,6 +36,8 @@ function connect_to_db () {
   app.use('/professors', professorRouter);
   const userRouter = require('./routes/user');
   app.use('/userprofile', userRouter);
+  const searchRouter = require('./routes/search')
+  app.use('/search', searchRouter);
 
   // Passport middleware
   app.use(passport.initialize());
