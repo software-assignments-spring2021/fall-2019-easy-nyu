@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Modal from 'react-bootstrap/Modal'
 import {Button} from 'react-bootstrap'
-import './signup.css';
-import { withRouter } from 'react-router-dom';
+import {Link} from 'react-router-dom'
+import './signup.css'
 
 class Signup extends Component {
     constructor(props) {
@@ -81,12 +81,6 @@ class Signup extends Component {
                         showModal: false
                     })
                 }
-                console.log(res);
-                localStorage.setItem('jwtToken',res.token);
-                localStorage.setItem('userID',res.id);
-                // user id is not stored in localStorage.userID
-                const { history } = this.props;
-                if(history) history.push('/userprofile/'+res.id);
             });
     }
 
@@ -136,4 +130,4 @@ class Signup extends Component {
     }
 }
   
-export default withRouter(Signup);
+export default Signup;

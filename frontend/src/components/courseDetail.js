@@ -143,7 +143,7 @@ class CourseDetail extends Component {
                         </tr>
                         <tr>
                             <td colspan = "2">
-                                <AddComment courseid={this.props.match.params.id}/>
+                                <AddComment profid={this.props.match.params.id}/>
                             </td>
                         </tr>
                     </Table>
@@ -177,7 +177,7 @@ class CourseDetail extends Component {
                             {this.state.comments.map((comment, i) => (
                                 <tr key={comment._id}>
                                         <td>
-                                        <Comment id={comment} />                  
+                                            <p>{this.state.comments[i]}</p>                  
                                         </td>
                                 </tr>
                                 ))}

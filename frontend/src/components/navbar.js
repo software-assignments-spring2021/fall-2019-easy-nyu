@@ -46,7 +46,8 @@ class NYUNavBar extends Component {
 					<Nav className="my-nav">
 						<Nav.Link href="/">Home</Nav.Link>
 					</Nav>
-					<Login buttonLocation="navbar"/>
+					<Search/>
+					<Login/>
 					<Signup onNavbar={true}/>
 				</Navbar>
 			)
