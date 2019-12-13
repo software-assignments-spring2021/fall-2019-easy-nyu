@@ -39,6 +39,7 @@ class ProfessorProfile extends Component {
             }).then(response => {
                 if (this._isMounted) {
                     // Prepossess comment based on prof and course ids
+                    console.log(response);
                     var i;
                     var j;
                     var counter = 0;
@@ -122,11 +123,7 @@ class ProfessorProfile extends Component {
                             {this.state.courses.map((course, i) => (
                                 <tr key={course._id}>
                                         <td>
-                                            <Link to={`/course/${course._id}`}>{
-                                                course.topic === undefined ? 
-                                                course.name : 
-                                                course.name + " " + course.topic
-                                            }</Link>
+                                            <Link to={`/course/${course._id}`}>{course.name}</Link>
                                         </td>
                                         <td>
                                         {this.state.comments[i].map((comment, j) => (
@@ -137,8 +134,6 @@ class ProfessorProfile extends Component {
                                 ))}
                         </tbody>
                     </Table>
-<<<<<<< HEAD
-=======
                     
                     {/* {Option Two for Display} */}
                     <Table striped bordered hover>
@@ -167,7 +162,6 @@ class ProfessorProfile extends Component {
                                 </tr>
                             ))}
                     </Table>
->>>>>>> parent of dfe3f97... Revert "Merge branch 'master' into user-story/19/task/190/search-bar"
                 </container></center>
             </div>
         )
