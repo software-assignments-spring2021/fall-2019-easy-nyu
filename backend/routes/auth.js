@@ -29,7 +29,9 @@ router.post("/register", (req, res) => {
                 name: req.body.name,
                 nid: req.body.nid,
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                role: "student",
+                banned: false
             });
             // Hash password before saving in database
             bcrypt.genSalt(10, (err, salt) => {
@@ -39,8 +41,9 @@ router.post("/register", (req, res) => {
                     newAuth.save()
                         .then(auth => {
                             const reg_payload = {
-                                id: auth.id,
-                                name: auth.name
+                                id: auth._id,
+                                name: auth.name,
+                                role: auth.role
                             }
 
                              jwt.sign(
@@ -50,7 +53,8 @@ router.post("/register", (req, res) => {
                                     res.json({
                                         success: true,
                                         token: "Bearer " + token,
-                                        id: auth._id
+                                        id: auth._id,
+                                        role: auth.role
                                     });
                                 },
                                 {
@@ -85,38 +89,43 @@ router.post("/login", (req, res) => {
         // Check if auth exists
         if (!auth) {
             return res.status(403).json({ emailnotfound: "Netid not found" });
+        } else if (auth.banned) {
+            return res.status(403).json({banned: "Banned user"});
+        } else {
+            // Check password
+            bcrypt.compare(password, auth.password).then(isMatch => {
+                if (isMatch) {
+                    // Auth matched
+                    // Create JWT Payload
+                    const payload = {
+                        id: auth.id,
+                        name: auth.name,
+                        role: auth.role
+                    };
+                
+                    // Sign token
+                    jwt.sign(
+                        payload,
+                        process.env.secretOrKey,
+                        (err, token) => {
+                            res.json({
+                                success: true,
+                                token: "Bearer " + token,
+                                id: auth._id,
+                                role: auth.role
+                            });
+                        },
+                        {
+                            expiresIn: 31556926 // 1 year in seconds
+                        },
+                    );
+                } else {
+                    return res
+                        .status(403)
+                        .json({ passwordincorrect: "Password incorrect" });
+                }
+            });
         }
-        // Check password
-        bcrypt.compare(password, auth.password).then(isMatch => {
-            if (isMatch) {
-                // Auth matched
-                // Create JWT Payload
-                const payload = {
-                    id: auth._id,
-                    name: auth.name
-                };
-               
-                // Sign token
-                jwt.sign(
-                    payload,
-                    process.env.secretOrKey,
-                    (err, token) => {
-                        res.json({
-                            success: true,
-                            token: "Bearer " + token,
-                            id: auth._id
-                        });
-                    },
-                    {
-                        expiresIn: 31556926 // 1 year in seconds
-                    },
-                );
-            } else {
-                return res
-                    .status(403)
-                    .json({ passwordincorrect: "Password incorrect" });
-            }
-        });
     });
 });
 
@@ -141,7 +150,9 @@ router.post("/register-test", (req, res) => {
                 name: req.body.name,
                 nid: req.body.nid,
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                role: "admin",
+                banned: false
             });
             // Hash password before saving in database
             bcrypt.genSalt(10, (err, salt) => {
