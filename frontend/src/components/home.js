@@ -26,15 +26,15 @@ class Home extends Component {
                                 schoolmates.
                             </font></p>
                             <p><font size="+1"> 
-                                EasyNYU Team is dedicated to creating 
-                                a friendly and safe community for students 
+                                The EasyNYU Team is dedicated to creating 
+                                a safe and friendly community for students 
                                 to freely comment on 
                                 the courses taken and on 
                                 associated professors. 
                             </font></p>
                             <p><font size="+1"> 
-                                Start by search your favorite course or professor
-                                and share your opinions! 
+                                Start by searching for your favorite courses or professors
+                                and sharing your opinion! 
                             </font></p>
                         </div>
                     </div>
