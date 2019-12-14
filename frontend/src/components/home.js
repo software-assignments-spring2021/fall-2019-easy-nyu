@@ -34,8 +34,10 @@ class Home extends Component {
                             </font></p>
                             <p><font size="+1"> 
                                 Start by search your favorite course or professor
-                                and share your opinions! 
+                                and share your opinions! You will need to login before
+                                adding a comment.
                             </font></p>
+                            <center><Login buttonLocation={"homepage"}/></center>
                         </div>
                     </div>
                 </div>
