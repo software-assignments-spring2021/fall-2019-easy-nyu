@@ -39,7 +39,7 @@ class Login extends Component {
     }
 
     handleClose = (event) => {
-        this.setState({ showModal: false });
+        this.setState({ showModal: false, nid: "", password: "", errorMsg: "" });
     }
 
     send() {
@@ -56,6 +56,7 @@ class Login extends Component {
                 //store jwt in Cookie
                 localStorage.setItem('jwtToken',res.data.token);
                 localStorage.setItem('userID',res.data.id);
+                localStorage.setItem('role', res.data.role);
                 // user id is not stored in localStorage.userID
                 const { history } = this.props;
                 if(history) history.push('/userprofile/'+res.data.id);
@@ -63,7 +64,8 @@ class Login extends Component {
             })
             .catch(err => {
                 console.log(err);
-                this.setState({errorMsg:'Incorrect email or password',success:false});
+                this.setState({errorMsg:'Incorrect email or password',success:false, password:""});
+                document.getElementById('password').focus();
             });
     }
 
@@ -90,24 +92,26 @@ class Login extends Component {
                     <Modal.Header closeButton>
                         <Modal.Title>Login</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
-                        <label className="ilabel">
-                            Net ID:
-                            <input type="text" name="nid" value={this.state.nid} onChange={this.handleNidChange} />
-                        </label>
-                        <label className="ilabel">
-                            Password:
-                            <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
-                        </label>
-                        <div className="signup">
-                            <p className="inline">Not Registered?</p> 
-                            <Signup onNavbar={false}/>
-                        </div>
-                        <p className='error-msg'>{this.state.errorMsg}</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button className="login-btn" onClick={(evt) => { this.send();}}>Login</button>
-                    </Modal.Footer>
+                    <form onSubmit={(evt) => { this.send();evt.preventDefault();}}>
+                        <Modal.Body>
+                            <label className="ilabel">
+                                NetID:
+                                <input autoFocus="true" type="text" name="nid" id="nid" value={this.state.nid} onChange={this.handleNidChange} />
+                            </label>
+                            <label className="ilabel">
+                                Password:
+                                <input type="password" name="password" id="password" value={this.state.password} onChange={this.handlePasswordChange} />
+                            </label>
+                            <div className="signup">
+                                <p className="inline">Not Registered?</p> 
+                                <Signup onNavbar={false}/>
+                            </div>
+                            <p className='error-msg'>{this.state.errorMsg}</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <button type="submit" className="login-btn" >Login</button>
+                        </Modal.Footer>
+                    </form>
                 </Modal>
             </div>
         )

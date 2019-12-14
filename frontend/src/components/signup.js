@@ -43,7 +43,15 @@ class Signup extends Component {
     }
 
     handleClose = (event) => {
-        this.setState({ showModal: false });
+        this.setState({ 
+            name: "",
+            email: "",
+            nid: "",
+            password: "",
+            password2: "",
+            errorMsg: "",
+            showModal: false 
+        });
     }
     
     send() {
@@ -57,8 +65,7 @@ class Signup extends Component {
                 password: this.state.password,
                 password2: this.state.password2
             })
-        })
-            .then(response => {
+        }).then(response => {
                 if (response.ok) {
                     return response.json();
                 } else {
@@ -71,12 +78,6 @@ class Signup extends Component {
                 }
             }).then((res) => {
                 if (res !== undefined) {
-                    console.log(res);
-                    localStorage.setItem('jwtToken', res.token);
-                    localStorage.setItem('userID', res.id);
-                    // user id is not stored in localStorage.userID
-                    const { history } = this.props;
-                    if (history) history.push('/userprofile/' + res.id);
                     this.setState({
                         name: "",
                         email: "",
@@ -86,6 +87,12 @@ class Signup extends Component {
                         errorMsg: "",
                         showModal: false
                     })
+                    console.log(res);
+                    localStorage.setItem('jwtToken',res.token);
+                    localStorage.setItem('userID',res.id);
+                    // user id is not stored in localStorage.userID
+                    const { history } = this.props;
+                    if(history) history.push('/userprofile/'+res.id);
                 }
             });
     }
@@ -104,32 +111,34 @@ class Signup extends Component {
                     <Modal.Header closeButton>
                         <Modal.Title>Create Account</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
-                        <label className="ilabel">
-                            Name:
-                            <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange} />
-                        </label>
-                        <label className="ilabel">
-                            Email:
-                            <input type="text" name="email" value={this.state.email} onChange={this.handleEmailChange} />
-                        </label>
-                        <label className="ilabel">
-                            Net ID:
-                            <input type="text" name="nid" value={this.state.nid} onChange={this.handleNidChange} />
-                        </label>
-                        <label className="ilabel">
-                            Password:
-                            <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
-                        </label>
-                        <label className="ilabel">
-                            Confirm Password:
-                            <input type="password" name="password2" value={this.state.password2} onChange={this.handlePassword2Change} />
-                        </label>
-                        <p className='error-msg'>{this.state.errorMsg}</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button className="signup-btn" onClick={(evt) => { this.send(); }}>Create Account</button>
-                    </Modal.Footer>
+                    <form onSubmit={(evt) => { this.send();evt.preventDefault();}}>
+                        <Modal.Body>
+                            <label className="ilabel">
+                                Name:
+                                <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange} />
+                            </label>
+                            <label className="ilabel">
+                                Email:
+                                <input type="email" name="email" value={this.state.email} onChange={this.handleEmailChange} />
+                            </label>
+                            <label className="ilabel">
+                                NetID:
+                                <input type="text" name="nid" value={this.state.nid} onChange={this.handleNidChange} />
+                            </label>
+                            <label className="ilabel">
+                                Password:
+                                <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
+                            </label>
+                            <label className="ilabel">
+                                Confirm Password:
+                                <input type="password" name="password2" value={this.state.password2} onChange={this.handlePassword2Change} />
+                            </label>
+                            <p className='error-msg'>{this.state.errorMsg}</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <button type="submit" className="signup-btn">Create Account</button>
+                        </Modal.Footer>
+                    </form>
                 </Modal>
             </div>
         )
