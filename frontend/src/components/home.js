@@ -26,7 +26,7 @@ class Home extends Component {
                                 schoolmates.
                             </font></p>
                             <p><font size="+1"> 
-                                EasyNYU Team is dedicated to create 
+                                EasyNYU Team is dedicated to creating 
                                 a friendly and safe community for students 
                                 to freely comment on 
                                 the courses taken and on 
