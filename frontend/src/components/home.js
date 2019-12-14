@@ -18,7 +18,24 @@ class Home extends Component {
                 <div class="centerContent">
                     <div class="textBoxContainer shadow rounded">
                         <div class="textBox">
-                            <Login buttonLocation={"homepage"}/>
+                            <p><font size="+1"> 
+                                EasyNYU is a web-based platform 
+                                that allows NYU students to gain a better 
+                                insight before selecting a class and to 
+                                share information with his or her fellow 
+                                schoolmates.
+                            </font></p>
+                            <p><font size="+1"> 
+                                EasyNYU Team is dedicated to create 
+                                a friendly and safe community for students 
+                                to freely comment on 
+                                the courses taken and on 
+                                associated professors. 
+                            </font></p>
+                            <p><font size="+1"> 
+                                Start by search your favorite course or professor
+                                and share your opinions! 
+                            </font></p>
                         </div>
                     </div>
                 </div>
