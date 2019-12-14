@@ -16,7 +16,6 @@ class Home extends Component {
                 <Navbar />
                 <div id="title" className="pageTitle">Welcome to EasyNYU</div>
                 <div class="centerContent">
-                    
                     <div class="textBoxContainer shadow rounded">
                         <div class="textBox">
                             <p><font size="+1"> 
@@ -35,11 +34,8 @@ class Home extends Component {
                             </font></p>
                             <p><font size="+1"> 
                                 Start by search your favorite course or professor
-                                and share your opinions! A friendly reminder:
-                                You will need to login
-                                to add comment.
+                                and share your opinions! 
                             </font></p>
-                            <center><Login buttonLocation={"homepage"}/></center>
                         </div>
                     </div>
                 </div>
