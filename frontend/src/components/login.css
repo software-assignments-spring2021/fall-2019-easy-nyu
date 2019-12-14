@@ -1,65 +1,65 @@
 .modal {
     font-size: 30px;
   }
-  .modal > .header {
-    width: 100%;
-    color: purple;
-    border-bottom: 1px solid gray;
-    font-size: 30px;
-    padding: 5px;
-  }
-  .modal > .actions {
-    width: 100%;
-    padding: 10px 5px;
-    margin: auto;
-  }
-  .ilabel {
+.modal > .header {
+  width: 100%;
+  color: purple;
+  border-bottom: 1px solid gray;
+  font-size: 30px;
+  padding: 5px;
+}
+.modal > .actions {
+  width: 100%;
+  padding: 10px 5px;
+  margin: auto;
+}
+.ilabel {
+  display: block;
+  font-size: 22px;
+  padding: 10px 5px;
+  margin: auto;
+}
+input {
+    width: 80%;
+    height: 40px;
+    margin: 0 auto;
     display: block;
-    font-size: 22px;
-    padding: 10px 5px;
-    margin: auto;
-  }
-  input {
-      width: 80%;
-      height: 40px;
-      margin: 0 auto;
-      display: block;
-  }
-  .login-btn {
-      margin: 0 auto;
-      margin-left: 67px;
-      display: inline-block;
-      background-color: #C70039 ;
-      color: white;
-      font-size: 25px;
-      width: 70%;
-      height: 50px;
-      text-align: center;
-  }
-  .error-msg {
-    color: red;
-    font-size: 20px;
+}
+.login-btn {
+    margin: 0 auto;
+    margin-left: 67px;
+    display: inline-block;
+    background-color: #C70039 ;
+    color: white;
+    font-size: 25px;
+    width: 70%;
+    height: 50px;
     text-align: center;
-    display: block;
-  }
-  .modal-body{
-    text-align: left;
-  }
-  .inline{
-    margin-left: 5px;
-    display: inline;
-    float: left;
-  }
-  div.signup{
-    margin-top: 10px;
-    font-size: small;
-    overflow: hidden;
-  }
-  .display-signup {
-    margin-left: 5px;
-    display: inline;
-    cursor:pointer;
-    color:steelblue;
-    text-decoration:underline;
-  }
+}
+.error-msg {
+  color: red;
+  font-size: 20px;
+  text-align: center;
+  display: block;
+}
+.modal-body{
+  text-align: left;
+}
+.inline{
+  margin-left: 5px;
+  display: inline;
+  float: left;
+}
+div.signup{
+  margin-top: 10px;
+  font-size: small;
+  overflow: hidden;
+}
+.display-signup {
+  margin-left: 5px;
+  display: inline;
+  cursor:pointer;
+  color:steelblue;
+  text-decoration:underline;
+}
   
