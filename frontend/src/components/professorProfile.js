@@ -88,7 +88,9 @@ class ProfessorProfile extends Component {
         return (
             <div>
                 <NYUNavBar />
-                <center><container>
+                <div class="tables-container">
+                    <div>
+                {/* <center><container> */}
                     <Row className="justify-content-md-center">
                         <h1>{this.state.professorname}</h1>
                     </Row>
@@ -102,11 +104,11 @@ class ProfessorProfile extends Component {
                         <tr>
                             <th>Comments ({this.state.comments_for_prof.length})</th>
                         </tr>
-                            {this.state.comments_for_prof.map((prof_comment, i) => (
-                                <tr><td><Comment id={prof_comment} /></td></tr>
-                            ))}
+                        {this.state.comments_for_prof.map((prof_comment, i) => (
+                            <tr><td><Comment id={prof_comment} /></td></tr>
+                        ))}
                     </Table>
-
+                    </div><div>
                     {/* {Option One for Display} */}
                     <Table striped bordered hover>
                         <thead>
@@ -139,7 +141,9 @@ class ProfessorProfile extends Component {
                             ))}
                         </tbody>
                     </Table>
-                </container></center>
+                    </div>
+                {/* </container></center> */}
+                </div>
             </div>
         )
     }

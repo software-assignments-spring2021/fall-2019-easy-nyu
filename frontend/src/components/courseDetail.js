@@ -164,7 +164,7 @@ class CourseDetail extends Component {
                             </tr>
                             ))}
                     </tbody>
-                </Table>
+                    </Table>
                 </div>
                 <div>
                     <Table striped bordered hover>
