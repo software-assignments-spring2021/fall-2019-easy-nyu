@@ -90,59 +90,59 @@ class ProfessorProfile extends Component {
                 <NYUNavBar />
                 <div class="tables-container">
                     <div>
-                {/* <center><container> */}
-                    <Row className="justify-content-md-center">
-                        <h1>{this.state.professorname}</h1>
-                    </Row>
-                    <Row className="justify-content-md-center">
-                        <h3>School: {this.state.school}</h3>
-                    </Row>
-                    <Row className="justify-content-md-center">
-                        <AddComment profid={this.props.match.params.id}/>
-                    </Row>
-                    <Table striped bordered hover>
-                        <tr>
-                            <th>Comments ({this.state.comments_for_prof.length})</th>
-                        </tr>
-                        {this.state.comments_for_prof.map((prof_comment, i) => (
-                            <tr><td><Comment id={prof_comment} /></td></tr>
-                        ))}
-                    </Table>
-                    </div><div>
-                    {/* {Option One for Display} */}
-                    <Table striped bordered hover>
-                        <thead>
+                        <Row className="justify-content-md-center">
+                            <h1>{this.state.professorname}</h1>
+                        </Row>
+                        <Row className="justify-content-md-center">
+                            <h3>School: {this.state.school}</h3>
+                        </Row>
+                        <Row className="justify-content-md-center">
+                            <AddComment profid={this.props.match.params.id}/>
+                        </Row>
+                        <Table striped bordered hover>
                             <tr>
-                                <th>{`Courses Taught By ${this.state.professorname}`}</th>
-                                <th>{`Comments on Course`}</th>
+                                <th>Comments ({this.state.comments_for_prof.length})</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.courses.map((course, i) => (
-                                <tr key={course._id}>
-                                    <td>
-                                        <Link to={`/course/${course._id}`}>{
-                                            course.topic === undefined ?
-                                                course.name :
-                                                course.name + " " + course.topic
-                                        }</Link>
-                                    </td>
-                                    <td>
-                                        {console.log(course.comments)}
-                                        {course.comments.map((course_comment, i) => (
-                                            <tr>
-                                                <td>
-                                                    <Comment id={course_comment} />
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </td>
-                                </tr>
+                            {this.state.comments_for_prof.map((prof_comment, i) => (
+                                <tr><td><Comment id={prof_comment} /></td></tr>
                             ))}
-                        </tbody>
-                    </Table>
+                        </Table>
                     </div>
-                {/* </container></center> */}
+                    
+                    <div>
+                        {/* {Option One for Display} */}
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>{`Courses Taught By ${this.state.professorname}`}</th>
+                                    <th>{`Comments on Course`}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.courses.map((course, i) => (
+                                    <tr key={course._id}>
+                                        <td>
+                                            <Link to={`/course/${course._id}`}>{
+                                                course.topic === undefined ?
+                                                    course.name :
+                                                    course.name + " " + course.topic
+                                            }</Link>
+                                        </td>
+                                        <td>
+                                            {console.log(course.comments)}
+                                            {course.comments.map((course_comment, i) => (
+                                                <tr>
+                                                    <td>
+                                                        <Comment id={course_comment} />
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </div>
                 </div>
             </div>
         )
