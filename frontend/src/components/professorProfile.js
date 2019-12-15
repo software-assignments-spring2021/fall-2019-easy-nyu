@@ -107,9 +107,6 @@ class ProfessorProfile extends Component {
                                 <tr><td><Comment id={prof_comment} /></td></tr>
                             ))}
                     </Table>
-                    
-                    
-
 
                     {/* {Option One for Display} */}
                     <Table striped bordered hover>
@@ -137,34 +134,6 @@ class ProfessorProfile extends Component {
                                 </tr>
                             ))}
                         </tbody>
-                    </Table>
-                    
-                    {/* {Option Two for Display} */}
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th>{`Courses Taught By ${this.state.professorname}`}</th>
-                                <th>{`Comments`}</th>
-                            </tr>
-                        </thead>
-                            {this.state.courses.map((course, i) => (
-                                <tr>
-                                    <td key={course._id}>
-                                        <Link to={`/course/${course._id}`}>{course.name}</Link>
-                                    </td>
-                                    <td>
-                                        <table>
-                                            <tr>
-                                                {this.state.comments[i].map((comment, j) => (
-                                                    <td key={j}>
-                                                        <p>{this.state.comments[i][j]}</p>
-                                                    </td>
-                                                ))}
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            ))}
                     </Table>
                 </container></center>
             </div>
