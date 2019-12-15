@@ -42,7 +42,7 @@ class Comment extends Component {
 							name: "Anonymous"
 						});
 					}
-					if (response.user_id == window.localStorage.userID) {
+					if (response.user_id == window.localStorage.userID || window.localStorage.role == "admin") {
 						this.setState({
 							canModify: true
 						});
