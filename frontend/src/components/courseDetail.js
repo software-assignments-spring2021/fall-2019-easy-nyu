@@ -164,7 +164,7 @@ class CourseDetail extends Component {
                             </tr>
                             ))}
                     </tbody>
-                </Table>
+                    </Table>
                 </div>
                 <div>
                     <Table striped bordered hover>
@@ -177,7 +177,7 @@ class CourseDetail extends Component {
                             {this.state.comments.map((comment, i) => (
                                 <tr key={comment._id}>
                                         <td>
-                                        <Comment id={comment} />                  
+                                            <Comment id={comment} />                  
                                         </td>
                                 </tr>
                                 ))}

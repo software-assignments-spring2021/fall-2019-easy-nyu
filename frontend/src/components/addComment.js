@@ -115,7 +115,7 @@ class AddComment extends Component {
             return (
                 <div>
                     Want to add a comment? Please log in or sign up.
-                    <Login />
+                    <center><Login /></center>
                 </div>
             );
         }
