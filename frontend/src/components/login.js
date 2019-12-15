@@ -63,8 +63,12 @@ class Login extends Component {
                 this.handleClose()
             })
             .catch(err => {
-                console.log(err);
-                this.setState({errorMsg:'Incorrect email or password',success:false, password:""});
+                console.log(err.response.data);
+                if (err.response.data.banned == "Banned user") {
+                    this.setState({errorMsg:'You cannot log in because your account is banned.',success:false, password:""});
+                } else {
+                    this.setState({errorMsg:'Incorrect NetID or password',success:false, password:""});
+                }
                 document.getElementById('password').focus();
             });
     }
