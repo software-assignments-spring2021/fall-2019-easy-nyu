@@ -37,15 +37,21 @@ class Comment extends Component {
 					this.setState({
 						name: response2.name
 					});
-					if (response.anonymous == true) {
-						this.setState({
-							name: "Anonymous"
-						});
-					}
 					if (response.user_id == window.localStorage.userID || window.localStorage.role == "admin") {
 						this.setState({
 							canModify: true
 						});
+					}
+					if (response.anonymous == true) {
+						if (this.state.canModify) {
+							this.setState({
+								name: response2.name + " [name hidden]"
+							});
+						} else {
+							this.setState({
+								name: "Anonymous"
+							});
+						}
 					}
 					this.setState({
 						comment: response.comment,
