@@ -101,7 +101,7 @@ class ProfessorProfile extends Component {
                         </Row>
                         <Table striped bordered hover>
                             <tr>
-                                <th>Comments ({this.state.comments_for_prof.length})</th>
+                                <th>Comments for Prof. {this.state.professorname} ({this.state.comments_for_prof.length})</th>
                             </tr>
                             {this.state.comments_for_prof.map((prof_comment, i) => (
                                 <tr><td><Comment id={prof_comment} /></td></tr>
