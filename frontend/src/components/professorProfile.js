@@ -102,7 +102,6 @@ class ProfessorProfile extends Component {
                         <tr>
                             <th>Comments ({this.state.comments_for_prof.length})</th>
                         </tr>
-                        
                             {this.state.comments_for_prof.map((prof_comment, i) => (
                                 <tr><td><Comment id={prof_comment} /></td></tr>
                             ))}
@@ -127,8 +126,9 @@ class ProfessorProfile extends Component {
                                         }</Link>
                                     </td>
                                     <td>
-                                        {this.state.comments[i].map((comment, j) => (
-                                            <p key={j}>{this.state.comments[i][j]}</p>
+                                        {console.log(course.comments)}
+                                        {course.comments.map((course_comment, i) => (
+                                            <tr><td><Comment id={course_comment} /></td></tr>
                                         ))}
                                     </td>
                                 </tr>
