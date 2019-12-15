@@ -128,7 +128,11 @@ class ProfessorProfile extends Component {
                                     <td>
                                         {console.log(course.comments)}
                                         {course.comments.map((course_comment, i) => (
-                                            <tr><td><Comment id={course_comment} /></td></tr>
+                                            <tr>
+                                                <td>
+                                                    <Comment id={course_comment} />
+                                                </td>
+                                            </tr>
                                         ))}
                                     </td>
                                 </tr>
