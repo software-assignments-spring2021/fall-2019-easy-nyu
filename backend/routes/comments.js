@@ -126,6 +126,7 @@ router.route('/:id').put((req, res) => {
 	var user_recommend = req.body.recommend;
 	var anonymous = req.body.anonymous;
 	var authorized = false;
+	var admin = false;
 	var requesterNid;
 	var token = req.headers['authorization'];
 	if (token) {
@@ -137,6 +138,7 @@ router.route('/:id').put((req, res) => {
 		} else {
 			authorized = true;
 			requesterNid = decoded.id;
+			admin = (decoded.role == "admin");
 		}
 		
 		if (authorized) {
@@ -154,7 +156,7 @@ router.route('/:id').put((req, res) => {
 						}
 						if (commenter == null) {
 							res.status(500).json('Error: Cannot find associated commenter')
-						} else if (commenter._id == requesterNid) {
+						} else if (commenter._id == requesterNid || admin) {
 							Comment.findByIdAndUpdate(req.params.id, {'comment' : user_comment, 'rating': user_rating, 'recommend': user_recommend, 'anonymous': anonymous})
 								.then((comment) => {
 									res.json({message: "Comment updated!", comment: comment});
@@ -175,6 +177,7 @@ router.route('/:id').put((req, res) => {
 
 router.route('/:id').delete((req, res) => {
 	var authorized = false;
+	var admin = false;
 	var requesterNid;
 	var token = req.headers['authorization'];
 	if (token) {
@@ -186,6 +189,7 @@ router.route('/:id').delete((req, res) => {
 		} else {
 			authorized = true;
 			requesterNid = decoded.id;
+			admin = (decoded.role == "admin")
 		}
 		
 		if (authorized) {
@@ -203,7 +207,7 @@ router.route('/:id').delete((req, res) => {
 						}
 						if (commenter == null) {
 							res.status(500).json('Error: Cannot find associated commenter')
-						} else if (commenter._id == requesterNid) {
+						} else if (commenter._id == requesterNid || admin) {
 							Comment.findByIdAndDelete(req.params.id)
 								.then(() => {
 									if (data.prof_id) {
