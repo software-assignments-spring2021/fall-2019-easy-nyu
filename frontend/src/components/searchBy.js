@@ -1,13 +1,13 @@
 import React from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
 
-const styles = makeStyles(theme => ({
+const styles = theme => ({
     root: {
         padding: theme.spacing(3, 2),
-        background: 'linear-gradient(45deg, #001B87 30%, #00A6D7 90%)',
+        background: 'linear-gradient(45deg, #9c27b0 50%, #f73378 90%)',
         color: 'white',
-        marginTop: '5%'
+        marginTop: '10%'
     },
     search: {
         color: 'white',
@@ -23,7 +23,7 @@ const styles = makeStyles(theme => ({
         width: "50%",
         marginLeft: "25%"
     }
-}));
+});
 
 class SearchBy extends React.Component {
     constructor(props) {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Navbar from './navbar'
 import SearchBy from './searchBy'
+import './home.css'
 
 class Home extends Component {
     constructor(props) {
@@ -9,9 +10,8 @@ class Home extends Component {
     }
 
     render() {
-        let { styles } = this.props;
         return (
-            <div>
+            <div className="with-background">
                 <Navbar />
                 <SearchBy />
             </div>
