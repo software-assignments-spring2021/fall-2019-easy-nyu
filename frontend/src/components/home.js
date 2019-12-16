@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Navbar from './navbar'
-import {Grid, Paper, makeStyles, Button} from '@material-ui/core';
+import SearchBy from './searchBy'
 
 class Home extends Component {
     constructor(props) {
@@ -9,16 +9,11 @@ class Home extends Component {
     }
 
     render() {
-        let { classes } = this.props;
-        console.log(classes)
+        let { styles } = this.props;
         return (
             <div>
                 <Navbar />
-                <Grid container>
-                    <Grid item xs={12}>
-                        <Button variant="outlined" color="primary">Search by Major</Button>
-                    </Grid>
-                </Grid>
+                <SearchBy />
             </div>
         )
     }

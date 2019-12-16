@@ -1,29 +1,29 @@
 import React, { Component } from "react";
 import Modal from 'react-bootstrap/Modal'
-import {Button} from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import './signup.css';
 import { withRouter } from 'react-router-dom';
 
 class Signup extends Component {
     constructor(props) {
-      super(props);
-  
-      this.state = {
-        name: "",
-        email: "",
-        nid: "",
-        password: "",
-        password2: "",
-        showModal: false,
-        errorMsg: ""
-      };
+        super(props);
+
+        this.state = {
+            name: "",
+            email: "",
+            nid: "",
+            password: "",
+            password2: "",
+            showModal: false,
+            errorMsg: ""
+        };
     }
-    
+
     handlePopup = () => {
-        this.setState({showModal : true});
+        this.setState({ showModal: true });
     }
     handleNameChange = (event) => {
-      this.setState({ name: event.target.value });
+        this.setState({ name: event.target.value });
     }
 
     handleEmailChange = (event) => {
@@ -43,17 +43,17 @@ class Signup extends Component {
     }
 
     handleClose = (event) => {
-        this.setState({ 
+        this.setState({
             name: "",
             email: "",
             nid: "",
             password: "",
             password2: "",
             errorMsg: "",
-            showModal: false 
+            showModal: false
         });
     }
-    
+
     send() {
         fetch('/api/auth/register', {
             method: "POST",
@@ -66,35 +66,35 @@ class Signup extends Component {
                 password2: this.state.password2
             })
         }).then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    response.json()
-                        .then(errors => {
-                            this.setState({
-                                errorMsg: Object.values(errors)[0]
-                            })
+            if (response.ok) {
+                return response.json();
+            } else {
+                response.json()
+                    .then(errors => {
+                        this.setState({
+                            errorMsg: Object.values(errors)[0]
                         })
-                }
-            }).then((res) => {
-                if (res !== undefined) {
-                    this.setState({
-                        name: "",
-                        email: "",
-                        nid: "",
-                        password: "",
-                        password2: "",
-                        errorMsg: "",
-                        showModal: false
                     })
-                    console.log(res);
-                    localStorage.setItem('jwtToken',res.token);
-                    localStorage.setItem('userID',res.id);
-                    // user id is not stored in localStorage.userID
-                    const { history } = this.props;
-                    if(history) history.push('/userprofile/'+res.id);
-                }
-            });
+            }
+        }).then((res) => {
+            if (res !== undefined) {
+                this.setState({
+                    name: "",
+                    email: "",
+                    nid: "",
+                    password: "",
+                    password2: "",
+                    errorMsg: "",
+                    showModal: false
+                })
+                console.log(res);
+                localStorage.setItem('jwtToken', res.token);
+                localStorage.setItem('userID', res.id);
+                // user id is not stored in localStorage.userID
+                const { history } = this.props;
+                if (history) history.push('/userprofile/' + res.id);
+            }
+        });
     }
 
     render() {
@@ -103,7 +103,7 @@ class Signup extends Component {
             buttonDisplay = <Button variant="outline-light" onClick={this.handlePopup}>Signup</Button>
         } else {
             buttonDisplay = <p className="display-signup" onClick={this.handlePopup}>Create Account</p>
-        } 
+        }
         return (
             <div>
                 {buttonDisplay}
@@ -111,38 +111,36 @@ class Signup extends Component {
                     <Modal.Header closeButton>
                         <Modal.Title>Create Account</Modal.Title>
                     </Modal.Header>
-                    <form onSubmit={(evt) => { this.send();evt.preventDefault();}}>
-                        <Modal.Body>
-                            <label className="ilabel">
-                                Name:
+                    <Modal.Body>
+                        <label className="ilabel">
+                            Name:
                                 <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange} />
-                            </label>
-                            <label className="ilabel">
-                                Email:
+                        </label>
+                        <label className="ilabel">
+                            Email:
                                 <input type="email" name="email" value={this.state.email} onChange={this.handleEmailChange} />
-                            </label>
-                            <label className="ilabel">
-                                NetID:
+                        </label>
+                        <label className="ilabel">
+                            NetID:
                                 <input type="text" name="nid" value={this.state.nid} onChange={this.handleNidChange} />
-                            </label>
-                            <label className="ilabel">
-                                Password:
+                        </label>
+                        <label className="ilabel">
+                            Password:
                                 <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
-                            </label>
-                            <label className="ilabel">
-                                Confirm Password:
+                        </label>
+                        <label className="ilabel">
+                            Confirm Password:
                                 <input type="password" name="password2" value={this.state.password2} onChange={this.handlePassword2Change} />
-                            </label>
-                            <p className='error-msg'>{this.state.errorMsg}</p>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <button type="submit" className="signup-btn">Create Account</button>
-                        </Modal.Footer>
-                    </form>
+                        </label>
+                        <p className='error-msg'>{this.state.errorMsg}</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button type="submit" className="signup-btn">Create Account</button>
+                    </Modal.Footer>
                 </Modal>
             </div>
         )
     }
 }
-  
+
 export default withRouter(Signup);

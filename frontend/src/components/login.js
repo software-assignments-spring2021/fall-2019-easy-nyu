@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Modal from 'react-bootstrap/Modal'
-import {Button} from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import Signup from './signup'
 import './login.css'
 import axios from 'axios';
@@ -17,8 +17,8 @@ class Login extends Component {
             password: "",
             showModal: false,
             errorMsg: "",
-            success:false,
-            token:''
+            success: false,
+            token: ''
         };
     }
 
@@ -44,30 +44,30 @@ class Login extends Component {
 
     send() {
         const { history } = this.props;
-        const auth={
-                    name: this.state.name,
-                    email: this.state.email,
-                    nid: this.state.nid,
-                    password: this.state.password,
-                    password2: this.state.password2
+        const auth = {
+            name: this.state.name,
+            email: this.state.email,
+            nid: this.state.nid,
+            password: this.state.password,
+            password2: this.state.password2
         }
         axios.post('/api/auth/login', auth)
             .then(res => {
                 //store jwt in Cookie
-                localStorage.setItem('jwtToken',res.data.token);
-                localStorage.setItem('userID',res.data.id);
+                localStorage.setItem('jwtToken', res.data.token);
+                localStorage.setItem('userID', res.data.id);
                 localStorage.setItem('role', res.data.role);
                 // user id is not stored in localStorage.userID
                 const { history } = this.props;
-                if(history) history.push('/userprofile/'+res.data.id);
+                if (history) history.push('/userprofile/' + res.data.id);
                 this.handleClose()
             })
             .catch(err => {
                 console.log(err.response.data);
                 if (err.response.data.banned == "Banned user") {
-                    this.setState({errorMsg:'You cannot log in because your account is banned.',success:false, password:""});
+                    this.setState({ errorMsg: 'You cannot log in because your account is banned.', success: false, password: "" });
                 } else {
-                    this.setState({errorMsg:'Incorrect NetID or password',success:false, password:""});
+                    this.setState({ errorMsg: 'Incorrect NetID or password', success: false, password: "" });
                 }
                 document.getElementById('password').focus();
             });
@@ -85,9 +85,9 @@ class Login extends Component {
             case "otherpage":
                 buttonDisplay = <Button onClick={this.handlePopup}>Login</Button>;
                 break;
-            default:    
+            default:
                 buttonDisplay = <a href="javascript:void(0)" className="display-login" onClick={this.handlePopup}>Log in</a>;
-        } 
+        }
         const { history } = this.props;
         return (
             <div>
@@ -96,26 +96,24 @@ class Login extends Component {
                     <Modal.Header closeButton>
                         <Modal.Title>Login</Modal.Title>
                     </Modal.Header>
-                    <form onSubmit={(evt) => { this.send();evt.preventDefault();}}>
-                        <Modal.Body>
-                            <label className="ilabel">
-                                NetID:
+                    <Modal.Body>
+                        <label className="ilabel">
+                            NetID:
                                 <input autoFocus="true" type="text" name="nid" id="nid" value={this.state.nid} onChange={this.handleNidChange} />
-                            </label>
-                            <label className="ilabel">
-                                Password:
+                        </label>
+                        <label className="ilabel">
+                            Password:
                                 <input type="password" name="password" id="password" value={this.state.password} onChange={this.handlePasswordChange} />
-                            </label>
-                            <div className="signup">
-                                <p className="inline">Not Registered?</p> 
-                                <Signup onNavbar={false}/>
-                            </div>
-                            <p className='error-msg'>{this.state.errorMsg}</p>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <button type="submit" className="login-btn" >Login</button>
-                        </Modal.Footer>
-                    </form>
+                        </label>
+                        <div className="signup">
+                            <p className="inline">Not Registered?</p>
+                            <Signup onNavbar={false} />
+                        </div>
+                        <p className='error-msg'>{this.state.errorMsg}</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button type="submit" className="login-btn" >Login</button>
+                    </Modal.Footer>
                 </Modal>
             </div>
         )
