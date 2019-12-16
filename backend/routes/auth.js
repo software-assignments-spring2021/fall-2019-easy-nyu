@@ -153,6 +153,7 @@ router.post("/changestatus", (req, res) => {
         } else {
 			res.status(401).json({unauthorized: '401 Unauthorized'});
         }
+    });
 });
 
 // Create login credential for login for TESTING
