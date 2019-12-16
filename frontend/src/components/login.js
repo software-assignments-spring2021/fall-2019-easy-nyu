@@ -39,7 +39,7 @@ class Login extends Component {
     }
 
     handleClose = (event) => {
-        this.setState({ showModal: false, nid: "", password: "", errorMsg: "" });
+        this.setState({ showModal: false });
     }
 
     send() {
@@ -69,7 +69,6 @@ class Login extends Component {
                 } else {
                     this.setState({ errorMsg: 'Incorrect NetID or password', success: false, password: "" });
                 }
-                document.getElementById('password').focus();
             });
     }
 
@@ -91,7 +90,7 @@ class Login extends Component {
         const { history } = this.props;
         return (
             <div>
-                {buttonDisplay}
+                <Button variant="outline-light" onClick={this.handlePopup}>Login</Button>
                 <Modal show={this.state.showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Login</Modal.Title>
@@ -112,7 +111,7 @@ class Login extends Component {
                         <p className='error-msg'>{this.state.errorMsg}</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button type="submit" className="login-btn" >Login</button>
+                        <button type="submit" className="login-btn" onClick={this.send()}>Login</button>
                     </Modal.Footer>
                 </Modal>
             </div>

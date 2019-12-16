@@ -3,8 +3,6 @@ import Modal from 'react-bootstrap/Modal'
 import {Button} from 'react-bootstrap'
 import Login from './login'
 import './login.css'
-import axios from 'axios';
-import { withRouter } from 'react-router-dom';
 
 class AddComment extends Component {
     constructor(props) {
@@ -14,11 +12,7 @@ class AddComment extends Component {
             comment: "",
 			course_id: this.props.courseid,
 			prof_id: this.props.profid,
-            showModal: false,
-            recommend: true,
-            rating: 5,
-            anonymous: false,
-            errorMsg: ""
+            showModal: false
         };
     }
 	
@@ -33,50 +27,24 @@ class AddComment extends Component {
 	handleChange = (event) => {
         this.setState({ comment: event.target.value });
     }
-
-    handleRate = (event) => {
-        this.setState({ rating: event.target.value });
-    }
-
-    handleRecommendYes = (event) => {
-        this.setState({ recommend: true });
-    }
-
-    handleRecommendNo = (event) => {
-        this.setState({ recommend: false });
-    }
-
-    handleAnonymous = (event) => {
-        this.setState({ anonymous: event.target.checked });
-    }
-
 	
 	send() {
-		if (this.state.comment.length >= 15) {
+		if (this.state.comment != "") {
 			fetch('/comments/add', {
 				method: "POST",
 				headers: { "Content-Type": "application/json", 'Authorization': localStorage.getItem('jwtToken') },
 				body: JSON.stringify({
 					comment: this.state.comment,
 					course_id: this.state.course_id,
-                    prof_id: this.state.prof_id,
-                    rating: this.state.rating,
-                    recommend: this.state.recommend,
-                    anonymous: this.state.anonymous
+					prof_id: this.state.prof_id
 				})
 			}).then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error("Network response was not ok.")
-                }
+				return response.json();
 			}).then(response => {
 				this.handleClose();
 				window.location.reload();
 			});
-		} else {
-            this.setState({errorMsg: "Comment must be at least 15 characters"});
-        }
+		}
 	}
 	
     render() {

@@ -4,7 +4,7 @@ import { Container, Table, Row } from "react-bootstrap";
 import { Link } from 'react-router-dom'
 import './professorProfile.css';
 import AddComment from './addComment';
-import Comment from './comment';
+import Comment from './comment'
 
 class ProfessorProfile extends Component {
     constructor(props) {
@@ -77,7 +77,7 @@ class ProfessorProfile extends Component {
                             school: response.school,
                             courses: response.courses, 
                             comments: comment_for_course,
-                            comments_for_prof: response.comments
+                            comments_for_prof: comment_for_prof
                         }
                     )
                 }
@@ -88,39 +88,40 @@ class ProfessorProfile extends Component {
         return (
             <div>
                 <NYUNavBar />
-                <div class="tables-container">
-                    <div>
-                        <Row className="justify-content-md-center">
-                            <h1>{this.state.professorname}</h1>
-                        </Row>
-                        <Row className="justify-content-md-center">
-                            <h3>School: {this.state.school}</h3>
-                        </Row>
-                        <Row className="justify-content-md-center">
-                            <AddComment profid={this.props.match.params.id}/>
-                        </Row>
-                        <Table striped bordered hover>
-                            <tr>
-                                <th>Comments for Prof. {this.state.professorname} ({this.state.comments_for_prof.length})</th>
-                            </tr>
+                <center><container>
+                    <Row className="justify-content-md-center">
+                        <h1>Prof. {this.state.professorname}</h1>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <h3>School: {this.state.school}</h3>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <AddComment profid={this.props.match.params.id}/>
+                    </Row>
+                    <Table striped bordered hover>
+                        <tr>
+                            <th>Comments for the Professor</th>
+                        </tr>
+                        <tr>
                             {this.state.comments_for_prof.map((prof_comment, i) => (
-                                <tr><td><Comment id={prof_comment} /></td></tr>
+                                <td key={i}>
+                                    <p>{prof_comment}</p>
+                                </td>
                             ))}
-                        </Table>
-                    </div>
-                    
-                    <div>
-                        {/* {Option One for Display} */}
-                        <Table striped bordered hover>
-                            <thead>
-                                <tr>
-                                    <th>{`Courses Taught By ${this.state.professorname}`}</th>
-                                    <th>{`Comments on Course`}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.courses.map((course, i) => (
-                                    <tr key={course._id}>
+                        </tr>
+                    </Table>
+
+                    {/* {Option One for Display} */}
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>{`Courses Taught By ${this.state.professorname}`}</th>
+                                <th>{`Comments on Course`}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.courses.map((course, i) => (
+                                <tr key={course._id}>
                                         <td>
                                             <Link to={`/course/${course._id}`}>{
                                                 course.topic === undefined ?
@@ -140,10 +141,37 @@ class ProfessorProfile extends Component {
                                         </td>
                                     </tr>
                                 ))}
-                            </tbody>
-                        </Table>
-                    </div>
-                </div>
+                        </tbody>
+                    </Table>
+                    
+                    {/* {Option Two for Display} */}
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>{`Courses Taught By ${this.state.professorname}`}</th>
+                                <th>{`Comments on Course`}</th>
+                            </tr>
+                        </thead>
+                            {this.state.courses.map((course, i) => (
+                                <tr>
+                                    <td key={course._id}>
+                                        <Link to={`/course/${course._id}`}>{course.name}</Link>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                {this.state.comments[i].map((comment, j) => (
+                                                    <td key={j}>
+                                                        <p>{this.state.comments[i][j]}</p>
+                                                    </td>
+                                                ))}
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            ))}
+                    </Table>
+                </container></center>
             </div>
         )
     }

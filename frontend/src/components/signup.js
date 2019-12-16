@@ -135,7 +135,7 @@ class Signup extends Component {
                         <p className='error-msg'>{this.state.errorMsg}</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button type="submit" className="signup-btn">Create Account</button>
+                        <button type="submit" className="signup-btn" onClick={this.send()}>Create Account</button>
                     </Modal.Footer>
                 </Modal>
             </div>

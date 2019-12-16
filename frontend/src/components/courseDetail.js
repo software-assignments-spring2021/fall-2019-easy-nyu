@@ -143,7 +143,7 @@ class CourseDetail extends Component {
                         </tr>
                         <tr>
                             <td colspan = "2">
-                                <AddComment courseid={this.props.match.params.id}/>
+                                <AddComment profid={this.props.match.params.id}/>
                             </td>
                         </tr>
                     </Table>

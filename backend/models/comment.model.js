@@ -12,16 +12,7 @@ const commentSchema = new Schema({
     },
     course_id: { type : mongoose.Schema.Types.ObjectId, ref: 'Course' },
     prof_id: { type : mongoose.Schema.Types.ObjectId, ref: 'Professor' },
-    comment_id: mongoose.Schema.ObjectId,
-	user_id: { type : mongoose.Schema.Types.ObjectId, ref: 'Auth' },
-    anonymous: Boolean,
-    rating: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 5
-    },
-    recommend: Boolean
+    comment_id: mongoose.Schema.ObjectId
 }, {
     timestamps: true,
 });

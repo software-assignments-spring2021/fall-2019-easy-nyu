@@ -17,7 +17,6 @@ class Comment extends Component {
         this._isMounted = true;
 	}
 	
-
 	componentDidMount() {
 		fetch('/comments/' + this.props.id, { method: "GET" }).then(response => {
 			if (response.ok) {
@@ -27,37 +26,44 @@ class Comment extends Component {
             }
 		}).then(response => {
 			try {
-				fetch ('/userprofile/' + response.user_id, { method: "GET" }).then(response => {
-					if (response.ok) {
-						return response.json();
-					} else {
-						throw new Error('Network response was not ok.');
-					}
-				}).then(response2 => {
+				if (response.user_id == window.localStorage.userID || window.localStorage.role == "admin") {
 					this.setState({
-						name: response2.name
+						canModify: true
 					});
-					if (response.anonymous == true) {
-						this.setState({
-							name: "Anonymous"
-						});
-					}
-					if (response.user_id == window.localStorage.userID) {
-						this.setState({
-							canModify: true
-						});
-					}
-					this.setState({
-						comment: response.comment,
-						rating: response.rating,
-						recommend: response.recommend,
-						datePosted: new Date(response.createdAt).toString()
-					});
-				}).catch(error => {
-					this.setState({
-						comment: "Error loading comment"
-					});
+				}
+				this.setState({
+					comment: response.comment,
+					rating: response.rating,
+					recommend: response.recommend,
+					datePosted: new Date(response.createdAt).toString()
 				});
+				if (!response.anonymous || this.state.canModify) {
+					fetch ('/userprofile/' + response.user_id, { method: "GET" }).then(response => {
+						if (response.ok) {
+							return response.json();
+						} else {
+							throw new Error('Network response was not ok.');
+						}
+					}).then(response2 => {
+						if (response.anonymous == true) {
+							this.setState({
+								name: response2.name + " [name hidden]"
+							});
+						} else {
+							this.setState({
+								name: response2.name
+							});
+						}
+					}).catch(error => {
+						this.setState({
+							comment: "Error loading comment"
+						});
+					});
+				} else {
+					this.setState({
+						name: "Anonymous"
+					});
+				}
 			} catch(err) {
 				this.setState({
 					comment: "Error loading comment"
@@ -145,7 +151,6 @@ class Comment extends Component {
 		return (
 			<div>
 				<strong>{this.state.name}</strong><br />
-				<h3>{String.fromCharCode(9733).repeat(this.state.rating)}{String.fromCharCode(9734).repeat(5 - this.state.rating)}</h3>
 				<p>{this.state.comment}</p>
 				<p>Would Recommend: {this.state.recommend ? "Yes" : "No"}</p>
 				{this.state.canModify ? (
