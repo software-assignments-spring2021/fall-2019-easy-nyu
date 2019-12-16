@@ -129,6 +129,32 @@ router.post("/login", (req, res) => {
     });
 });
 
+router.post("/changestatus", (req, res) => {
+    var admin = false;
+	var token = req.headers['authorization'];
+	if (token) {
+		token = token.slice(7, token.length);
+	}
+	jwt.verify(token, process.env.secretOrKey, (err, decoded) => {
+		if (err) {
+			admin = false;
+		} else {
+			admin = (decoded.role == "admin");
+		}
+        
+        if (admin) {
+            Auth.findOne({ _id: req.body.id }).then(auth => {
+                auth.role = req.body.role;
+                auth.banned = req.body.banned;
+                auth.save()
+                    .then(() => res.json('Auth updated!'))
+                    .catch(err => res.status(500).json('Error: ' + err));
+            });
+        } else {
+			res.status(401).json({unauthorized: '401 Unauthorized'});
+        }
+});
+
 // Create login credential for login for TESTING
 router.post("/register-test", (req, res) => {
     // Form validation
