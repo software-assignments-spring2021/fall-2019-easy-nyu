@@ -1,4 +1,4 @@
-.MuiAutocomplete-root {
+.search-bar .MuiAutocomplete-root {
     width: 100%;
     background-color: #57068c;
     color : white !important;
@@ -27,7 +27,6 @@
 .MuiFilledInput-underline::before{
     border-bottom : 1px solid white !important;
 }
-
 .MuiSvgIcon-root{
     color : white !important;
 }

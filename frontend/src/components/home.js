@@ -9,6 +9,10 @@ class Home extends Component {
         this._isMounted = false;
     }
 
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+    
     render() {
         return (
             <div className="with-background">
