@@ -40,7 +40,7 @@ class NYUNavBar extends Component {
 						</img>
 					</Navbar.Brand>
 					<Search/>
-					<Login/>
+					<Login onNavbar={true}/>
 					<Signup onNavbar={true}/>
 				</Navbar>
 			)
