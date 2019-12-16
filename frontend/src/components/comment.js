@@ -27,37 +27,44 @@ class Comment extends Component {
             }
 		}).then(response => {
 			try {
-				fetch ('/userprofile/' + response.user_id, { method: "GET" }).then(response => {
-					if (response.ok) {
-						return response.json();
-					} else {
-						throw new Error('Network response was not ok.');
-					}
-				}).then(response2 => {
+				if (response.user_id == window.localStorage.userID || window.localStorage.role == "admin") {
 					this.setState({
-						name: response2.name
+						canModify: true
 					});
-					if (response.anonymous == true) {
-						this.setState({
-							name: "Anonymous"
-						});
-					}
-					if (response.user_id == window.localStorage.userID) {
-						this.setState({
-							canModify: true
-						});
-					}
-					this.setState({
-						comment: response.comment,
-						rating: response.rating,
-						recommend: response.recommend,
-						datePosted: new Date(response.createdAt).toString()
-					});
-				}).catch(error => {
-					this.setState({
-						comment: "Error loading comment"
-					});
+				}
+				this.setState({
+					comment: response.comment,
+					rating: response.rating,
+					recommend: response.recommend,
+					datePosted: new Date(response.createdAt).toString()
 				});
+				if (!response.anonymous || this.state.canModify) {
+					fetch ('/userprofile/' + response.user_id, { method: "GET" }).then(response => {
+						if (response.ok) {
+							return response.json();
+						} else {
+							throw new Error('Network response was not ok.');
+						}
+					}).then(response2 => {
+						if (response.anonymous == true) {
+							this.setState({
+								name: response2.name + " [name hidden]"
+							});
+						} else {
+							this.setState({
+								name: response2.name
+							});
+						}
+					}).catch(error => {
+						this.setState({
+							comment: "Error loading comment"
+						});
+					});
+				} else {
+					this.setState({
+						name: "Anonymous"
+					});
+				}
 			} catch(err) {
 				this.setState({
 					comment: "Error loading comment"
