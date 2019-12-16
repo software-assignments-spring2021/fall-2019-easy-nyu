@@ -18,7 +18,7 @@ function connect_to_db() {
     // Connect to MongoDB
     let uri = process.env.ATLAS_URI;
     if (process.env.NODE_ENV === "test") {
-        uri = process.env.Testing_URI;
+        uri = "mongodb+srv://Jack_Zhang:zyy1997@cluster0-ktrme.mongodb.net/new_eznyu?retryWrites=true&w=majority";
     }
     console.log(uri)
     mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
