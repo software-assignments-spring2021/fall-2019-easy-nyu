@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Modal from 'react-bootstrap/Modal';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class Comment extends Component {
 	
@@ -48,11 +49,11 @@ class Comment extends Component {
 					}).then(response2 => {
 						if (response.anonymous == true) {
 							this.setState({
-								name: response2.name + " [name hidden]"
+								name: <Link to={'/userprofile/' + response2._id}>{response2.name + " [name hidden]"}</Link>
 							});
 						} else {
 							this.setState({
-								name: response2.name
+								name: <Link to={'/userprofile/' + response2._id}>{response2.name}</Link>
 							});
 						}
 					}).catch(error => {
