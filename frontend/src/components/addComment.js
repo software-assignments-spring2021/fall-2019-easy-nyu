@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Modal from 'react-bootstrap/Modal'
 import {Button} from 'react-bootstrap'
-import Login from './login'
+import Signup from './signup'
 import './login.css'
+import Login from './login'
 
 class AddComment extends Component {
     constructor(props) {

@@ -3,6 +3,7 @@ const router = express.Router();
 let Professor = require('../models/professor.model');
 let Course = require('../models/course.model')
 
+// Find user by net id
 router.route('/byquery/:query').get(async (req, res) => {
     console.log('searching for: ', req.params.query)
     console.log(req.params.query)

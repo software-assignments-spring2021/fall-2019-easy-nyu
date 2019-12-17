@@ -77,7 +77,7 @@ class Login extends Component {
         } 
         return (
             <div>
-                {buttonDisplay}
+                <Button variant="outline-light" onClick={this.handlePopup}>Login</Button>
                 <Modal show={this.state.showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Login</Modal.Title>
