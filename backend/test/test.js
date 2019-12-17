@@ -75,7 +75,8 @@ describe('Course', () => {
                 courses: [],
             }
             chai.request(server)
-                .post('/professors/add')
+                .post('/professors/add')   					
+			    .set('Authorization', token)
                 .send(prof)
                 .end((err, res) => {
                     test_course_prof = res.body.prof._id
