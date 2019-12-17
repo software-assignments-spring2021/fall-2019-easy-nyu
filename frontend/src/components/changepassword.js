@@ -54,6 +54,7 @@ class ChangePassword extends Component {
                 })
                 .catch(err => {
                     console.log(err.response.data);
+                    this.setState({errorMsg: err.response.data})
                 });
         } else {
             this.setState({errorMsg: "Passwords do not match."})
@@ -74,7 +75,7 @@ class ChangePassword extends Component {
                             { this.props.type == "change" ?
                                 <label className="ilabel">
                                     Old Password:
-                                    <input autoFocus="true" type="text" name="nid" id="nid" value={this.state.nid} onChange={this.handleNidChange} />
+                                    <input autoFocus="true" type="password" name="oldpassword" id="oldpassword" value={this.state.oldpassword} onChange={this.handleOldPasswordChange} />
                                 </label>
                             : "" }
                             <label className="ilabel">
