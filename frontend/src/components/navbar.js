@@ -17,6 +17,7 @@ class NYUNavBar extends Component {
 		this.setState({loggedIn:false});
 		localStorage.setItem('jwtToken',null);
 		localStorage.setItem('userID',null);
+		localStorage.setItem('role',null);
 		window.location.reload();
 	}
 
