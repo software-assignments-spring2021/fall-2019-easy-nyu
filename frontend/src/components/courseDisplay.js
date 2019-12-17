@@ -4,6 +4,7 @@ import './courseDisplay.css';
 import NYUNavBar from "./navbar";
 import Table from 'react-bootstrap/Table';
 import { Container, Row } from "react-bootstrap";
+import AddCourse from "./addCourse";
 
 class CourseDisplay extends Component {
     constructor(props) {
@@ -63,6 +64,7 @@ class CourseDisplay extends Component {
                         </Table>
                     </Row>
 					<Row className="justify-content-md-center">{this.state.status}</Row>
+                    <Row className="justify-content-md-center"><AddCourse /></Row>
                 </Container>
             </div>
         )
