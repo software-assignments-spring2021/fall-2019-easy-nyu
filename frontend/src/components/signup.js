@@ -91,8 +91,9 @@ class Signup extends Component {
                     localStorage.setItem('jwtToken',res.token);
                     localStorage.setItem('userID',res.id);
                     // user id is not stored in localStorage.userID
-                    const { history } = this.props;
-                    if(history) history.push('/userprofile/'+res.id);
+                    //const { history } = this.props;
+                    //if(history) history.push('/userprofile/'+res.id);
+                    window.location.reload();
                 }
             });
     }

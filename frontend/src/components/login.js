@@ -58,9 +58,10 @@ class Login extends Component {
                 localStorage.setItem('userID',res.data.id);
                 localStorage.setItem('role', res.data.role);
                 // user id is not stored in localStorage.userID
-                const { history } = this.props;
-                if(history) history.push('/userprofile/'+res.data.id);
+                //const { history } = this.props;
+                //if(history) history.push('/userprofile/'+res.data.id);
                 this.handleClose()
+                window.location.reload();
             })
             .catch(err => {
                 console.log(err.response.data);

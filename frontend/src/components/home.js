@@ -10,6 +10,13 @@ class Home extends Component {
         this._isMounted = false;
     }
 
+    componentDidMount() {
+        if ((localStorage.getItem('jwtToken') + "") != "null") {
+            const { history } = this.props;
+            if(history) history.push('/course/');
+        }
+    }
+
     render() {
         return (
             <div>
