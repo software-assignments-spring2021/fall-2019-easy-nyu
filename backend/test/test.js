@@ -29,7 +29,7 @@ var token;
 
 before(function (done) {
     chai.request(server)
-        .post('/api/auth/register')
+        .post('/api/auth/register-test')
         .send(test_login_credential)
         .end(function (err, response) {
             chai.request(server)
