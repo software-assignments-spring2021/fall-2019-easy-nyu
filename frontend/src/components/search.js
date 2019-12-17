@@ -21,7 +21,7 @@ class NYUNavBar extends Component {
     handleChange(event) {
         console.log(event.target.value)
         if (event.target.value.length > 0) {
-            fetch(`/search/${event.target.value}`, { method: "GET" })
+            fetch(`/search/byquery/${event.target.value}`, { method: "GET" })
                 .then(response => {
                     if (response.ok) {
                         return response.json();

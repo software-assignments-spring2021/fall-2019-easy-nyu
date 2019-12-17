@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import './home.css';
-import Login from './login'
-import Signup from './signup'
 import Navbar from './navbar'
+import SearchBy from './searchBy'
+import './home.css'
 
 class Home extends Component {
     constructor(props) {
@@ -10,18 +9,15 @@ class Home extends Component {
         this._isMounted = false;
     }
 
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+    
     render() {
         return (
-            <div>
+            <div className="with-background">
                 <Navbar />
-                <div id="title" className="pageTitle">Welcome to EasyNYU</div>
-                <div class="centerContent">
-                    <div class="textBoxContainer shadow rounded">
-                        <div class="textBox">
-                            <Login buttonLocation={"homepage"}/>
-                        </div>
-                    </div>
-                </div>
+                <SearchBy />
             </div>
         )
     }
