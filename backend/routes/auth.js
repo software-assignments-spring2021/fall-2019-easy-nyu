@@ -172,32 +172,40 @@ router.post("/changepassword", (req, res) => {
         if (admin) {
             //admin, don't verify password.
             Auth.findOne({ _id: req.body.id }).then(auth => {
-                bcrypt.genSalt(10, (err, salt) => {
-                    bcrypt.hash(req.body.password, salt, (err, hash) => {
-                        if (err) throw err;
-                        auth.password = hash;
-                        // Synchronous password generation 
-                        auth.save()
-                            .then(() => res.json('Password reset!'))
-                            .catch(err => res.status(500).json('Error: ' + err));
+                if (req.body.password.length >= 6 && req.body.password.length <= 30) {
+                    bcrypt.genSalt(10, (err, salt) => {
+                        bcrypt.hash(req.body.password, salt, (err, hash) => {
+                            if (err) throw err;
+                            auth.password = hash;
+                            // Synchronous password generation 
+                            auth.save()
+                                .then(() => res.json('Password reset!'))
+                                .catch(err => res.status(500).json('Error: ' + err));
+                        })
                     })
-                })
+                } else {
+                    res.status(400).json('Error: Password must be at least 6 characters and no more than 30 characters');
+                }
             });
         } else if (decoded.id == req.body.id) {
             //user, verify password.
             Auth.findOne({ _id: req.body.id }).then(auth => {
                 bcrypt.compare(req.body.oldpassword, auth.password).then(isMatch => {
                     if (isMatch) {
-                        bcrypt.genSalt(10, (err, salt) => {
-                            bcrypt.hash(req.body.password, salt, (err, hash) => {
-                                if (err) throw err;
-                                auth.password = hash;
-                                // Synchronous password generation 
-                                auth.save()
-                                    .then(() => res.json('Password changed!'))
-                                    .catch(err => res.status(500).json('Error: ' + err));
+                        if (req.body.password.length >= 6 && req.body.password.length <= 30) {
+                            bcrypt.genSalt(10, (err, salt) => {
+                                bcrypt.hash(req.body.password, salt, (err, hash) => {
+                                    if (err) throw err;
+                                    auth.password = hash;
+                                    // Synchronous password generation 
+                                    auth.save()
+                                        .then(() => res.json('Password changed!'))
+                                        .catch(err => res.status(500).json('Error: ' + err));
+                                })
                             })
-                        })
+                        } else {
+                            res.status(400).json('Error: Password must be at least 6 characters and no more than 30 characters');
+                        }
                     } else {
                         res.status(400).json('Error: Incorrect password');
                     }
