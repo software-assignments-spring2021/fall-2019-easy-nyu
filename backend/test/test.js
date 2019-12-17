@@ -533,6 +533,7 @@ describe('Professor', () => {
             }
             chai.request(server)
                 .post('/professors/add')
+			    .set('Authorization', token)	
                 .send(prof)
                 .end((err, res) => {
                     res.should.have.property('error');
@@ -550,6 +551,7 @@ describe('Professor', () => {
             }
             chai.request(server)
                 .post('/professors/add')
+			    .set('Authorization', token)
                 .send(prof)
                 .end((err, res) => {
                     professor_id = res.body.prof._id
@@ -569,6 +571,7 @@ describe('Professor', () => {
             }
             chai.request(server)
                 .post('/professors/add')
+			    .set('Authorization', token)
                 .send(prof)
                 .end((err, res) => {
                     res.body.should.be.a('object');
