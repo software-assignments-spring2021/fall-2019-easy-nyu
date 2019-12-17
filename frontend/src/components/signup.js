@@ -100,11 +100,26 @@ class Signup extends Component {
 
     render() {
         let buttonDisplay;
+        switch (this.props.buttonLocation) {
+            case "navbar":
+                buttonDisplay = <Button variant="outline-light" onClick={this.handlePopup}>Signup</Button>;
+                break;
+            case "homepage":
+                buttonDisplay = <button className="buttonLink" onClick={this.handlePopup}> Create an Account </button>;
+                break;
+            case "otherpage":
+                buttonDisplay = <Button onClick={this.handlePopup}>Signup</Button>;
+                break;
+            default:    
+                buttonDisplay = <p className="display-signup" onClick={this.handlePopup}>Create Account</p>
+        }
+        /*
         if (this.props.onNavbar) {
             buttonDisplay = <Button variant="outline-light" onClick={this.handlePopup}>Signup</Button>
         } else {
             buttonDisplay = <p className="display-signup" onClick={this.handlePopup}>Create Account</p>
         } 
+        */
         return (
             <div>
                 {buttonDisplay}

@@ -41,8 +41,11 @@ class NYUNavBar extends Component {
 						</img>
 					</Navbar.Brand>
 					<Search/>
-					<Login buttonLocation="navbar"/>
-					<Signup onNavbar={true}/>
+					{window.location.pathname != "/" &&
+						<Login buttonLocation="navbar"/>
+					}{window.location.pathname != "/" &&
+						<Signup buttonLocation="navbar"/>
+					}
 				</Navbar>
 			)
 		}
