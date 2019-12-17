@@ -43,7 +43,7 @@ class CourseDisplay extends Component {
                 <NYUNavBar />
                 <Container>
                     <Row className="justify-content-md-center">
-                        <h1>Courses in the Database:</h1>
+                        <h1>All Courses</h1>
                     </Row>
                     <Row className="justify-content-md-center"> 
                         <Table striped bordered hover >
