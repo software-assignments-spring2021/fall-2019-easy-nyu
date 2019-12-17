@@ -47,6 +47,8 @@ class Home extends Component {
                         </div>
                         <div class="textBox">
                             <Login buttonLocation={"homepage"}/>
+                            <br />
+                            <Signup buttonLocation={"homepage"}/>
                         </div>
                     </div>
                 </div>

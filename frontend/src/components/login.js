@@ -109,7 +109,7 @@ class Login extends Component {
                             </label>
                             <div className="signup">
                                 <p className="inline">Not Registered?</p> 
-                                <Signup onNavbar={false}/>
+                                <Signup />
                             </div>
                             <p className='error-msg'>{this.state.errorMsg}</p>
                         </Modal.Body>
