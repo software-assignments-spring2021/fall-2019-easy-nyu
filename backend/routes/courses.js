@@ -1,5 +1,6 @@
 const router = require('express').Router();
 let Course = require('../models/course.model');
+const jwt = require("jsonwebtoken");
 
 function num_of_comments (course) {
     return course.comments.length;
@@ -25,39 +26,56 @@ router.route('/all').get((req, res) => {
 
 // Post Request - Add a new course to database
 router.route('/add').post((req, res) => {
-    const name = req.body.name;
-    const major = req.body.major;
-    const school = req.body.school;
-    const level = req.body.level;
-    const number = req.body.number;
-    const unit = req.body.unit;
-    const description = req.body.description;
-    const requirement = req.body.requirement;
-    const note = req.body.note;
-    const profs = req.body.profs;
-    const comments = req.body.comments;
-    const newCourse = new Course({
-        name,
-        major,
-        school,
-        level,
-        number,
-        unit,
-        description,
-        requirement,
-        note,
-        profs,
-        comments
-    });
+    var admin = false;
+	var token = req.headers['authorization'];
+	if (token) {
+		token = token.slice(7, token.length);
+	}
+	jwt.verify(token, process.env.secretOrKey, (err, decoded) => {
+		if (err) {
+			admin = false;
+		} else {
+			admin = (decoded.role == "admin");
+        }
+        
+        if (admin) {
+            const name = req.body.name;
+            const major = req.body.major;
+            const school = req.body.school;
+            const level = req.body.level;
+            const number = req.body.number;
+            const unit = req.body.unit;
+            const description = req.body.description;
+            const requirement = req.body.requirement;
+            const note = req.body.note;
+            const profs = req.body.profs;
+            const comments = req.body.comments;
+            const newCourse = new Course({
+                name,
+                major,
+                school,
+                level,
+                number,
+                unit,
+                description,
+                requirement,
+                note,
+                profs,
+                comments
+            });
 
-    newCourse.save((err, course) => {
-        if (err) {
-            res.send(err);
+            newCourse.save((err, course) => {
+                if (err) {
+                    res.send(err);
+                }
+                else {
+                    res.json({message: "Course added!", course: course});
+                }
+            })
+        } else {
+			res.status(401).json({unauthorized: '401 Unauthorized'});
         }
-        else {
-            res.json({message: "Course added!", course: course});
-        }
-    })
+    });
 });
 
 router.route('/').get((req, res) => {
