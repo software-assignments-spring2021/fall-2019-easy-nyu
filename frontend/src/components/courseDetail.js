@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import Comment from './comment';
 import AddComment from './addComment';
 import './courseDetail.css';
+import AddMaterial from './addMaterial';
+import Material from './material';
 
 class CourseDetail extends Component {
     constructor(props) {
@@ -15,6 +17,7 @@ class CourseDetail extends Component {
             name: '',
             profs: [],
             comments: [],
+            materials: [],
             description: '',
             level: '',
             major: '',
@@ -46,6 +49,7 @@ class CourseDetail extends Component {
                         name: response.name,
                         profs: response.profs,
                         comments: response.comments,
+                        materials: response.materials,
                         description: response.description,
                         level: response.level,
                         major: response.major,
@@ -144,6 +148,7 @@ class CourseDetail extends Component {
                         <tr>
                             <td colspan = "2">
                                 <AddComment courseid={this.props.match.params.id}/>
+                                <AddMaterial courseid={this.props.match.params.id}/>
                             </td>
                         </tr>
                     </Table>
@@ -152,7 +157,7 @@ class CourseDetail extends Component {
                     <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>{`All Professors Teaching ${this.state.code}`}</th>
+                            <th>{`All Professors Taught ${this.state.code}`}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -178,6 +183,24 @@ class CourseDetail extends Component {
                                 <tr key={comment._id}>
                                         <td>
                                             <Comment id={comment} />                  
+                                        </td>
+                                </tr>
+                                ))}
+                        </tbody>
+                    </Table>
+                </div>
+                <div>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>{`Course Materials for ${this.state.code}`}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.materials.map((material, i) => (
+                                <tr key={material._id}>
+                                        <td>
+                                            <Material id={material} />                  
                                         </td>
                                 </tr>
                                 ))}
