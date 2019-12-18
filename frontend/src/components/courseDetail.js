@@ -152,7 +152,7 @@ class CourseDetail extends Component {
                     <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>{`All Professors Taught ${this.state.code}`}</th>
+                            <th>{`All Professors Teaching ${this.state.code}`}</th>
                         </tr>
                     </thead>
                     <tbody>
