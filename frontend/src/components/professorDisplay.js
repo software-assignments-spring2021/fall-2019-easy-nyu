@@ -5,6 +5,7 @@ import './professorDisplay.css';
 import NYUNavBar from "./navbar";
 import Table from 'react-bootstrap/Table';
 import { Container, Row } from "react-bootstrap";
+import AddProfessor from "./addProfessor";
 
 class ProfessorDisplay extends Component {
     constructor(props) {
@@ -42,7 +43,7 @@ class ProfessorDisplay extends Component {
                 <NYUNavBar />
                 <Container>
                     <Row className="justify-content-md-center">
-                        <h1>Professors in the Database:</h1>
+                        <h1>All Professors</h1>
                     </Row>
                     <Row className="justify-content-md-center"> 
                         <Table striped bordered hover >
@@ -65,6 +66,7 @@ class ProfessorDisplay extends Component {
                         </Table>
                     </Row>
 					<Row className="justify-content-md-center">{this.state.status}</Row>
+					<Row className="justify-content-md-center"><AddProfessor /></Row>
                 </Container>
             </div>
         )
