@@ -17,6 +17,8 @@ class NYUNavBar extends Component {
 		this.setState({loggedIn:false});
 		localStorage.setItem('jwtToken',null);
 		localStorage.setItem('userID',null);
+		localStorage.setItem('role',null);
+		window.location.reload();
 	}
 
     render () {
@@ -29,7 +31,7 @@ class NYUNavBar extends Component {
 					</Navbar.Brand>
 					<Search/>
 					<Button href={`/userprofile/${localStorage.getItem('userID')}`} variant="outline-light">My Profile</Button>
-					<Button href={'/'} variant="outline-light" onClick={this.signoutHandler}>Sign Out</Button>
+					<Button variant="outline-light" onClick={this.signoutHandler}>Sign Out</Button>
 				</Navbar>
 			)
 		} else {
@@ -40,8 +42,11 @@ class NYUNavBar extends Component {
 						</img>
 					</Navbar.Brand>
 					<Search/>
-					<Login buttonLocation="navbar"/>
-					<Signup onNavbar={true}/>
+					{window.location.pathname != "/" &&
+						<Login buttonLocation="navbar"/>
+					}{window.location.pathname != "/" &&
+						<Signup buttonLocation="navbar"/>
+					}
 				</Navbar>
 			)
 		}

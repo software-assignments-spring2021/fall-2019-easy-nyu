@@ -29,7 +29,7 @@ var token;
 
 before(function (done) {
     chai.request(server)
-        .post('/api/auth/register')
+        .post('/api/auth/register-test')
         .send(test_login_credential)
         .end(function (err, response) {
             chai.request(server)
@@ -75,7 +75,8 @@ describe('Course', () => {
                 courses: [],
             }
             chai.request(server)
-                .post('/professors/add')
+                .post('/professors/add')   					
+			    .set('Authorization', token)
                 .send(prof)
                 .end((err, res) => {
                     test_course_prof = res.body.prof._id
@@ -101,6 +102,7 @@ describe('Course', () => {
             }
             chai.request(server)
                 .post('/courses/add')
+			    .set('Authorization', token)
                 .send(course)
                 .end((err, res) => {
                     res.should.have.property('error');
@@ -121,6 +123,7 @@ describe('Course', () => {
             }
             chai.request(server)
                 .post('/courses/add')
+			    .set('Authorization', token)
                 .send(course)
                 .end((err, res) => {
                     res.should.have.property('error');
@@ -141,6 +144,7 @@ describe('Course', () => {
             }
             chai.request(server)
                 .post('/courses/add')
+			    .set('Authorization', token)
                 .send(course)
                 .end((err, res) => {
                     res.should.have.property('error');
@@ -164,6 +168,7 @@ describe('Course', () => {
             }
             chai.request(server)
                 .post('/courses/add')
+			    .set('Authorization', token)
                 .send(course)
                 .end((err, res) => {
                     res.body.should.be.a('object');
@@ -192,6 +197,7 @@ describe('Course', () => {
             }
             chai.request(server)
                 .post('/courses/add')
+			    .set('Authorization', token)
                 .send(course)
                 .end((err, res) => {
                     res.body.should.be.a('object');
@@ -220,6 +226,7 @@ describe('Course', () => {
             }
             chai.request(server)
                 .post('/courses/add')
+			    .set('Authorization', token)
                 .send(course)
                 .end((err, res) => {
                     res.body.course.comments.should.be.a('array');
@@ -532,6 +539,7 @@ describe('Professor', () => {
             }
             chai.request(server)
                 .post('/professors/add')
+			    .set('Authorization', token)	
                 .send(prof)
                 .end((err, res) => {
                     res.should.have.property('error');
@@ -549,6 +557,7 @@ describe('Professor', () => {
             }
             chai.request(server)
                 .post('/professors/add')
+			    .set('Authorization', token)
                 .send(prof)
                 .end((err, res) => {
                     professor_id = res.body.prof._id
@@ -568,6 +577,7 @@ describe('Professor', () => {
             }
             chai.request(server)
                 .post('/professors/add')
+			    .set('Authorization', token)
                 .send(prof)
                 .end((err, res) => {
                     res.body.should.be.a('object');
