@@ -33,24 +33,26 @@ class SearchBy extends React.Component {
         this._isMounted = true;
         this.state = {
             displaySearch: false,
-            schools: []
+            schools: [],
+            majors: []
         };
     }
 
     componentDidMount() {
-        // fetch(`/search/`, { method: "GET" })
-        //     .then(response => {
-        //         if (response.ok) {
-        //             return response.json();
-        //         } else {
-        //             throw new Error('Network response was not ok.');
-        //         }
-        //     }).then(response => {
-        //         console.log("response: ", response.result)
-        //         if (this._isMounted) {
-        //             this.setState({ result: response.result })
-        //         }
-        //     });
+        fetch(`/search/schools`, { method: "GET" })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            }).then(response => {
+                console.log("response: ", response.schools)
+                if (this._isMounted) {
+                    console.log("response: ", response.schools)
+                    this.setState({ schools: response.schools })
+                }
+            });
     }
 
     componentWillUnmount() {
@@ -63,10 +65,27 @@ class SearchBy extends React.Component {
         })
     }
 
+    handleSchoolChange(event, value) {
+        console.log(value)
+        fetch(`/search/schools/${value}`, { method: "GET" })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Network response was not at search by major');
+                }
+            }).then(response => {
+                    if (this._isMounted) {
+                        this.setState({
+                            majors : response.majors
+                        })
+                    }
+                })
+    }
+
     render() {
         const { classes } = this.props;
         let display;
-        console.log(this.state.displaySearch)
         if (!this.state.displaySearch) {
             display =
             <div>
@@ -91,23 +110,31 @@ class SearchBy extends React.Component {
                 <Typography>Looking for Course/Professor in School:</Typography>
                 <Autocomplete
                     className='major-search'
-                    id="combo-box-demo"
+                    id="school-auto"
                     options={this.state.schools}
-                    getOptionLabel={option => option.title}
+                    getOptionLabel={option => option}
                     style={{ width: 300 }}
                     renderInput={params => (
-                        <TextField {...params} label="School Name" variant="filled" fullWidth />
+                        <TextField {...params} 
+                        label="School Name" 
+                        variant="filled" 
+                        fullWidth/>
                     )}
+                    onChange={this.handleSchoolChange.bind(this)}
                 />
                 <Typography style={{marginTop: "3%"}}>In Major:</Typography>
                 <Autocomplete
                     className='major-search'
-                    id="combo-box-demo"
-                    options={[]}
+                    id="class-auto"
+                    options={this.state.majors}
                     getOptionLabel={option => option.title}
                     style={{ width: 300 }}
                     renderInput={params => (
-                        <TextField {...params} label="Major Name" variant="filled" fullWidth />
+                        <TextField 
+                        {...params} 
+                        label="Major Name" 
+                        variant="filled" 
+                        fullWidth/>
                     )}
                 />
                 <Button size="lg" variant="outline-light" 

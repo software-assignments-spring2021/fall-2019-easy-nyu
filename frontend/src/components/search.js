@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import './search.css'
 import { Autocomplete } from '@material-ui/lab';
 import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
 
 
 class NYUNavBar extends Component {
@@ -21,7 +20,7 @@ class NYUNavBar extends Component {
     handleChange(event) {
         console.log(event.target.value)
         if (event.target.value.length > 0) {
-            fetch(`/search/${event.target.value}`, { method: "GET" })
+            fetch(`/search/dynamic/${event.target.value}`, { method: "GET" })
                 .then(response => {
                     if (response.ok) {
                         return response.json();

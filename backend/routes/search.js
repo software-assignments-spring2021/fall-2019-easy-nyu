@@ -4,7 +4,7 @@ let Professor = require('../models/professor.model');
 let Course = require('../models/course.model')
 
 // Find user by net id
-router.route('/:query').get(async (req, res) => {
+router.route('/dynamic/:query').get(async (req, res) => {
     console.log('searching for: ', req.params.query)
     console.log(req.params.query)
     const courseRes = await Course.find({
@@ -37,5 +37,27 @@ router.route('/:query').get(async (req, res) => {
     console.log(resArr)
     res.json({ result: resArr})
 });
+
+router.route('/schools').get((req, res)=> {
+    Course.find().distinct('school', (err, data) =>{
+        if (err) {
+            res.status(404).json("Can't get school")
+        } else {
+            res.json({ schools : data})
+        }
+    })
+})
+
+router.route('/schools/:query').get((req, res)=> {
+    console.log(req.params.query)
+    Course.find({school : req.params.query}).distinct('major', (err, data) =>{
+        if (err) {
+            res.status(404).json("Can't get major")
+        } else {
+            console.log("sending majors:", data)
+            res.json({ major : data})
+        }
+    })
+})
 
 module.exports = router;
