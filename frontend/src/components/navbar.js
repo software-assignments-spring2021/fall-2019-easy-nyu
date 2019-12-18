@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Navbar, Nav, Button} from 'react-bootstrap';
+import {Navbar, Button} from 'react-bootstrap';
 import logo from'../img/logo.png';
 import Login from './login';
 import Signup from './signup';
