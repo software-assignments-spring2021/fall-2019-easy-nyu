@@ -6,6 +6,7 @@ import './searchBy.css'
 import { Autocomplete } from '@material-ui/lab';
 import TextField from '@material-ui/core/TextField';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import { Redirect } from 'react-router';
 
 const styles = theme => ({
     root: {
@@ -65,6 +66,12 @@ class SearchBy extends React.Component {
         })
     }
 
+    handleSearch() {
+        this.setState({
+            redirect: true
+        });
+    }
+
     handleSchoolChange(event, value) {
         console.log(value)
         fetch(`/search/schools/${value}`, { method: "GET" })
@@ -77,15 +84,31 @@ class SearchBy extends React.Component {
             }).then(response => {
                     if (this._isMounted) {
                         this.setState({
-                            majors : response.majors
+                            majors : response.majors,
+                            sel_school: value
                         })
                     }
                 })
     }
 
+    handleMajorChange(event, value) {
+        this.setState({
+            sel_major : value
+        })
+    }
+
     render() {
         const { classes } = this.props;
         let display;
+        if (this.state.redirect) {
+            return <Redirect to={{
+                pathname: '/course',
+                state: {
+                    sel_school :this.state.sel_school,
+                    sel_major : this.state.sel_major
+                }
+            }}/>;
+        }
         if (!this.state.displaySearch) {
             display =
             <div>
@@ -127,7 +150,7 @@ class SearchBy extends React.Component {
                     className='major-search'
                     id="class-auto"
                     options={this.state.majors}
-                    getOptionLabel={option => option.title}
+                    getOptionLabel={option => option}
                     style={{ width: 300 }}
                     renderInput={params => (
                         <TextField 
@@ -136,9 +159,10 @@ class SearchBy extends React.Component {
                         variant="filled" 
                         fullWidth/>
                     )}
+                    onChange={this.handleMajorChange.bind(this)}
                 />
                 <Button size="lg" variant="outline-light" 
-                onClick={this.handleClick.bind(this)} 
+                onClick={this.handleSearch.bind(this)} 
                 className='major-search-btn'>Search</Button>
             </div>
         }

@@ -10,6 +10,17 @@ function sort_courses_on_comments (course_array) {
     return course_array.sort(function(a, b){return num_of_comments(b) - num_of_comments(a)});
 }
 
+router.route('/searchby').post((req, res) => {
+    console.log(req.body)
+    Course.find({school : req.body.sel_school, major : req.body.sel_major}, (err, data) => {
+        if (err) {
+            res.status(400).json('Error: ' + err)
+        } else {
+            res.send(data)
+        }
+    })
+})
+
 // Get Request
 router.route('/all').get((req, res) => {
     Course.find()

@@ -55,7 +55,7 @@ router.route('/schools/:query').get((req, res)=> {
             res.status(404).json("Can't get major")
         } else {
             console.log("sending majors:", data)
-            res.json({ major : data})
+            res.json({ majors : data})
         }
     })
 })

@@ -21,7 +21,12 @@ class CourseDisplay extends Component {
     }
     
     componentDidMount() {
-        fetch('/courses/all', { method: "GET" })
+        console.log(JSON.stringify(this.props.location.state))
+        fetch(`/courses/searchby`, { method: "POST", 
+        body: JSON.stringify(this.props.location.state), 
+        headers: {
+            'Content-Type': 'application/json'
+          }})
             .then(response => {
             if (response.ok) {
                 return response.json();

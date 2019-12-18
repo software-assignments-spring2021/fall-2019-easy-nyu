@@ -1,3 +1,4 @@
+import { Redirect } from "react-router-dom";
 import React, { Component } from "react";
 import {Navbar, Button} from 'react-bootstrap';
 import logo from'../img/logo.png';
@@ -10,6 +11,7 @@ class NYUNavBar extends Component {
     constructor(props) {
         super(props);
 		this._isMounted = false;
+		this.state = {loggedIn : true}
 		this.signoutHandler = this.signoutHandler.bind(this);
 	}
 	
@@ -18,10 +20,12 @@ class NYUNavBar extends Component {
 		localStorage.setItem('jwtToken',null);
 		localStorage.setItem('userID',null);
 		localStorage.setItem('role',null);
-		window.location.reload();
 	}
 
     render () {
+		if (!this.state.loggedIn) {
+            return <Redirect to='/'/>;
+        }
 		if ((localStorage.getItem('jwtToken') + "") != "null") {
 			return (
 				<Navbar bg="nyu" variant="dark">
@@ -42,11 +46,8 @@ class NYUNavBar extends Component {
 						</img>
 					</Navbar.Brand>
 					<Search/>
-					{window.location.pathname != "/" &&
-						<Login buttonLocation="navbar"/>
-					}{window.location.pathname != "/" &&
-						<Signup buttonLocation="navbar"/>
-					}
+					<Login buttonLocation="navbar"/>
+					<Signup buttonLocation="navbar"/>
 				</Navbar>
 			)
 		}
