@@ -6,6 +6,8 @@ import './searchBy.css'
 import { Autocomplete } from '@material-ui/lab';
 import TextField from '@material-ui/core/TextField';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import Login from './login';
+import Signup from './signup';
 
 const styles = theme => ({
     root: {
@@ -80,10 +82,16 @@ class SearchBy extends React.Component {
                     Start by searching for your favorite courses and professors
                     and sharing your opinion! You will need to login before
                     adding a comment.
-            </Typography> 
-            <Button size="lg" variant="outline-light" 
-            onClick={this.handleClick.bind(this)} 
-            className="search-by">Search By Major</Button>
+            </Typography> 			
+            <center>
+                <Button size="lg" variant="outline-light" 
+                onClick={this.handleClick.bind(this)} 
+                className="search-by">Search By Major</Button>
+                <div>
+                    <Login buttonLocation="navbar" />
+                    <Signup buttonLocation="navbar" />
+                </div>
+            </center>
             </div>
         } else {
             display =

@@ -121,7 +121,7 @@ class Signup extends Component {
         } 
         */
         return (
-            <div>
+            <>
                 {buttonDisplay}
                 <Modal show={this.state.showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
@@ -156,7 +156,7 @@ class Signup extends Component {
                         </Modal.Footer>
                     </form>
                 </Modal>
-            </div>
+            </>
         )
     }
 }

@@ -91,7 +91,7 @@ class Login extends Component {
         } 
         const { history } = this.props;
         return (
-            <div>
+            <>
                 {buttonDisplay}
                 <Modal show={this.state.showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
@@ -118,7 +118,7 @@ class Login extends Component {
                         </Modal.Footer>
                     </form>
                 </Modal>
-            </div>
+            </>
         )
     }
 }
