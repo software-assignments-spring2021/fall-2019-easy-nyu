@@ -50,6 +50,7 @@ router.route('/add').post((req, res) => {
             const note = req.body.note;
             const profs = req.body.profs;
             const comments = req.body.comments;
+            const materials = [];
             const newCourse = new Course({
                 name,
                 major,
@@ -61,7 +62,8 @@ router.route('/add').post((req, res) => {
                 requirement,
                 note,
                 profs,
-                comments
+                comments,
+                materials
             });
 
             newCourse.save((err, course) => {

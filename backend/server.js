@@ -40,6 +40,8 @@ function connect_to_db() {
     app.use('/userprofile', userRouter);
     const searchRouter = require('./routes/search')
     app.use('/search', searchRouter);
+    var materialRouter = require('./routes/materials');
+    app.use('/material', materialRouter);
 
     // Passport middleware
     app.use(passport.initialize());

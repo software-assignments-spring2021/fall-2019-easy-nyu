@@ -13,7 +13,8 @@ const courseSchema = new Schema({
     requirement: {type: String},
     note: {type: String},
     profs: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Professor' }],
-    comments: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
+    comments: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+    materials: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Material' }]
 }, {
     timestamps: true,
 });
