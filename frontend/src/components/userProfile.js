@@ -5,6 +5,7 @@ import { Row, Container, Table, Button } from "react-bootstrap";
 import Modal from 'react-bootstrap/Modal';
 import NavbarCollapse from "react-bootstrap/NavbarCollapse";
 import ChangePassword from "./changepassword";
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 class UserProfile extends Component {
     constructor(props) {
@@ -17,6 +18,7 @@ class UserProfile extends Component {
             password: '',
             role: '',
             banned: false,
+            comments: [],
             score: 0,
             loggedIn: false,
             showModal: false
@@ -73,7 +75,28 @@ class UserProfile extends Component {
     }
 
     changeRole() {
-
+        switch (this.state.role) {
+            case "student":
+                axios.post('/api/auth/changestatus', {id: this.props.match.params.id, role: "admin", banned: this.state.banned}, { headers: { 'Authorization': localStorage.getItem('jwtToken') } })
+                .then(res => {
+                    console.log(res.data);
+                    this.setState({
+                        role: "admin"
+                    })
+                })
+                .catch(err => { console.log('Err' + err); });        
+                break;
+            case "admin":
+                axios.post('/api/auth/changestatus', {id: this.props.match.params.id, role: "student", banned: this.state.banned}, { headers: { 'Authorization': localStorage.getItem('jwtToken') } })
+                .then(res => {
+                    console.log(res.data);
+                    this.setState({
+                        role: "student"
+                    })
+                })
+                .catch(err => { console.log('Err' + err); });    
+                break;
+        }
     }
 
     handleBan() {
@@ -103,6 +126,9 @@ class UserProfile extends Component {
                         banned: res.data.banned,
                         loggedIn: loggedin
                     });
+                    axios.get('/userprofile/comments/' + userID).then(res =>  {
+                        this.setState({comments: res.data});
+                    }).catch(err => { console.log('Err' + err); });;
                 })
                 .catch(err => { console.log('Err' + err); });
         //}
@@ -124,36 +150,9 @@ class UserProfile extends Component {
                         <h5><a href={"mailto:" + this.state.email}>{this.state.email}</a></h5>
                     </Row>
 
-                    <center><Table striped bordered hover>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    UserName
-                            </td>
-                                <td>
-                                    {this.state.name}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Email
-                            </td>
-                                <td>
-                                    {this.state.email}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Net ID
-                            </td>
-                                <td>
-                                    {this.state.nid}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                    <h3>Comments</h3>
-                    <Table striped bordered hover>
+                    <center>
+                    <h3>Comments ({this.state.comments.length})</h3>
+                    <Table striped bordered hover style={{width: "100%"}}>
                         <thead>
                             <tr>
                                 <th>Course</th>
@@ -165,7 +164,16 @@ class UserProfile extends Component {
                             </tr>
                         </thead>
                         <tbody>
-
+                            {this.state.comments.map((comment, i) => (
+                                <tr>
+                                    <td>{comment.course_id && <Link to={"/course/" + comment.course_id._id}>{comment.course_id.name}</Link>}</td>
+                                    <td>{comment.prof_id && <Link to={"/professor/" + comment.prof_id._id}>{comment.prof_id.name}</Link>}</td>
+                                    <td>{String.fromCharCode(9733).repeat(comment.rating)}{String.fromCharCode(9734).repeat(5 - comment.rating)}</td>
+                                    <td>{comment.recommend ? "Yes" : "No"}</td>
+                                    <td>{comment.comment}</td>
+                                    <td>{comment.anonymous ? <strong>[anonymous comment - hidden from contributions]</strong> : ""}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </Table>
                     <Table bordered><tbody><tr>
