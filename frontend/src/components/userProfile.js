@@ -126,7 +126,7 @@ class UserProfile extends Component {
                         banned: res.data.banned,
                         loggedIn: loggedin
                     });
-                    axios.get('/userprofile/comments/' + userID).then(res =>  {
+                    axios.get('/userprofile/comments/' + userID, { headers: { 'Authorization': localStorage.getItem('jwtToken') }}).then(res =>  {
                         this.setState({comments: res.data});
                     }).catch(err => { console.log('Err' + err); });;
                 })
