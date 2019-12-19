@@ -37,11 +37,11 @@ npm install
 cd ../backend
 vim .env
 ```
-### Step 6: Inside the .env file, please reach out to the EasyNYU team for connection string. For grading purpose, the connection string is sent in Slack. Please copy paste the connection string into the first line.
+### Step 6: Inside the .env file, please reach out to the EasyNYU team for connection string. For grading purpose, the connection strings are sent in Slack. Please copy paste the connection string into the first line and the testing string into the third line respectively.
 ```
 ATLAS_URI = ...
 secretOrKey = secret
-Testing_URI = mongodb+srv://SkipperLin:12345678abc@cluster0-zslvh.gcp.mongodb.net/test?retryWrites=true&w=majority
+Testing_URI = ...
 ```
 ### Step 7: Time to run. Open two terminals that are in the EasyNYU directory, and execute the below accordingly.
 ```
