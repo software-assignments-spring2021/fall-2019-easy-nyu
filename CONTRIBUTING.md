@@ -5,6 +5,47 @@ EasyNYU team strongly encourage GitHub community member to contribute is any of 
 - You identify bugs / suggestions / better and more efficient solutions in master code
 - You want to create a easy to use template for other universities beyond the current NYU scope
 
+# How to Run
+Step 1: Open the terminal, and use to change to the directory where you want to store the code.
+```
+cd <Target Directory>
+```
+Step 2: Clone the repository by using the below command.
+```
+git clone https://github.com/nyu-software-engineering/fall-2019-easy-nyu.git
+```
+Step 3: Change to EasyNYU directory by using the below command.
+```
+cd fall-2019-easy-nyu/
+```
+Step 4: Now we will install all the dependencies. Please execute the below commands in order.
+```
+cd backend
+npm install
+cd ../frontend
+npm install
+```
+Step 5: In order to get access to the database, please do the following.
+```
+cd ../backend
+vim .env
+```
+Step 6: Inside the .env file, please reach out to the EasyTeam team for connection strings. For grading purpose, the connection string is sent in Slack. Please copy paste the connection string into the first line.
+```
+ATLAS_URI = ...
+secretOrKey = secret
+Testing_URI = mongodb+srv://SkipperLin:12345678abc@cluster0-zslvh.gcp.mongodb.net/test?retryWrites=true&w=majority
+```
+Step 7: Time to run. Open two terminals that are in the EasyNYU directory, and execute the below accordingly.
+```
+cd backend
+npm start
+```
+```
+cd frontend
+npm start
+```
+
 # How to Contribute
 
 Community members with decent experiences with [Pull Requests](https://help.github.com/articles/using-pull-requests) and [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#links) can contribute in the ways below.
