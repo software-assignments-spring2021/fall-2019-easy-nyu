@@ -6,37 +6,44 @@ EasyNYU team strongly encourage GitHub community member to contribute is any of 
 - You want to create a easy to use template for other universities beyond the current NYU scope
 
 # How to Run
-Step 1: Open the terminal, and use to change to the directory where you want to store the code.
+## Step 0: Make sure you have npm on your machine.
+```
+npm -v
+```
+This should give you a version number if you have npm installed on your machine.
+If the console returns command not found, please install npm with any means(brew for OS).
+
+## Step 1: Open the terminal, and use to change to the directory where you want to store the code.
 ```
 cd <Target Directory>
 ```
-Step 2: Clone the repository by using the below command.
+## Step 2: Clone the repository by using the below command.
 ```
 git clone https://github.com/nyu-software-engineering/fall-2019-easy-nyu.git
 ```
-Step 3: Change to EasyNYU directory by using the below command.
+## Step 3: Change to EasyNYU directory by using the below command.
 ```
 cd fall-2019-easy-nyu/
 ```
-Step 4: Now we will install all the dependencies. Please execute the below commands in order.
+## Step 4: Now we will install all the dependencies. Please execute the below commands in order.
 ```
 cd backend
 npm install
 cd ../frontend
 npm install
 ```
-Step 5: In order to get access to the database, please do the following.
+## Step 5: In order to get access to the database, please do the following.
 ```
 cd ../backend
 vim .env
 ```
-Step 6: Inside the .env file, please reach out to the EasyTeam team for connection strings. For grading purpose, the connection string is sent in Slack. Please copy paste the connection string into the first line.
+## Step 6: Inside the .env file, please reach out to the EasyTeam team for connection strings. For grading purpose, the connection string is sent in Slack. Please copy paste the connection string into the first line.
 ```
 ATLAS_URI = ...
 secretOrKey = secret
 Testing_URI = mongodb+srv://SkipperLin:12345678abc@cluster0-zslvh.gcp.mongodb.net/test?retryWrites=true&w=majority
 ```
-Step 7: Time to run. Open two terminals that are in the EasyNYU directory, and execute the below accordingly.
+## Step 7: Time to run. Open two terminals that are in the EasyNYU directory, and execute the below accordingly.
 ```
 cd backend
 npm start
