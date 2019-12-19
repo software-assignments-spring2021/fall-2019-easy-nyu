@@ -53,7 +53,10 @@ cd frontend
 npm start
 ```
 ### Last Step: See our site!
-Now you can go to http://35.192.158.132:8080 to view the app that is up and running on your computer
+Now you can go to http://localhost:3000 to view the app that is up and running on your computer
+
+### Cloud Deployment
+You can also see our site deployed on the web at: http://35.192.158.132:8080
 
 # How to Contribute
 
