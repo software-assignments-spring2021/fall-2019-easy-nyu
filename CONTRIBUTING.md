@@ -52,7 +52,7 @@ npm start
 cd frontend
 npm start
 ```
-### See our site!
+### Last Step: See our site!
 Now you can go to http://35.192.158.132:8080 to view the app that is up and running on your computer
 
 # How to Contribute
