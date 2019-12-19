@@ -37,7 +37,7 @@ npm install
 cd ../backend
 vim .env
 ```
-## Step 6: Inside the .env file, please reach out to the EasyTeam team for connection strings. For grading purpose, the connection string is sent in Slack. Please copy paste the connection string into the first line.
+## Step 6: Inside the .env file, please reach out to the EasyNYU team for connection string. For grading purpose, the connection string is sent in Slack. Please copy paste the connection string into the first line.
 ```
 ATLAS_URI = ...
 secretOrKey = secret
