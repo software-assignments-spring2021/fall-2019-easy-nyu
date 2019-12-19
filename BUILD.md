@@ -4,50 +4,51 @@ The file system consists of two folders:
 - Backend: Express.js, MongoDB connections, Rest setups
 - Frontend: React.js framework
 ## Setting up
-### 1. Make sure you have npm on your machine
-type in command line 
-```console
-{username}:~$ npm -v
+### Step 0: Make sure you have npm on your machine.
 ```
-this should give you a version number if you have npm installed on your machine.
-if the console returns command not found, please install npm with any means(brew for OS).
-### 2. Install all dependencies
-To make sure the service can run properly on your local machine, you need to install all the dependencies for both backend and frontend. You need to be in the root directory(fall-2019-easy-nyu) of the git repository to do the following steps
-```console
-{username}:~$ cd backend
-{username}:~$ npm install
+npm -v
 ```
-This will install all required dependencies to run the backend service
+This should give you a version number if you have npm installed on your machine.
+If the console returns command not found, please install npm with any means(brew for OS).
 
-exit out of the backend folder and cd into the frontend folder to install dependencies 
-```console
-{username}:~$ cd ..
-{username}:~$ cd frontend
-{username}:~$ npm install
+### Step 1: Open terminal, and change to the directory where you want to store the code.
 ```
-now dependency installation is done for both backend and frontend
-### 3. Running the servers
-The frontend has a built-in React server that serves at defualt prot 3000 to display the development webpage. This is not the way to deploy our app on cloud server but just a mean to let you see the frontend preview.
-You will need to have both the frontend and backend servers running to test full functionalities of the application.
-To do that, you need to open two terminals at the root direcotry.
-In one terminal, run:
-```console
-{username}:~$ cd backend
-{username}:~$ npm start
+cd <Target Directory>
 ```
-In the other terminal, run:
-```console
-{username}:~$ cd frontend
-{username}:~$ npm start
+### Step 2: Clone the repository by using the below command.
 ```
-### 4. Connect to MongoDB server
-Please create a file named ".env" in your backend folder, and with in the file write
+git clone https://github.com/nyu-software-engineering/fall-2019-easy-nyu.git
 ```
-ATLAS_URI = mongodb+srv://<username>:<password>@cluster0-zslvh.gcp.mongodb.net/DB?retryWrites=true&w=majority
+### Step 3: Change to EasyNYU directory by using the below command.
+```
+cd fall-2019-easy-nyu/
+```
+### Step 4: Now we will install all the dependencies. Please execute the below commands in order.
+```
+cd backend
+npm install
+cd ../frontend
+npm install
+```
+### Step 5: In order to get access to the database, please do the following.
+```
+cd ../backend
+vim .env
+```
+### Step 6: Inside the .env file, please reach out to the EasyNYU team for connection string. For grading purpose, the connection strings are sent in Slack. Please copy paste the connection string into the first line and the testing string into the third line respectively.
+```
+ATLAS_URI = ...
 secretOrKey = secret
-Testing_URI = mongodb+srv://<username>:<password>@cluster0-zslvh.gcp.mongodb.net/test?retryWrites=true&w=majority
+Testing_URI = ...
 ```
-Replace username to be FirstnameLastName and privately message Xuanzheng Lin on slack for password.
-  
-### 5. See our site!
-Now you can go to http://localhost:3000 to view the app that is up and running on your computer
+### Step 7: Time to run. Open two terminals that are in the EasyNYU directory, and execute the below accordingly.
+```
+cd backend
+npm start
+```
+```
+cd frontend
+npm start
+```
+### Last Step: See our site!
+Now you can go to http://35.192.158.132:8080 to view the app that is up and running on your computer
